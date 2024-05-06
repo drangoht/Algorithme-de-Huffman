@@ -1,3 +1,5 @@
+using HuffmanWeb.Algorithm;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -39,7 +41,14 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
+app.MapPost("/huffman/{textToEncode}", (string textToEncode) =>
+{
+    var huf = new Huffman(textToEncode);
+    huf.MakeGraph();
+});
+
 app.MapFallbackToFile("/index.html");
+
 
 app.Run();
 

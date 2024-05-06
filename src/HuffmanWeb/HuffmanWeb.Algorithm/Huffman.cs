@@ -9,15 +9,15 @@ namespace HuffmanWeb.Algorithm
     public class Huffman
     {
         string _textToEncode = string.Empty;
-        public long inputBinarySize { get; set; } = 0;
-        public long intputHuffmanBinarySize { get; set; } = 0;
-        public Graph<HuffmanNode> GeneratedGraph { get; set; } = new();
+        public long InputBinarySize { get; set; } = 0;
+        public long IntputHuffmanBinarySize { get; set; } = 0;
+        public WeightedGraph GeneratedGraph { get; set; } = new();
 
         public Huffman(string textToEncode)
         {
             _textToEncode = textToEncode;
             // Stockage de la taille binaire de l'entrée
-            inputBinarySize = Encoding.Unicode.GetByteCount(textToEncode)*8;
+            InputBinarySize = Encoding.Unicode.GetByteCount(textToEncode)*8;
         }
         
         // Extraction du nombre d'occurence des caractères dans l'entrée
@@ -30,18 +30,44 @@ namespace HuffmanWeb.Algorithm
         // Conversion du graph en binaire pour stockage
         // stockage de la taille binaire du graph
 
-        void MakeGraph()
+        public void MakeGraph()
         {
-            //List<HuffmanNode> nodes = _textToEncode.GroupBy(count,c )
-            //var vertices = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            //var edges = new[]{Tuple.Create(1,2), Tuple.Create(1,3),
-            //    Tuple.Create(2,4), Tuple.Create(3,5), Tuple.Create(3,6),
-            //    Tuple.Create(4,7), Tuple.Create(5,7), Tuple.Create(5,8),
-            //    Tuple.Create(5,6), Tuple.Create(8,9), Tuple.Create(9,10)};
+            // Extraction du nombre d'occurence des caractères dans l'entrée
+            List<HuffmanNode> nodes = _textToEncode.GroupBy((c) => c).Select((p) => new HuffmanNode ( p.Key, p.Count())).ToList();
+            List<Tuple<HuffmanNode, HuffmanNode, int>> edges = new();
+            List<HuffmanNode> vertices = new();
+            HuffmanNode root = new(Char.MinValue, 0 );
+            
+            while (nodes.Count > 1)
+            {
+                // Récupération des 2 plus petits nombre d'occurence
+                List<HuffmanNode> twoSmallestNodes = nodes.OrderBy(n => n.NbOccurence).Select(n => n).Take(2).ToList();
+                root = new HuffmanNode(Char.MinValue, twoSmallestNodes.Sum(n => n.NbOccurence));
+                GeneratedGraph.CreateNode(root);
 
-            //var graph = new Graph<int>(vertices, edges);
+                if (twoSmallestNodes[0].NbOccurence > 0)
+                {
+                    GeneratedGraph.CreateNode(twoSmallestNodes[0]);
+                    GeneratedGraph.CreateLink(root, twoSmallestNodes[0], 0);
+                }
+                if (twoSmallestNodes[1].NbOccurence >0)
+                {
+                    GeneratedGraph.CreateNode(twoSmallestNodes[1]);
+                    GeneratedGraph.CreateLink(root, twoSmallestNodes[1], 1);
+                }
+                // Suppression des noeuds gérés et ajout du parent
+                nodes.Remove(twoSmallestNodes[0]);
+                nodes.Remove(twoSmallestNodes[1]);
+                nodes.Add(root);
+                
+            }
+            Console.WriteLine(GeneratedGraph.DFS(root));
+
+            //var hash = GeneratedGraph.BFS(GeneratedGraph, root);
+           //Console.WriteLine("FIN");
         }
 
+
     }
-    public record HuffmanNode(long nbOccurence, char character);
+    public record HuffmanNode(char Character, long NbOccurence);
 }

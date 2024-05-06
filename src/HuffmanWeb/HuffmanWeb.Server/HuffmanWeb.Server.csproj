@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HuffmanWeb.Algorithm\HuffmanWeb.Algorithm.csproj" />
     <ProjectReference Include="..\huffmanweb.client\huffmanweb.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>

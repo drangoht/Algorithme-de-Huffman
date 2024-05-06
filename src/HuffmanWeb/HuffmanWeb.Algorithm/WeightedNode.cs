@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace HuffmanWeb.Algorithm
 {
-    internal class DFS
+    public class WeightedNode<T>
     {
+        public T N { get; set; }
+
+        public WeightedNode(T no)
+        {
+            N = no;
+        }
     }
 }

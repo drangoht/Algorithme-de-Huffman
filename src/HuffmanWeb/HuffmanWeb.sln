@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuffmanWeb.Server", "Huffma
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "huffmanweb.client", "huffmanweb.client\huffmanweb.client.esproj", "{44E79023-2DEF-4617-A529-E8257B5864A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuffmanWeb.Algorithm", "HuffmanWeb.Algorithm\HuffmanWeb.Algorithm.csproj", "{1AB0B6E5-6EC8-41C7-86A3-DE76ACAA779A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{44E79023-2DEF-4617-A529-E8257B5864A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44E79023-2DEF-4617-A529-E8257B5864A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{44E79023-2DEF-4617-A529-E8257B5864A8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{1AB0B6E5-6EC8-41C7-86A3-DE76ACAA779A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AB0B6E5-6EC8-41C7-86A3-DE76ACAA779A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AB0B6E5-6EC8-41C7-86A3-DE76ACAA779A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AB0B6E5-6EC8-41C7-86A3-DE76ACAA779A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
