@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,12 +31,10 @@ namespace HuffmanWeb.Algorithm
         // Conversion du graph en binaire pour stockage
         // stockage de la taille binaire du graph
 
-        public void MakeGraph()
+        public Hashtable MakeMatchingTable()
         {
             // Extraction du nombre d'occurence des caractères dans l'entrée
             List<HuffmanNode> nodes = _textToEncode.GroupBy((c) => c).Select((p) => new HuffmanNode ( p.Key, p.Count())).ToList();
-            List<Tuple<HuffmanNode, HuffmanNode, int>> edges = new();
-            List<HuffmanNode> vertices = new();
             HuffmanNode root = new(Char.MinValue, 0 );
             
             while (nodes.Count > 1)
@@ -45,29 +44,29 @@ namespace HuffmanWeb.Algorithm
                 root = new HuffmanNode(Char.MinValue, twoSmallestNodes.Sum(n => n.NbOccurence));
                 GeneratedGraph.CreateNode(root);
 
+                var weight = 0;
                 if (twoSmallestNodes[0].NbOccurence > 0)
                 {
                     GeneratedGraph.CreateNode(twoSmallestNodes[0]);
-                    GeneratedGraph.CreateLink(root, twoSmallestNodes[0], 0);
+                    GeneratedGraph.CreateLink(root, twoSmallestNodes[0], weight);
+                    nodes.Remove(twoSmallestNodes[0]);
+                    weight = 1;
                 }
-                if (twoSmallestNodes[1].NbOccurence >0)
+                if (twoSmallestNodes.Count()>1)
                 {
                     GeneratedGraph.CreateNode(twoSmallestNodes[1]);
-                    GeneratedGraph.CreateLink(root, twoSmallestNodes[1], 1);
-                }
-                // Suppression des noeuds gérés et ajout du parent
-                nodes.Remove(twoSmallestNodes[0]);
-                nodes.Remove(twoSmallestNodes[1]);
+                    GeneratedGraph.CreateLink(root, twoSmallestNodes[1], weight);
+                    nodes.Remove(twoSmallestNodes[1]);
+                }                                
                 nodes.Add(root);
-                
-            }
-            Console.WriteLine(GeneratedGraph.DFS(root));
 
-            //var hash = GeneratedGraph.BFS(GeneratedGraph, root);
-           //Console.WriteLine("FIN");
+            }
+            return GeneratedGraph.DFS(root);
+
         }
 
 
     }
-    public record HuffmanNode(char Character, long NbOccurence);
+        
 }
+

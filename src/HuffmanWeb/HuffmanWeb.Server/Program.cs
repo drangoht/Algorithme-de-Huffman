@@ -44,7 +44,7 @@ app.MapGet("/weatherforecast", () =>
 app.MapPost("/huffman/{textToEncode}", (string textToEncode) =>
 {
     var huf = new Huffman(textToEncode);
-    huf.MakeGraph();
+    return TypedResults.Ok(huf.MakeMatchingTable());
 });
 
 app.MapFallbackToFile("/index.html");
