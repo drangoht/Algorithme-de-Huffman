@@ -41,10 +41,19 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
-app.MapPost("/huffman/{textToEncode}", (string textToEncode) =>
+app.MapPost("/huffman/{textToEncode}/encode", (string textToEncode) =>
 {
-    var huf = new Huffman(textToEncode);
-    return TypedResults.Ok(huf.MakeMatchingTable());
+    var huf = new Huffman();
+    huf.EncodeText(textToEncode);
+    return TypedResults.Ok($"originalSize:{huf.InputBinarySize} huffmanEncoded Size:{huf.InputHuffmanBinarySize} Text encoded : {huf.TextEncoded}");
+});
+
+
+app.MapPost("/huffman/{textToEncode}/encodedecode", (string textToEncode) =>
+{
+    var huf = new Huffman();
+    huf.EncodeAndDecodeText(textToEncode);
+    return TypedResults.Ok($" Text decoded : {huf.TextDecoded}");
 });
 
 app.MapFallbackToFile("/index.html");

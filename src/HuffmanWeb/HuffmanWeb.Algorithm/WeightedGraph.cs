@@ -9,6 +9,8 @@ namespace HuffmanWeb.Algorithm
 {
     public class WeightedGraph
     {
+        public HuffmanNode? Root { get; set; }
+
         public List<HuffmanNode> AllNodes = new List<HuffmanNode>();
         public List<Link<HuffmanNode>> Links = new List<Link<HuffmanNode>>();
         public void CreateNode(HuffmanNode no)
