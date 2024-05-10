@@ -1,7 +1,10 @@
 using HuffmanWeb.Algorithm;
+using HuffmanWeb.Server.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors();
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -21,32 +24,27 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
 
-app.MapPost("/huffman/{textToEncode}/encode", (string textToEncode) =>
+app.MapPost("/huffman/encode", ( EncodeRequest textToEncode) =>
 {
     var huf = new Huffman();
-    huf.EncodeText(textToEncode);
-    return TypedResults.Ok($"originalSize:{huf.InputBinarySize} huffmanEncoded Size:{huf.InputHuffmanBinarySize} Text encoded : {huf.TextEncoded}");
-});
+    huf.EncodeText(textToEncode.TextToEncode);
+    TextToEncodeResponse resp = new TextToEncodeResponse()
+    {
+        encodedBinaryString = huf.TextDecoded,
+        encodedSize = huf.InputHuffmanBinarySize,
+        originalSize = huf.InputBinarySize
+    };
+    foreach(var key in huf.HuffmanTable.Keys)
+    {
+        resp.MatchingCharacters.Add(new Tuple<string, string>(key.ToString(), huf.HuffmanTable[key].ToString()));
+    }
+    return TypedResults.Ok(resp);
+})
+.WithName("PostHuffmanEncode")
+.WithOpenApi();
+
 
 
 app.MapPost("/huffman/{textToEncode}/encodedecode", (string textToEncode) =>
@@ -58,6 +56,11 @@ app.MapPost("/huffman/{textToEncode}/encodedecode", (string textToEncode) =>
 
 app.MapFallbackToFile("/index.html");
 
+app.UseCors(builder => builder
+ .AllowAnyOrigin()
+ .AllowAnyMethod()
+ .AllowAnyHeader()
+);
 
 app.Run();
 

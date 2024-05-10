@@ -1,56 +1,48 @@
-import { useEffect, useState } from 'react';
+//import { useEffect, useState } from 'react';
+import { useState } from "react";
 import './App.css';
-
-interface Forecast {
-    date: string;
-    temperatureC: number;
-    temperatureF: number;
-    summary: string;
-}
+/*import { CharactersListProps } from './Interfaces/CharactersListProps';*/
+import MatchingTable from './components/MatchingTable';
+import TextToEncodeForm from './components/TextToEncodeForm';
+import { textToEncodeResponse } from "./dtos/textToEncodeResponse";
+import { Character } from "./Interfaces/CharactersListProps";
 
 function App() {
-    const [forecasts, setForecasts] = useState<Forecast[]>();
-
-    useEffect(() => {
-        populateWeatherData();
-    }, []);
-
-    const contents = forecasts === undefined
-        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-        : <table className="table table-striped" aria-labelledby="tabelLabel">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
-                </tr>
-            </thead>
-            <tbody>
-                {forecasts.map(forecast =>
-                    <tr key={forecast.date}>
-                        <td>{forecast.date}</td>
-                        <td>{forecast.temperatureC}</td>
-                        <td>{forecast.temperatureF}</td>
-                        <td>{forecast.summary}</td>
-                    </tr>
-                )}
-            </tbody>
-        </table>;
-
-    return (
-        <div>
-            <h1 id="tabelLabel">Weather forecast</h1>
-            <p>This component demonstrates fetching data from the server.</p>
-            {contents}
+    let responseEncoded : textToEncodeResponse
+    const [chars, setChars] = useState({ characters : [{  id: "toto", value:"tata" }, { id:"tutu", value:"tonton" }]})
+    return (<div>
+        <TextToEncodeForm onEncodeText={onEncodeText} />
+        <MatchingTable characters={chars.characters} />
         </div>
     );
 
-    async function populateWeatherData() {
-        const response = await fetch('weatherforecast');
-        const data = await response.json();
-        setForecasts(data);
+    async function onEncodeText(textToEncode : string) {
+        const form = new FormData();
+        form.append("textToEncode", textToEncode);
+        const response = await fetch('https://localhost:7134/huffman/encode', {
+            method: 'POST', headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ textToEncode: textToEncode })
+        })
+            if (!response.ok) {
+                throw new Error(response.statusText)
+            }
+        responseEncoded = await response.json()
+        console.log(responseEncoded)
+        let chars: Character[]
+        responseEncoded.matchingCharacters.forEach(function (value) {
+            chars.push({id: value[0],value:value[1]})
+        })
+        setChars({ characters: chars })
+    //        })
+    //        .catch((error: Error) => {
+    //            console.log(error)
+    //            throw error
+    //        })
     }
+    
 }
 
 export default App;
