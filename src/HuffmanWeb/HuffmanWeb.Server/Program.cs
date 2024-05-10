@@ -32,13 +32,13 @@ app.MapPost("/huffman/encode", ( EncodeRequest textToEncode) =>
     huf.EncodeText(textToEncode.TextToEncode);
     TextToEncodeResponse resp = new TextToEncodeResponse()
     {
-        encodedBinaryString = huf.TextDecoded,
-        encodedSize = huf.InputHuffmanBinarySize,
-        originalSize = huf.InputBinarySize
+        EncodedBinaryString = huf.TextEncoded,
+        EncodedSize = huf.InputHuffmanBinarySize,
+        OriginalSize = huf.InputBinarySize
     };
     foreach(var key in huf.HuffmanTable.Keys)
     {
-        resp.MatchingCharacters.Add(new Tuple<string, string>(key.ToString(), huf.HuffmanTable[key].ToString()));
+        resp.MatchingCharacters.Add(new Character() { Id = key.ToString(), Value = huf.HuffmanTable[key].ToString() });
     }
     return TypedResults.Ok(resp);
 })

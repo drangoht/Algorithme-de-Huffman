@@ -1,14 +1,16 @@
-import { Character } from "../Interfaces/CharactersListProps"
+import { Character } from "../dtos/Character"
+
 
 const CharacterIListtem = ({ id, value }: Character) => {
     return (
-        <li>
-            <div>
-                <div>
-                    <h2>{id} - {value}</h2>
-                </div>
-            </div>
-        </li>
+        <tr>
+            <td>
+                {id}
+            </td>
+            <td>
+                {value}
+            </td>
+        </tr>
     )
 }
 export default CharacterIListtem

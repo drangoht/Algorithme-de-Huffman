@@ -1,4 +1,4 @@
-import { CharactersListProps } from "../Interfaces/CharactersListProps";
+﻿import { CharactersListProps } from "../Interfaces/CharactersListProps";
 import CharacterIListtem from "./CharacterIListItem";
 
 const MatchingTable = ({ characters }: CharactersListProps) => {
@@ -10,14 +10,26 @@ const MatchingTable = ({ characters }: CharactersListProps) => {
         );
     }
     return (
-        <ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                    Caractère
+                    </th>
+                    <th>
+                    Valeur
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
             {characters.map(({ id,value }) => (
                 <CharacterIListtem
                     key={id}
                     id={id}
                     value={value} />
             ))}
-        </ul>
+            </tbody>
+        </table>
     );
 }
 export default MatchingTable
