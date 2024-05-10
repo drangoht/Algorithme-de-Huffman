@@ -6,13 +6,17 @@ import MatchingTable from './components/MatchingTable';
 import TextToEncodeForm from './components/TextToEncodeForm';
 import { textToEncodeResponse } from "./dtos/textToEncodeResponse";
 import { Character } from "./dtos/Character";
+import SizeStats from "./components/SizeStats";
 
 
 function App() {
     let responseEncoded : textToEncodeResponse
     const [chars, setChars] = useState<Character[]>()
+    const [encodedSize, setEncodedSize] = useState(0)
+    const [originalSize, setOriginalSize] = useState(0)
     return (<div>
         <TextToEncodeForm onEncodeText={onEncodeText} />
+        <SizeStats encodedSize={encodedSize} originalSize={originalSize } />
         <MatchingTable characters={chars || []} />
         </div>
     );
@@ -31,7 +35,9 @@ function App() {
                 throw new Error(response.statusText)
             }
             responseEncoded = await response.json()
-            console.log(responseEncoded)
+            setEncodedSize(responseEncoded.encodedSize)
+            setOriginalSize(responseEncoded.originalSize)
+
             let chars: Character[] = []
             responseEncoded.matchingCharacters.forEach(function (chr) {
                 chars.push({id: chr.id,value:chr.value})
