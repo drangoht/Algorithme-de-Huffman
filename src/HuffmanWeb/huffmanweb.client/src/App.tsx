@@ -10,10 +10,10 @@ import { Character } from "./dtos/Character";
 
 function App() {
     let responseEncoded : textToEncodeResponse
-    const [chars, setChars] = useState({ characters : [{  id: "Char", value:"Valeur" }]})
+    const [chars, setChars] = useState<Character[]>()
     return (<div>
         <TextToEncodeForm onEncodeText={onEncodeText} />
-        <MatchingTable characters={chars.characters} />
+        <MatchingTable characters={chars || []} />
         </div>
     );
 
@@ -36,12 +36,11 @@ function App() {
             responseEncoded.matchingCharacters.forEach(function (chr) {
                 chars.push({id: chr.id,value:chr.value})
             })
-            setChars({ characters: chars })
-            })
-            .catch((error: Error) => {
-                console.log(error)
-                throw error
-            })
+            setChars(chars)
+        }).catch((error: Error) => {
+            console.log(error)
+            throw error
+        })
     }
     
 }

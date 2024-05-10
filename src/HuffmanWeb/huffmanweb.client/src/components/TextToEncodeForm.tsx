@@ -17,7 +17,7 @@ const TextToEncodeForm: React.FC<TextToEncodeFormProps> = (props) => {
         <form onSubmit={handleSubmit}>
             <label>
                 <h2>Veuillez saisir le texte à encoder:</h2>
-                <textarea cols={60} rows={10 }
+                <textarea cols={75} rows={10 }
                     value={textareaValue}
                     onChange={handleTextareaChange}
                 />

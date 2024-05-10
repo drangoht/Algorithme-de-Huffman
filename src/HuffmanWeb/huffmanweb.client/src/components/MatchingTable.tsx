@@ -5,12 +5,16 @@ const MatchingTable = ({ characters }: CharactersListProps) => {
     if (!characters?.length) {
         return (
             <div>
-                <h1>Rien dans la table de correspondance</h1>
+                <p className="notice">Rien dans la table de correspondances</p>
             </div>
         );
     }
     return (
-        <table>
+        <div>
+            <table width='100%'>
+            <caption>
+            Table de correspondances
+            </caption>
             <thead>
                 <tr>
                     <th>
@@ -29,7 +33,8 @@ const MatchingTable = ({ characters }: CharactersListProps) => {
                     value={value} />
             ))}
             </tbody>
-        </table>
+            </table>
+        </div>
     );
 }
 export default MatchingTable
