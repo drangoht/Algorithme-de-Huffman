@@ -1,7 +1,7 @@
 ﻿import { SizeStatsProps } from "../Interfaces/SizeStatsProps";
 
 const SizeStats = ({ originalSize, encodedSize }: SizeStatsProps) => {
-    const gain: number = ((1 - (encodedSize / originalSize)) * 100).toFixed(2)
+    const gain: string = ((1 - (encodedSize / originalSize)) * 100).toFixed(2)
     return (originalSize > 0 ?
         <div>
             <p className="notice">
@@ -12,7 +12,7 @@ const SizeStats = ({ originalSize, encodedSize }: SizeStatsProps) => {
                     Taille encodée: {encodedSize.toString()} bits
                 </div>
                 <div>
-                    Gain: {gain.toString()}%
+                    Gain: {gain}%
                 </div>
             </p>
         </div>:<div></div>

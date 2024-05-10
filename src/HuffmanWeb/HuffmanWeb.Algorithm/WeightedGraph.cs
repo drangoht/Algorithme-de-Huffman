@@ -32,20 +32,13 @@ namespace HuffmanWeb.Algorithm
             // LIFO
             while (stack.Count>0)
             {
-
                 var n = stack.Pop();
                 if (parent != n)
                 {
                     if (IsLinkExist(parent, n)) // ajout du poids du lien parent avec le noeud courant
                         weights.Add(GetWeightFromLink(parent, n));
                     else
-                    {
-                        // Backtracking
-                        weights.RemoveAt(weights.Count - 1);
-                        parent = GetParent(parent);
-                        if (IsLinkExist(parent, n)) // ajout du poids du lien grand parent avec le noeud courant
-                            weights.Add(GetWeightFromLink(parent, n));
-                    }
+                        BackTrack(weights, parent,n);
                 }
                 
                 if (n.Character != Char.MinValue)
@@ -67,6 +60,18 @@ namespace HuffmanWeb.Algorithm
 
             }
             return huffmanTable;
+        }
+        private void BackTrack(List<int> weights,HuffmanNode? parent, HuffmanNode? currentNode)
+        {
+            if(weights.Count > 0) 
+            { 
+                weights.RemoveAt(weights.Count - 1);
+                parent = GetParent(parent);
+                if (IsLinkExist(parent, currentNode)) // ajout du poids du lien grand parent avec le noeud courant
+                    weights.Add(GetWeightFromLink(parent, currentNode));
+                else
+                    BackTrack(weights, parent, currentNode);
+            }
         }
         private int GetWeightFromLink(HuffmanNode parent, HuffmanNode child) =>
             Links.FirstOrDefault(l => l.Parent == parent && l.Child == child)!.Weight;
