@@ -24,7 +24,6 @@ namespace HuffmanWeb.Algorithm
         }
         public Hashtable DFS(HuffmanNode root)
         {
-            List<int> weights = new List<int>();
             Stack<HuffmanNodeWeighted> stack = new Stack<HuffmanNodeWeighted>();
             stack.Push(new HuffmanNodeWeighted() { Node = root, Weight = null });
             Hashtable huffmanTable = new Hashtable();
