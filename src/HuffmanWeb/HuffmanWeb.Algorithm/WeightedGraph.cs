@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace HuffmanWeb.Algorithm
 {
@@ -24,71 +25,26 @@ namespace HuffmanWeb.Algorithm
         public Hashtable DFS(HuffmanNode root)
         {
             List<int> weights = new List<int>();
-            string code = string.Empty;
-            Stack<HuffmanNode> stack = new Stack<HuffmanNode>();
-            stack.Push(root);
-            var parent = root;
+            Stack<HuffmanNodeWeighted> stack = new Stack<HuffmanNodeWeighted>();
+            stack.Push(new HuffmanNodeWeighted() { Node = root, Weight = null });
             Hashtable huffmanTable = new Hashtable();
             // LIFO
             while (stack.Count>0)
             {
                 var n = stack.Pop();
-                if (parent != n)
-                {
-                    if (IsLinkExist(parent, n)) // ajout du poids du lien parent avec le noeud courant
-                        weights.Add(GetWeightFromLink(parent, n));
-                    else
-                        BackTrack(weights, parent,n);
-                }
-                
-                if (n.Character != Char.MinValue)
-                {
-                    // On est sur une feuille on écrit le caractère et les  poids concaténés
-                    huffmanTable.Add(n.Character, String.Join("", weights));
-                    // suppression du poids de ce lien
-                    weights.RemoveAt(weights.Count - 1);
-                }
-                else // On garde le parent pour retrouver le poid du lien
-                    parent = n;
+                if (n.Node.Character != Char.MinValue)
+                    huffmanTable.Add(n.Node.Character, n.Weight);
 
-                if (HasChild(n))
+                var links = Links.Where(l => l.Parent == n.Node).ToList();
+                if (links.Count()>0)
                 {
-                    foreach (var node in GetChildrenNodes(n))
-                        stack.Push(node);
+                    foreach( var link in links)
+                        stack.Push((new() { Node = link.Child, Weight = $"{n.Weight}{link.Weight}" }));
+                    
                 }
-                
-
             }
             return huffmanTable;
         }
-        private void BackTrack(List<int> weights,HuffmanNode? parent, HuffmanNode? currentNode)
-        {
-            if(weights.Count > 0) 
-            { 
-                weights.RemoveAt(weights.Count - 1);
-                parent = GetParent(parent);
-                if (IsLinkExist(parent, currentNode)) // ajout du poids du lien grand parent avec le noeud courant
-                    weights.Add(GetWeightFromLink(parent, currentNode));
-                else
-                    BackTrack(weights, parent, currentNode);
-            }
-        }
-        private int GetWeightFromLink(HuffmanNode parent, HuffmanNode child) =>
-            Links.FirstOrDefault(l => l.Parent == parent && l.Child == child)!.Weight;
-
-        private List<HuffmanNode> GetChildrenNodes(HuffmanNode parent)
-        {
-            var childrenLink = Links.Where(l => l.Parent ==parent).OrderBy(l => l.Weight).ToList();
-            return childrenLink.Select(cl => cl.Child).ToList();
-        }
-        private HuffmanNode GetParent(HuffmanNode child)
-        {
-            return Links.FirstOrDefault(l => l.Child == child)!.Parent;
-        }
-        private bool HasChild(HuffmanNode parent) =>
-            Links.Any(l => l.Parent == parent);
-        private bool IsLinkExist(HuffmanNode parent, HuffmanNode child) =>
-            Links.Any(l => l.Parent == parent && l.Child == child);
         
     }
 
