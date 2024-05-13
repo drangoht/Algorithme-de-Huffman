@@ -32,6 +32,7 @@ app.MapPost("/huffman/encode", ( EncodeRequest textToEncode) =>
     huf.EncodeText(textToEncode.TextToEncode);
     TextToEncodeResponse resp = new TextToEncodeResponse()
     {
+        Graph = huf.GeneratedGraph,
         EncodedBinaryString = huf.TextEncoded,
         EncodedSize = huf.InputHuffmanBinarySize,
         OriginalSize = huf.InputBinarySize
@@ -45,14 +46,6 @@ app.MapPost("/huffman/encode", ( EncodeRequest textToEncode) =>
 .WithName("PostHuffmanEncode")
 .WithOpenApi();
 
-
-
-app.MapPost("/huffman/{textToEncode}/encodedecode", (string textToEncode) =>
-{
-    var huf = new Huffman();
-    huf.EncodeAndDecodeText(textToEncode);
-    return TypedResults.Ok($" Text decoded : {huf.TextDecoded}");
-});
 
 app.MapFallbackToFile("/index.html");
 

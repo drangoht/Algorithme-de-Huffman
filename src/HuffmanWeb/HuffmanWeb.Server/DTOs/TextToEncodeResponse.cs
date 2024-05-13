@@ -1,7 +1,10 @@
-﻿namespace HuffmanWeb.Server.DTOs
+﻿using HuffmanWeb.Algorithm;
+
+namespace HuffmanWeb.Server.DTOs
 {
     public class TextToEncodeResponse
     {
+        public WeightedGraph Graph { get; set; } = new();
         public List<Character> MatchingCharacters { get; set; } = new();
         public long EncodedSize { get; set; } = 0;
         public long OriginalSize { get; set; } = 0;

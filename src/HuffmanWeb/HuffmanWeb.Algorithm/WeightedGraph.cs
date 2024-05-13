@@ -12,8 +12,8 @@ namespace HuffmanWeb.Algorithm
     {
         public HuffmanNode? Root { get; set; }
 
-        public List<HuffmanNode> AllNodes = new List<HuffmanNode>();
-        public List<Link<HuffmanNode>> Links = new List<Link<HuffmanNode>>();
+        public List<HuffmanNode> AllNodes { get; set; } = new List<HuffmanNode>();
+        public List<Link<HuffmanNode>> Links { get; set; } = new List<Link<HuffmanNode>>();
         public void CreateNode(HuffmanNode no)
         {
             AllNodes.Add(no);

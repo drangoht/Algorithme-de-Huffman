@@ -4,9 +4,10 @@ import './App.css';
 /*import { CharactersListProps } from './Interfaces/CharactersListProps';*/
 import MatchingTable from './components/MatchingTable';
 import TextToEncodeForm from './components/TextToEncodeForm';
-import { textToEncodeResponse } from "./dtos/textToEncodeResponse";
+import { textToEncodeResponse, weightedGraph } from "./dtos/textToEncodeResponse";
 import { Character } from "./dtos/Character";
 import SizeStats from "./components/SizeStats";
+import Tree from "./components/Tree";
 
 
 function App() {
@@ -14,10 +15,12 @@ function App() {
     const [chars, setChars] = useState<Character[]>()
     const [encodedSize, setEncodedSize] = useState(0)
     const [originalSize, setOriginalSize] = useState(0)
+    const [graph, setGraph] = useState<weightedGraph>()
     return (<div>
         <TextToEncodeForm onEncodeText={onEncodeText} />
         <SizeStats encodedSize={encodedSize} originalSize={originalSize } />
         <MatchingTable characters={chars || []} />
+        <Tree graph={graph!} />
         </div>
     );
 
@@ -37,7 +40,7 @@ function App() {
             responseEncoded = await response.json()
             setEncodedSize(responseEncoded.encodedSize)
             setOriginalSize(responseEncoded.originalSize)
-
+            setGraph(responseEncoded.graph)
             let chars: Character[] = []
             responseEncoded.matchingCharacters.forEach(function (chr) {
                 chars.push({id: chr.id,value:chr.value})
