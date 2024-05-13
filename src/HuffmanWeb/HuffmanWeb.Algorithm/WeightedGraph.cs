@@ -36,12 +36,9 @@ namespace HuffmanWeb.Algorithm
                     huffmanTable.Add(n.Node.Character, n.Weight);
 
                 var links = Links.Where(l => l.Parent == n.Node).ToList();
-                if (links.Count()>0)
-                {
-                    foreach( var link in links)
-                        stack.Push((new() { Node = link.Child, Weight = $"{n.Weight}{link.Weight}" }));
+                foreach( var link in links)
+                    stack.Push((new() { Node = link.Child, Weight = $"{n.Weight}{link.Weight}" }));
                     
-                }
             }
             return huffmanTable;
         }
