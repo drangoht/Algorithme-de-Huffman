@@ -7,4 +7,4 @@ Je me suis basé sur les excellentes vidéos:
 
 Demo en vidéo 
 
-https://github.com/drangoht/Algorithme-de-Huffman/blob/main/media/demo.mp4
+[![Voir la démo]()](https://github.com/drangoht/Algorithme-de-Huffman/blob/main/media/demo.mp4)
