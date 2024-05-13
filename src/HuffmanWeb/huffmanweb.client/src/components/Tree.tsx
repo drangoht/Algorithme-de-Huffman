@@ -6,17 +6,22 @@ const Tree = ({ graph }: TreeProps) => {
         const rootLinks = graph.links.filter((link) => link.parent.identifier == graph.root.identifier)
 
         return (   
-            <div className="tree">
+            <details>
+                <summary>Arbre</summary>
+            <div className="tree-container">
+                <div className="tree">
 
-                <ul>
-                    <li>
-                        <div>{graph.root.character.replace('\x00', '')}:{graph.root.nbOccurence}</div>
-                        <TreeChildren children={rootLinks} graph={graph } />
+                    <ul>
+                        <li>
+                            <div>{graph.root.character.replace('\x00', '')}:{graph.root.nbOccurence}</div>
+                            <TreeChildren children={rootLinks} graph={graph } />
 
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
 
-            </div>
+                </div>
+                </div>
+            </details>
         );
     }
 }

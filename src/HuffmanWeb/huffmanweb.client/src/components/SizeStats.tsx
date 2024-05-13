@@ -3,6 +3,7 @@
 const SizeStats = ({ originalSize, encodedSize }: SizeStatsProps) => {
     const gain: string = ((1 - (encodedSize / originalSize)) * 100).toFixed(2)
     return (originalSize > 0 ?
+
         <div>
             <div className="notice">
                 <div>
@@ -15,7 +16,7 @@ const SizeStats = ({ originalSize, encodedSize }: SizeStatsProps) => {
                     Gain: {gain}%
                 </div>
             </div>
-        </div>:<div></div>
+            </div>:<div></div>
     );
 }
 export default SizeStats

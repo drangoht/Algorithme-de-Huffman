@@ -10,11 +10,10 @@ const MatchingTable = ({ characters }: CharactersListProps) => {
         );
     }
     return (
+        <details>
+            <summary>Table de correspondances</summary>
         <div>
             <table width='100%'>
-            <caption>
-            Table de correspondances
-            </caption>
             <thead>
                 <tr>
                     <th>
@@ -34,7 +33,8 @@ const MatchingTable = ({ characters }: CharactersListProps) => {
             ))}
             </tbody>
             </table>
-        </div>
+            </div>
+        </details>
     );
 }
 export default MatchingTable

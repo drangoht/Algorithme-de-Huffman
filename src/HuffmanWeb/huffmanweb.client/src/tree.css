@@ -1,3 +1,9 @@
+.tree {
+    width: max-content;
+}
+.tree-container {
+    overflow-x: auto;
+}
 .tree ul {
     padding-top: 20px;
     position: relative;

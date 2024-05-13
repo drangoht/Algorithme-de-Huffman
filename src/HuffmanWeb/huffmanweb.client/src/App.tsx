@@ -16,11 +16,14 @@ function App() {
     const [encodedSize, setEncodedSize] = useState(0)
     const [originalSize, setOriginalSize] = useState(0)
     const [graph, setGraph] = useState<weightedGraph>()
-    return (<div>
-        <TextToEncodeForm onEncodeText={onEncodeText} />
+    return (<div >
+
+            <TextToEncodeForm onEncodeText={onEncodeText} />
+
         <SizeStats encodedSize={encodedSize} originalSize={originalSize } />
         <MatchingTable characters={chars || []} />
-        <Tree graph={graph!} />
+            <Tree graph={graph!} />
+
         </div>
     );
 
