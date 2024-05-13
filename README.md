@@ -6,3 +6,5 @@ Je me suis basé sur les excellentes vidéos:
 [Algorithme de Huffman (suite)](https://www.youtube.com/watch?v=7w5gDAlUmXY&ab_channel=%C3%80lad%C3%A9couvertedesgraphes)
 
 Demo en vidéo 
+
+https://github.com/drangoht/Algorithme-de-Huffman/blob/main/media/demo.mp4
