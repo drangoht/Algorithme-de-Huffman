@@ -10,7 +10,7 @@ const Tree = ({ graph }: TreeProps) => {
 
                 <ul>
                     <li>
-                        <div>{graph.root.character}:{graph.root.nbOccurence}</div>
+                        <div>{graph.root.character.replace('\x00', '')}:{graph.root.nbOccurence}</div>
                         <TreeChildren children={rootLinks} graph={graph } />
 
                     </li>

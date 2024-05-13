@@ -16,14 +16,14 @@ const TreeChildren = ({ children, graph }: TreeChildrenProps) => {
     const rightChildren = graph.links.filter((link) => link.parent.identifier == rightChild!.identifier)
     return (<>
                 <ul>
-            {leftChild != null ?? <li>
-                <span className="weight">0</span><div>{leftChild!.character}:{leftChild!.nbOccurence}</div>
-                {leftChildren != undefined ?? <TreeChildren children={leftChildren} graph={graph} />}
-            </li>}
-            {rightChild != null ?? <li>
-                <span className="weight">0</span><div>{rightChild!.character}:{rightChild!.nbOccurence}</div>
-                {rightChildren != undefined ?? <TreeChildren children={rightChildren} graph={graph} />}
-            </li>}
+            {leftChild != undefined ? <li>
+                <span className="weight">0</span><div><b>{leftChild!.character.replace('\x00','')}</b>:{leftChild!.nbOccurence}</div>
+                {leftChildren.length>0 ? <TreeChildren children={leftChildren} graph={graph} /> :<></>}
+            </li>:<></>}
+            {rightChild != undefined ? <li>
+                <span className="weight">1</span><div><b>{rightChild!.character.replace('\x00', '')}</b>:{rightChild!.nbOccurence}</div>
+                {rightChildren.length>0 ? <TreeChildren children={rightChildren} graph={graph} />:<></>}
+            </li>:<></>}
             
                 </ul>
         </>) 

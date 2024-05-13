@@ -41,6 +41,7 @@ function App() {
             setEncodedSize(responseEncoded.encodedSize)
             setOriginalSize(responseEncoded.originalSize)
             setGraph(responseEncoded.graph)
+            console.log(responseEncoded.graph)
             let chars: Character[] = []
             responseEncoded.matchingCharacters.forEach(function (chr) {
                 chars.push({id: chr.id,value:chr.value})
