@@ -1,4 +1,3 @@
-
 export interface TextToEncodeFormProps {
-    onEncodeText: (val:string) => void
+  onEncodeText: (val: string) => void;
 }
