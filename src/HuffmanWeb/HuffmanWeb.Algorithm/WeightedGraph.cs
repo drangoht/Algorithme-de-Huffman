@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using System.Collections;
 
 namespace HuffmanWeb.Algorithm
 {
@@ -28,20 +22,20 @@ namespace HuffmanWeb.Algorithm
             stack.Push(new HuffmanNodeWeighted() { Node = root, Weight = null });
             Hashtable huffmanTable = new Hashtable();
             // LIFO
-            while (stack.Count>0)
+            while (stack.Count > 0)
             {
                 var n = stack.Pop();
                 if (n.Node.Character != Char.MinValue)
                     huffmanTable.Add(n.Node.Character, n.Weight);
 
                 var links = Links.Where(l => l.Parent == n.Node).ToList();
-                foreach( var link in links)
+                foreach (var link in links)
                     stack.Push((new() { Node = link.Child, Weight = $"{n.Weight}{link.Weight}" }));
-                    
+
             }
             return huffmanTable;
         }
-        
+
     }
 
 }

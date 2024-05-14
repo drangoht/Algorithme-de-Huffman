@@ -1,12 +1,12 @@
 ﻿namespace HuffmanWeb.Algorithm
 {
-    public class HuffmanNode: IEquatable<HuffmanNode>
+    public class HuffmanNode : IEquatable<HuffmanNode>
     {
         public Guid Identifier { get; set; } = Guid.NewGuid();
         public char Character { get; set; }
         public long NbOccurence { get; set; }
 
-        public HuffmanNode(Char character,long nbOccurence)
+        public HuffmanNode(Char character, long nbOccurence)
         {
             Character = character;
             NbOccurence = nbOccurence;
@@ -20,6 +20,6 @@
             return $"Id:{Identifier} Character:{Character} NbOccurence :{NbOccurence}";
         }
     }
-        
+
 }
 

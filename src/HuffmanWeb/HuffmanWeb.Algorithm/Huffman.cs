@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace HuffmanWeb.Algorithm
 {
     public class Huffman
     {
         string _textToEncode = string.Empty;
-        string _textToDecode = string.Empty;    
+        string _textToDecode = string.Empty;
         public string TextEncoded { get; set; } = string.Empty;
         public string TextDecoded { get; set; } = string.Empty;
         public long InputBinarySize { get; set; } = 0;
@@ -18,12 +14,8 @@ namespace HuffmanWeb.Algorithm
         public WeightedGraph GeneratedGraph { get; set; } = new();
 
         public Hashtable HuffmanTable { get; set; } = new();
-        public Huffman()
-        {
-            // Stockage de la taille binaire de l'entrée
-            
-        }
-        
+        public Huffman() { }
+
         // Extraction du nombre d'occurence des caractères dans l'entrée
         // En un tableau Car:NbOccurence
 
@@ -37,9 +29,9 @@ namespace HuffmanWeb.Algorithm
         private void MakeMatchingTable()
         {
             // Extraction du nombre d'occurence des caractères dans l'entrée
-            List<HuffmanNode> nodes = _textToEncode.GroupBy((c) => c).Select((p) => new HuffmanNode ( p.Key, p.Count())).ToList();
-            HuffmanNode root = new(Char.MinValue, 0 );
-            
+            List<HuffmanNode> nodes = _textToEncode.GroupBy((c) => c).Select((p) => new HuffmanNode(p.Key, p.Count())).ToList();
+            HuffmanNode root = new(Char.MinValue, 0);
+
             while (nodes.Count > 1)
             {
                 // Récupération des 2 plus petits nombre d'occurence
@@ -55,12 +47,12 @@ namespace HuffmanWeb.Algorithm
                     nodes.Remove(twoSmallestNodes[0]);
                     weight = 1;
                 }
-                if (twoSmallestNodes.Count()>1)
+                if (twoSmallestNodes.Count() > 1)
                 {
                     GeneratedGraph.CreateNode(twoSmallestNodes[1]);
                     GeneratedGraph.CreateLink(root, twoSmallestNodes[1], weight);
                     nodes.Remove(twoSmallestNodes[1]);
-                }                                
+                }
                 nodes.Add(root);
 
             }
@@ -77,7 +69,7 @@ namespace HuffmanWeb.Algorithm
             _textToEncode = textToEncode;
             StoreOriginalSize();
             MakeMatchingTable();
-            foreach( var c in _textToEncode )
+            foreach (var c in _textToEncode)
             {
                 if (HuffmanTable.ContainsKey(c))
                 {
@@ -102,10 +94,10 @@ namespace HuffmanWeb.Algorithm
             InputHuffmanBinarySize = TextEncoded.Length;
 
             string search = string.Empty;
-            foreach(var c in TextEncoded)
+            foreach (var c in TextEncoded)
             {
                 search += c;
-                foreach( var key in HuffmanTable.Keys )
+                foreach (var key in HuffmanTable.Keys)
                 {
                     if (HuffmanTable[key].ToString() == search)
                     {
@@ -118,6 +110,6 @@ namespace HuffmanWeb.Algorithm
         }
 
     }
-        
+
 }
 

@@ -1,6 +1,5 @@
 using HuffmanWeb.Algorithm;
 using HuffmanWeb.Server.DTOs;
-using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +25,7 @@ app.UseHttpsRedirection();
 
 
 
-app.MapPost("/huffman/encode", ( EncodeRequest textToEncode) =>
+app.MapPost("/huffman/encode", (EncodeRequest textToEncode) =>
 {
     var huf = new Huffman();
     huf.EncodeText(textToEncode.TextToEncode);
@@ -37,7 +36,7 @@ app.MapPost("/huffman/encode", ( EncodeRequest textToEncode) =>
         EncodedSize = huf.InputHuffmanBinarySize,
         OriginalSize = huf.InputBinarySize
     };
-    foreach(var key in huf.HuffmanTable.Keys)
+    foreach (var key in huf.HuffmanTable.Keys)
     {
         resp.MatchingCharacters.Add(new Character() { Id = key.ToString(), Value = huf.HuffmanTable[key].ToString() });
     }
@@ -56,8 +55,3 @@ app.UseCors(builder => builder
 );
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
