@@ -30,7 +30,7 @@ function App() {
     async function onEncodeText(textToEncode : string) {
         const form = new FormData();
         form.append("textToEncode", textToEncode);
-        await fetch('https://localhost:7134/huffman/encode', {
+        await fetch('/encode', {
             method: 'POST', headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
