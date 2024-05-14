@@ -1,5 +1,5 @@
 import { TreeChildrenProps } from "../Interfaces/TreeChildrenProps";
-import { huffmanNode } from "../dtos/textToEncodeResponse";
+import { huffmanNode } from "../dtos/TextToEncodeResponse";
 
 const TreeChildren = ({ children, graph }: TreeChildrenProps) => {
   let leftChild: huffmanNode | undefined = undefined;

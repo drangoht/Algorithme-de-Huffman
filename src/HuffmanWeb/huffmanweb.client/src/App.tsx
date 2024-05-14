@@ -1,13 +1,12 @@
-//import { useEffect, useState } from 'react';
-import { useState } from "react";
+/* eslint-disable */
+import { useState } from "react"
 import "./App.css";
-/*import { CharactersListProps } from './Interfaces/CharactersListProps';*/
 import MatchingTable from "./components/MatchingTable";
 import TextToEncodeForm from "./components/TextToEncodeForm";
 import {
   textToEncodeResponse,
   weightedGraph,
-} from "./dtos/textToEncodeResponse";
+} from "./dtos/TextToEncodeResponse";
 import { Character } from "./dtos/Character";
 import SizeStats from "./components/SizeStats";
 import Tree from "./components/Tree";
