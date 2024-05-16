@@ -1,0 +1,9 @@
+
+docker build --platform linux/arm64 -t drangoht/huffmanweb:arm64 .
+docker push drangoht/huffmanweb:arm64
+docker run drangoht/huffmanweb:arm64
+
+
+docker build -t drangoht/huffmanweb:latest .
+docker push drangoht/huffmanweb:latest
+docker run drangoht/huffmanweb:latest
