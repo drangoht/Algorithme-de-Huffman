@@ -25,5 +25,8 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "@types/node": "^20.10.0"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.17.2"
   }
 }

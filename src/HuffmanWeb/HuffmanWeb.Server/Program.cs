@@ -3,13 +3,21 @@ using HuffmanWeb.Server.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader());
+});
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseCors("AllowAll");
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
@@ -48,10 +56,7 @@ app.MapPost("/huffman/encode", (EncodeRequest textToEncode) =>
 
 app.MapFallbackToFile("/index.html");
 
-app.UseCors(builder => builder
- .AllowAnyOrigin()
- .AllowAnyMethod()
- .AllowAnyHeader()
-);
+
 
 app.Run();
+

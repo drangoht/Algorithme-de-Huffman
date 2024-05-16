@@ -54,13 +54,14 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "^/encode": {
+      "^/huffman/encode": {
         target,
         secure: false,
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/encode/, ""),
+        rewrite: (path) => path.replace(/^\/huffman\/encode/, ""),
+          },
       },
-    },
+    cors: false,
     port: 5173,
     https: {
       key: fs.readFileSync(keyFilePath),
