@@ -1,6 +1,8 @@
-﻿import { Button, Tooltip } from "@mui/material";
+﻿import { Button, Modal, Tooltip } from "@mui/material";
 import { CharactersListProps } from "../Interfaces/CharactersListProps";
 import CharacterIListtem from "./CharacterIListItem";
+import JsonModal from "./JsonModal";
+import { useState } from "react";
 
 const MatchingTable = ({ characters }: CharactersListProps) => {
   if (!characters?.length) {
@@ -10,13 +12,17 @@ const MatchingTable = ({ characters }: CharactersListProps) => {
       </div>
     );
   }
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => setOpen(true)
+    const handleClose = () => setOpen(false);
+
   return (
     <details>
       <summary>Table de correspondances</summary>
       <div className="notice">
         <div className="right-action">
           <Tooltip title="Visualisation du JSON">
-            <Button>JSON</Button>
+                      <Button onAnimationEnd={handleOpen}>JSON</Button>
           </Tooltip>
         </div>
         <table width="100%">
@@ -32,7 +38,16 @@ const MatchingTable = ({ characters }: CharactersListProps) => {
             ))}
           </tbody>
         </table>
-      </div>
+          </div>
+          <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+              className="modal"
+          >
+              <JsonModal jsonString={JSON.stringify(characters)} />
+              </Modal>
     </details>
   );
 };

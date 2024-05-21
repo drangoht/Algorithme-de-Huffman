@@ -16,9 +16,36 @@
     border-radius: 4px;
     justify-content: center;
     align-items: center;
-    padding-top:2px;
-    padding-bottom:12px;
+    padding-top: 2px;
+    padding-bottom: 12px;
 }
-.binary-huffman {
+.notice .right-action-modal {
+    position: relative;
+    top: -21px;
+    left: 536px;
+}
+.notice .right-action-modal .copy-success {
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: #1976d2;
+    min-width: 64px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2px;
+    padding-bottom: 12px;
+}
+
+.text-break-word {
     word-wrap: break-word;
+}
+.modal {
+    position: relative;
+    width: 50%;
+    left:25% !important;
+    border: 2px solid #000;
+    box-shadow: 24px;
+    padding: 4px;
+    overflow-y:auto;
 }

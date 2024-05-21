@@ -1,12 +1,12 @@
 ﻿import { Button, Tooltip } from "@mui/material";
-import { BinaryHuffmanProps } from "../Interfaces/BinaryHuffmanProps";
 import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 import { useState } from "react";
-const BinaryHuffman = ({ binaryHuffman }: BinaryHuffmanProps) => {
+import { JsonModalProps } from "../Interfaces/JsonModalProps";
+const JsonModal = ({ jsonString }: JsonModalProps   ) => {
   const [textCopiedSuccess, setCopiedSuccess] = useState("");
 
   const handleCopyTextToCLipboard = () => {
-    navigator.clipboard.writeText(binaryHuffman);
+      navigator.clipboard.writeText(jsonString);
     setTimeout(disabledCopiedSuccess, 1000);
     setCopiedSuccess("Copié");
   };
@@ -14,11 +14,9 @@ const BinaryHuffman = ({ binaryHuffman }: BinaryHuffmanProps) => {
     setCopiedSuccess("");
   };
   return (
-    <details>
-      <summary>Résultat binaire</summary>
       <div>
         <div className="notice">
-          <div className="right-action">
+          <div className="right-action-modal">
             {textCopiedSuccess === "" ? (
               <Tooltip title="Copier">
                 <Button onAnimationEnd={handleCopyTextToCLipboard}>
@@ -29,10 +27,9 @@ const BinaryHuffman = ({ binaryHuffman }: BinaryHuffmanProps) => {
               <span className="copy-success"> {textCopiedSuccess}</span>
             )}
           </div>
-                  <div className="text-break-word">{binaryHuffman}</div>
+                  <div className="text-break-word">{jsonString}</div>
         </div>
       </div>
-    </details>
   );
 };
-export default BinaryHuffman;
+export default JsonModal;
