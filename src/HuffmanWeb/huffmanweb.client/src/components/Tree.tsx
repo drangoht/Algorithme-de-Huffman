@@ -9,16 +9,16 @@ const Tree = ({ graph }: TreeProps) => {
     const rootLinks = graph.links.filter(
       (link) => link.parent.identifier == graph.root.identifier,
     );
-      const [open, setOpen] = useState(false)
-      const handleOpen = () => setOpen(true)
-      const handleClose = () => setOpen(false);
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     return (
       <details>
         <summary>Arbre</summary>
         <div className="notice">
           <div className="right-action">
             <Tooltip title="Visualisation du JSON">
-                        <Button onAnimationEnd={handleOpen}>JSON</Button>
+              <Button onAnimationEnd={handleOpen}>JSON</Button>
             </Tooltip>
           </div>
           <div className="tree-container">
@@ -34,16 +34,16 @@ const Tree = ({ graph }: TreeProps) => {
               </ul>
             </div>
           </div>
-            </div>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-                className="modal"
-            >
-                <JsonModal jsonString={JSON.stringify(graph)} />
-            </Modal>
+        </div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          className="modal"
+        >
+          <JsonModal jsonString={JSON.stringify(graph)} />
+        </Modal>
       </details>
     );
   }

@@ -5,10 +5,16 @@ import { useState } from "react";
 const BinaryHuffman = ({ binaryHuffman }: BinaryHuffmanProps) => {
   const [textCopiedSuccess, setCopiedSuccess] = useState("");
 
-  const handleCopyTextToCLipboard = () => {
-    navigator.clipboard.writeText(binaryHuffman);
-    setTimeout(disabledCopiedSuccess, 1000);
-    setCopiedSuccess("Copié");
+  const handleCopyTextToCLipboard = async (binaryHuffmanString: string) => {
+    try {
+      await navigator.clipboard.writeText(binaryHuffmanString);
+      setCopiedSuccess("Copié");
+    } catch (error) {
+      console.error(error);
+      setCopiedSuccess("Echec");
+    } finally {
+      setTimeout(disabledCopiedSuccess, 1000);
+    }
   };
   const disabledCopiedSuccess = () => {
     setCopiedSuccess("");
@@ -21,7 +27,11 @@ const BinaryHuffman = ({ binaryHuffman }: BinaryHuffmanProps) => {
           <div className="right-action">
             {textCopiedSuccess === "" ? (
               <Tooltip title="Copier">
-                <Button onAnimationEnd={handleCopyTextToCLipboard}>
+                <Button
+                  onAnimationEnd={() =>
+                    handleCopyTextToCLipboard(binaryHuffman)
+                  }
+                >
                   <ContentCopyRoundedIcon />
                 </Button>
               </Tooltip>
@@ -29,7 +39,7 @@ const BinaryHuffman = ({ binaryHuffman }: BinaryHuffmanProps) => {
               <span className="copy-success"> {textCopiedSuccess}</span>
             )}
           </div>
-                  <div className="text-break-word">{binaryHuffman}</div>
+          <div className="text-break-word">{binaryHuffman}</div>
         </div>
       </div>
     </details>

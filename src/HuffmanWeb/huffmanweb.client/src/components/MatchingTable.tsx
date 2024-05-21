@@ -12,9 +12,9 @@ const MatchingTable = ({ characters }: CharactersListProps) => {
       </div>
     );
   }
-    const [open, setOpen] = useState(false)
-    const handleOpen = () => setOpen(true)
-    const handleClose = () => setOpen(false);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <details>
@@ -22,7 +22,7 @@ const MatchingTable = ({ characters }: CharactersListProps) => {
       <div className="notice">
         <div className="right-action">
           <Tooltip title="Visualisation du JSON">
-                      <Button onAnimationEnd={handleOpen}>JSON</Button>
+            <Button onAnimationEnd={handleOpen}>JSON</Button>
           </Tooltip>
         </div>
         <table width="100%">
@@ -38,16 +38,16 @@ const MatchingTable = ({ characters }: CharactersListProps) => {
             ))}
           </tbody>
         </table>
-          </div>
-          <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-              className="modal"
-          >
-              <JsonModal jsonString={JSON.stringify(characters)} />
-              </Modal>
+      </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        className="modal"
+      >
+        <JsonModal jsonString={JSON.stringify(characters)} />
+      </Modal>
     </details>
   );
 };
