@@ -1,3 +1,24 @@
 ﻿.main {
   padding-bottom: 1.5rem;
 }
+
+.notice .right-action {
+  position: relative;
+  top: -21px;
+  left: 591px;
+}
+.notice .right-action .copy-success {
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: #1976d2;
+    min-width: 64px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+    padding-top:2px;
+    padding-bottom:12px;
+}
+.binary-huffman {
+    word-wrap: break-word;
+}

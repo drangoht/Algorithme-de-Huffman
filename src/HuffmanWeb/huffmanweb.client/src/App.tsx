@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { useState } from "react"
+import { useState } from "react";
 import "./App.css";
 import MatchingTable from "./components/MatchingTable";
 import TextToEncodeForm from "./components/TextToEncodeForm";
@@ -10,9 +10,11 @@ import {
 import { Character } from "./dtos/Character";
 import SizeStats from "./components/SizeStats";
 import Tree from "./components/Tree";
+import BinaryHuffman from "./components/BinaryHuffman";
 
 function App() {
   let responseEncoded: textToEncodeResponse;
+  const [binaryHuffman, setBinaryHuffman] = useState("");
   const [chars, setChars] = useState<Character[]>();
   const [encodedSize, setEncodedSize] = useState(0);
   const [originalSize, setOriginalSize] = useState(0);
@@ -20,8 +22,8 @@ function App() {
   return (
     <div>
       <TextToEncodeForm onEncodeText={onEncodeText} />
-
       <SizeStats encodedSize={encodedSize} originalSize={originalSize} />
+      <BinaryHuffman binaryHuffman={binaryHuffman} />
       <MatchingTable characters={chars || []} />
       <Tree graph={graph!} />
     </div>
@@ -46,6 +48,7 @@ function App() {
         setEncodedSize(responseEncoded.encodedSize);
         setOriginalSize(responseEncoded.originalSize);
         setGraph(responseEncoded.graph);
+        setBinaryHuffman(responseEncoded.encodedBinaryString);
         const chars: Character[] = [];
         responseEncoded.matchingCharacters.forEach(function (chr) {
           chars.push({ id: chr.id, value: chr.value });

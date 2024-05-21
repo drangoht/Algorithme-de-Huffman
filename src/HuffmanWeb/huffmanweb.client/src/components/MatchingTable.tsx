@@ -1,4 +1,5 @@
-﻿import { CharactersListProps } from "../Interfaces/CharactersListProps";
+﻿import { Button, Tooltip } from "@mui/material";
+import { CharactersListProps } from "../Interfaces/CharactersListProps";
 import CharacterIListtem from "./CharacterIListItem";
 
 const MatchingTable = ({ characters }: CharactersListProps) => {
@@ -12,7 +13,12 @@ const MatchingTable = ({ characters }: CharactersListProps) => {
   return (
     <details>
       <summary>Table de correspondances</summary>
-      <div>
+      <div className="notice">
+        <div className="right-action">
+          <Tooltip title="Visualisation du JSON">
+            <Button>JSON</Button>
+          </Tooltip>
+        </div>
         <table width="100%">
           <thead>
             <tr>

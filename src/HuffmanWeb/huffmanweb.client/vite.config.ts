@@ -59,8 +59,8 @@ export default defineConfig({
         secure: false,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/huffman\/encode/, ""),
-          },
       },
+    },
     cors: false,
     port: 5173,
     https: {
