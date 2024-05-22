@@ -2,21 +2,20 @@
 import { useState } from "react";
 import "./App.css";
 import Encode from "./components/Encode/Encode";
-import Menu from "./components/Menu";
 
 function App() {
-  const [menu, setMenu] = useState("encode");
+  const [tab, setTab] = useState("encode");
+
   return (
     <div>
-      <Menu onSetMenu={setMenu} />
-
-      {menu === "encode" ? (
-        <div>
-          <Encode />
-        </div>
-      ) : (
-        <div>decode</div>
-      )}
+      <button onClick={() => setTab("encode")}>Encoder</button>
+      <button onClick={() => setTab("decode")}>Decoder</button>
+      <div className={tab === "encode" ? "tab-visible" : "tab-hidden"}>
+        <Encode />
+      </div>
+      <div className={tab === "decode" ? "tab-visible" : "tab-hidden"}>
+        decode
+      </div>
     </div>
   );
 }

@@ -1,8 +1,6 @@
 import { useState } from "react";
-import {
-  textToEncodeResponse,
-  WeightedGraph,
-} from "../../dtos/Encode/TextToEncodeResponse";
+import { textToEncodeResponse } from "../../dtos/Encode/TextToEncodeResponse";
+import { WeightedGraph } from "../../dtos/WeightedGraph";
 import { Character } from "../../dtos/Character";
 import TextToEncodeForm from "./TextToEncodeForm";
 import SizeStats from "./SizeStats";
@@ -11,6 +9,13 @@ import MatchingTable from "./MatchingTable";
 import Tree from "./Tree";
 
 const Encode = () => {
+  let responseEncoded: textToEncodeResponse;
+  const [binaryHuffman, setBinaryHuffman] = useState("");
+  const [chars, setChars] = useState<Character[]>([]);
+  const [encodedSize, setEncodedSize] = useState(0);
+  const [originalSize, setOriginalSize] = useState(0);
+  const [graph, setGraph] = useState<WeightedGraph>();
+
   async function onEncodeText(textToEncode: string) {
     const form = new FormData();
     form.append("textToEncode", textToEncode);
@@ -31,7 +36,7 @@ const Encode = () => {
         setOriginalSize(responseEncoded.originalSize);
         setGraph(responseEncoded.graph);
         setBinaryHuffman(responseEncoded.encodedBinaryString);
-        const chars: Character[] = [];
+
         responseEncoded.matchingCharacters.forEach(function (chr) {
           chars.push({ id: chr.id, value: chr.value });
         });
@@ -42,18 +47,13 @@ const Encode = () => {
         throw error;
       });
   }
-  let responseEncoded: textToEncodeResponse;
-  const [binaryHuffman, setBinaryHuffman] = useState("");
-  const [chars, setChars] = useState<Character[]>();
-  const [encodedSize, setEncodedSize] = useState(0);
-  const [originalSize, setOriginalSize] = useState(0);
-  const [graph, setGraph] = useState<WeightedGraph>();
+
   return (
     <>
       <TextToEncodeForm onEncodeText={onEncodeText} />
       <SizeStats encodedSize={encodedSize} originalSize={originalSize} />
       <BinaryHuffman binaryHuffman={binaryHuffman} />
-      <MatchingTable characters={chars || []} />
+      <MatchingTable characters={chars} />
       <Tree graph={graph!} />
     </>
   );

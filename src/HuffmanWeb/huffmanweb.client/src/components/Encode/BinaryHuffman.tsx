@@ -19,7 +19,7 @@ const BinaryHuffman = ({ binaryHuffman }: BinaryHuffmanProps) => {
   const disabledCopiedSuccess = () => {
     setCopiedSuccess("");
   };
-  return (
+  return binaryHuffman !== "" ? (
     <details>
       <summary>Résultat binaire</summary>
       <div>
@@ -43,6 +43,8 @@ const BinaryHuffman = ({ binaryHuffman }: BinaryHuffmanProps) => {
         </div>
       </div>
     </details>
+  ) : (
+    <></>
   );
 };
 export default BinaryHuffman;

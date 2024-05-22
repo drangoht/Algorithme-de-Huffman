@@ -1,22 +1,23 @@
-﻿import { Button, Modal, Tooltip } from "@mui/material";
-import { CharactersListProps } from "../../Interfaces/Encode/CharactersListProps";
+﻿import { CharactersListProps } from "../../Interfaces/Encode/CharactersListProps";
 import CharacterIListtem from "./CharacterIListItem";
 import JsonModal from "./JsonModal";
 import { useState } from "react";
+import {
+  Button,
+  Tooltip,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 
 const MatchingTable = ({ characters }: CharactersListProps) => {
-  if (!characters?.length) {
-    return (
-      <div>
-        <p className="notice">Rien dans la table de correspondances</p>
-      </div>
-    );
-  }
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  return (
+  return Array.isArray(characters) && characters.length > 0 ? (
     <details>
       <summary>Table de correspondances</summary>
       <div className="notice">
@@ -39,16 +40,32 @@ const MatchingTable = ({ characters }: CharactersListProps) => {
           </tbody>
         </table>
       </div>
-      <Modal
+      <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        className="modal"
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        sx={{
+          background: "#212121",
+          color: "#dcdcdc",
+          "& .MuiPaper-root": {
+            background: "#212121",
+            color: "#dcdcdc",
+          },
+          "& .MuiBackdrop-root": {
+            backgroundColor: "transparent",
+            color: "#dcdcdc",
+          },
+        }}
       >
-        <JsonModal jsonString={JSON.stringify(characters)} />
-      </Modal>
+        <DialogTitle>Table de correspondance en JSON</DialogTitle>
+        <DialogContent>
+          <JsonModal jsonString={JSON.stringify(characters)} />
+        </DialogContent>
+      </Dialog>
     </details>
+  ) : (
+    <></>
   );
 };
 export default MatchingTable;

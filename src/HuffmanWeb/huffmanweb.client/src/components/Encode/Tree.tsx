@@ -1,4 +1,12 @@
-import { Button, Modal, Tooltip } from "@mui/material";
+import {
+  Button,
+  Tooltip,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import { TreeProps } from "../../Interfaces/Encode/TreeProps";
 import TreeChildren from "./TreeChildren";
 import JsonModal from "./JsonModal";
@@ -36,15 +44,29 @@ const Tree = ({ graph }: TreeProps) => {
             </div>
           </div>
         </div>
-        <Modal
+        <Dialog
           open={open}
           onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-          className="modal"
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          sx={{
+            background: "#212121",
+            color: "#dcdcdc",
+            "& .MuiPaper-root": {
+              background: "#212121",
+              color: "#dcdcdc",
+            },
+            "& .MuiBackdrop-root": {
+              backgroundColor: "transparent",
+              color: "#dcdcdc",
+            },
+          }}
         >
-          <JsonModal jsonString={JSON.stringify(graph)} />
-        </Modal>
+          <DialogTitle>Arbre en JSON</DialogTitle>
+          <DialogContent>
+            <JsonModal jsonString={JSON.stringify(graph)} />
+          </DialogContent>
+        </Dialog>
       </details>
     );
   }

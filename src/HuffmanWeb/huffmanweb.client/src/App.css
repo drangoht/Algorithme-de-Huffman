@@ -22,7 +22,7 @@
 .notice .right-action-modal {
   position: relative;
   top: -21px;
-  left: 536px;
+  left: -21px;
 }
 .notice .right-action-modal .copy-success {
   background-color: var(--accent-hover);
@@ -48,4 +48,10 @@
   box-shadow: 24px;
   padding: 4px;
   overflow-y: auto;
+}
+.tab-visible {
+  display: block;
+}
+.tab-hidden {
+  display: none;
 }
