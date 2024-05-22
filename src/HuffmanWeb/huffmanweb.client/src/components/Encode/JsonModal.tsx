@@ -1,7 +1,7 @@
 ﻿import { Button, Tooltip } from "@mui/material";
 import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 import { useState } from "react";
-import { JsonModalProps } from "../Interfaces/JsonModalProps";
+import { JsonModalProps } from "../../Interfaces/Encode/JsonModalProps";
 const JsonModal = ({ jsonString }: JsonModalProps) => {
   const [textCopiedSuccess, setCopiedSuccess] = useState("");
 

@@ -1,5 +1,5 @@
 ﻿import { Button, Modal, Tooltip } from "@mui/material";
-import { CharactersListProps } from "../Interfaces/CharactersListProps";
+import { CharactersListProps } from "../../Interfaces/Encode/CharactersListProps";
 import CharacterIListtem from "./CharacterIListItem";
 import JsonModal from "./JsonModal";
 import { useState } from "react";

@@ -1,13 +1,14 @@
 import { Button, Modal, Tooltip } from "@mui/material";
-import { TreeProps } from "../Interfaces/TreeProps";
+import { TreeProps } from "../../Interfaces/Encode/TreeProps";
 import TreeChildren from "./TreeChildren";
 import JsonModal from "./JsonModal";
 import { useState } from "react";
+import { Link } from "../../dtos/Link";
 
 const Tree = ({ graph }: TreeProps) => {
   if (graph != undefined) {
     const rootLinks = graph.links.filter(
-      (link) => link.parent.identifier == graph.root.identifier,
+      (link: Link) => link.parent.identifier == graph.root.identifier,
     );
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);

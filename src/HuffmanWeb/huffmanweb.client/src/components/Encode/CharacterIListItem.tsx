@@ -1,4 +1,4 @@
-import { Character } from "../dtos/Character";
+import { Character } from "../../dtos/Character";
 
 const CharacterIListtem = ({ id, value }: Character) => {
   return (

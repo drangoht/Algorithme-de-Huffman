@@ -1,5 +1,5 @@
 ﻿import React, { useState, FormEvent } from "react";
-import { TextToEncodeFormProps } from "../Interfaces/TextToEncodeFormProps";
+import { TextToEncodeFormProps } from "../../Interfaces/Encode/TextToEncodeFormProps";
 
 const TextToEncodeForm: React.FC<TextToEncodeFormProps> = (props) => {
   const [textareaValue, setTextareaValue] = useState("");

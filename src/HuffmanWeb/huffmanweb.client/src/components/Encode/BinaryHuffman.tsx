@@ -1,5 +1,5 @@
 ﻿import { Button, Tooltip } from "@mui/material";
-import { BinaryHuffmanProps } from "../Interfaces/BinaryHuffmanProps";
+import { BinaryHuffmanProps } from "../../Interfaces/Encode/BinaryHuffmanProps";
 import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 import { useState } from "react";
 const BinaryHuffman = ({ binaryHuffman }: BinaryHuffmanProps) => {

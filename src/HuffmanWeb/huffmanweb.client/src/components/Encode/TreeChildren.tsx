@@ -1,28 +1,28 @@
-import { TreeChildrenProps } from "../Interfaces/TreeChildrenProps";
-import { huffmanNode } from "../dtos/TextToEncodeResponse";
-
+import { TreeChildrenProps } from "../../Interfaces/Encode/TreeChildrenProps";
+import { HuffmanNode } from "../../dtos/HuffmanNode";
+import { Link } from "../../dtos/Link";
 const TreeChildren = ({ children, graph }: TreeChildrenProps) => {
-  let leftChild: huffmanNode | undefined = undefined;
-  let rightChild: huffmanNode | undefined = undefined;
+  let leftChild: HuffmanNode | undefined = undefined;
+  let rightChild: HuffmanNode | undefined = undefined;
   if (children!.length == 2) {
     leftChild = graph.allNodes.find(
-      (node) => node.identifier == children[0].child.identifier,
+      (node: HuffmanNode) => node.identifier == children[0].child.identifier,
     );
     rightChild = graph.allNodes.find(
-      (node) => node.identifier == children[1].child.identifier,
+      (node: HuffmanNode) => node.identifier == children[1].child.identifier,
     );
   }
   if (children.length == 1) {
     leftChild = graph.allNodes.find(
-      (node) => node.identifier == children[0].child.identifier,
+      (node: HuffmanNode) => node.identifier == children[0].child.identifier,
     );
   }
 
   const leftChildren = graph.links.filter(
-    (link) => link.parent.identifier == leftChild!.identifier,
+    (link: Link) => link.parent.identifier == leftChild!.identifier,
   );
   const rightChildren = graph.links.filter(
-    (link) => link.parent.identifier == rightChild!.identifier,
+    (link: Link) => link.parent.identifier == rightChild!.identifier,
   );
   return (
     <>
