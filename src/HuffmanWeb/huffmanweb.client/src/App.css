@@ -1,7 +1,9 @@
 ﻿.main {
   padding-bottom: 1.5rem;
 }
-
+body > header {
+  padding: 0 !important;
+}
 .notice .right-action {
   position: relative;
   top: -21px;
@@ -54,4 +56,10 @@
 }
 .tab-hidden {
   display: none;
+}
+.tab-buttons {
+  justify-content: space-evenly;
+  width: 100%;
+  text-align: center;
+  display: flex;
 }

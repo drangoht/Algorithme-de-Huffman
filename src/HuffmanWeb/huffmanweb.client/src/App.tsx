@@ -8,8 +8,24 @@ function App() {
 
   return (
     <div>
-      <button onClick={() => setTab("encode")}>Encoder</button>
-      <button onClick={() => setTab("decode")}>Decoder</button>
+      <div className="tab-buttons">
+        <div>
+          <button
+            disabled={tab === "encode" ? true : false}
+            onClick={() => setTab("encode")}
+          >
+            Encoder
+          </button>
+        </div>
+        <div>
+          <button
+            disabled={tab === "decode" ? true : false}
+            onClick={() => setTab("decode")}
+          >
+            Decoder
+          </button>
+        </div>
+      </div>
       <div className={tab === "encode" ? "tab-visible" : "tab-hidden"}>
         <Encode />
       </div>
