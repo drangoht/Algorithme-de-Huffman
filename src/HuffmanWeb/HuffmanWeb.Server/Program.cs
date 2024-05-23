@@ -1,6 +1,5 @@
 using HuffmanWeb.Algorithm;
 using HuffmanWeb.Server.DTOs;
-using Microsoft.AspNetCore.Http;
 using Serilog;
 using System.Collections;
 
@@ -66,7 +65,7 @@ app.MapPost("/huffman/encode", (EncodeRequest req) =>
             OriginalSize = Huffman.GetBinarySize(req.TextToEncode)
         };
 
-        var huffmanTable= Huffman.MakeMatchingTable(req.TextToEncode);
+        var huffmanTable = Huffman.MakeMatchingTable(req.TextToEncode);
         foreach (var key in huffmanTable.Keys)
         {
             resp.MatchingCharacters.Add(new Character() { Id = key.ToString(), Value = huffmanTable[key].ToString() });
@@ -94,8 +93,8 @@ app.MapPost("/huffman/decode", (DecodeRequest req) =>
         {
             matchingCharactersTable.Add(item.Id, item.Value);
         }
-        
-        var decodedText =Huffman.DecodeText(req.BinaryHuffman,matchingCharactersTable);
+
+        var decodedText = Huffman.DecodeText(req.BinaryHuffman, matchingCharactersTable);
         DecodeResponse resp = new DecodeResponse()
         {
             DecodedText = decodedText,

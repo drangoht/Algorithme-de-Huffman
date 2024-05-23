@@ -8,7 +8,7 @@ const DecodeForm: React.FC<DecodeFormProps> = (props) => {
   const [matchingCharactersJson, setmatchingCharactersJson] = useState(
     '[{"id":"!","value":"101"},{"id":" ","value":"110"},{"id":"t","value":"1111"},{"id":"I","value":"1110"},{"id":"s","value":"100"},{"id":"o","value":"001"},{"id":"r","value":"010"},{"id":"W","value":"000"},{"id":"k","value":"011"}]',
   );
-    const [charactersError, setCharactersError] = useState(false);
+  const [charactersError, setCharactersError] = useState(false);
   const handleBinaryHuffmanChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
@@ -22,16 +22,14 @@ const DecodeForm: React.FC<DecodeFormProps> = (props) => {
   };
 
   const handleSubmit = (event: FormEvent) => {
-      event.preventDefault();
-      try {
-          
-          let matchingCharacters: Character[] = JSON.parse(matchingCharactersJson)
-          setCharactersError(false)
-          props.onDecode(binaryHuffman, matchingCharacters)
-      } catch (e) {
-          setCharactersError(true)
-      }
-    
+    event.preventDefault();
+    try {
+      let matchingCharacters: Character[] = JSON.parse(matchingCharactersJson);
+      setCharactersError(false);
+      props.onDecode(binaryHuffman, matchingCharacters);
+    } catch (e) {
+      setCharactersError(true);
+    }
   };
 
   return (
@@ -46,8 +44,14 @@ const DecodeForm: React.FC<DecodeFormProps> = (props) => {
         />
       </label>
       <label>
-              Veuillez saisir la table de correspondance au format JSON:
-              {charactersError?<div className="error">Le format de la table de correspondance ne convient pas !!</div>:<></>}
+        Veuillez saisir la table de correspondance au format JSON:
+        {charactersError ? (
+          <div className="error">
+            Le format de la table de correspondance ne convient pas !!
+          </div>
+        ) : (
+          <></>
+        )}
         <textarea
           cols={75}
           rows={10}

@@ -13,7 +13,7 @@
         }
         public bool Equals(HuffmanNode? other)
         {
-            return other.Identifier == this.Identifier;
+            return other?.Identifier == this.Identifier;
         }
         public override string ToString()
         {

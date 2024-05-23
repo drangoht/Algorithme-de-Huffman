@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 
 namespace HuffmanWeb.Algorithm
 {
@@ -23,7 +18,7 @@ namespace HuffmanWeb.Algorithm
 
                 var links = graphlinks.Where(l => l.Parent == n.Node).ToList();
                 foreach (var link in links)
-                    stack.Push((new() { Node = link.Child, Weight = $"{n.Weight}{link.Weight}" }));
+                    stack.Push((new() { Node = link.Child!, Weight = $"{n.Weight}{link.Weight}" }));
 
             }
             return huffmanTable;

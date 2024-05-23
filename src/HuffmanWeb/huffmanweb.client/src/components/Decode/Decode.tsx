@@ -2,13 +2,16 @@ import { useState } from "react";
 import { DecodeResponse } from "../../dtos/Decode/DecodeResponse";
 import DecodeForm from "./DecodeForm";
 import DecodedText from "./DecodedText";
-import { Character } from "../../dtos/Character"
+import { Character } from "../../dtos/Character";
 
 const Decode = () => {
   let responseEncoded: DecodeResponse;
   const [decodedText, setDecodedText] = useState("");
 
-  async function onDecode(binaryHuffman: string, matchingCharacters: Character[]) {
+  async function onDecode(
+    binaryHuffman: string,
+    matchingCharacters: Character[],
+  ) {
     const form = new FormData();
     form.append("binaryHuffman", binaryHuffman);
     form.append("matchingCharacters", JSON.stringify(matchingCharacters));

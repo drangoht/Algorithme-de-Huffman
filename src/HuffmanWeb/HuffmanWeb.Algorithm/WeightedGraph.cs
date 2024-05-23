@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace HuffmanWeb.Algorithm
+﻿namespace HuffmanWeb.Algorithm
 {
     public class WeightedGraph
     {

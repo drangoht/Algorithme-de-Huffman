@@ -1,6 +1,4 @@
-﻿using HuffmanWeb.Algorithm;
-
-namespace HuffmanWeb.Server.DTOs
+﻿namespace HuffmanWeb.Server.DTOs
 {
     public class DecodeResponse
     {

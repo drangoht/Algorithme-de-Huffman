@@ -21,10 +21,10 @@ namespace HuffmanWeb.Algorithm
             // Extraction du nombre d'occurence des caractères dans l'entrée
             List<HuffmanNode> nodes = GetNodesFromString(textToEncode);
             var generatedGraph = GenerateHuffmanGraph(nodes);
-            return Algorithms.DFS(generatedGraph.Root,generatedGraph.Links);
+            return Algorithms.DFS(generatedGraph.Root!, generatedGraph.Links);
 
         }
-        
+
         public static List<HuffmanNode> GetNodesFromString(string textToEncode) =>
             textToEncode.GroupBy((c) => c).Select((p) => new HuffmanNode(p.Key, p.Count())).ToList();
 
@@ -81,7 +81,7 @@ namespace HuffmanWeb.Algorithm
 
         public static string DecodeText(string textToDecode, Hashtable matchingCharactersTable)
         {
-            
+
             string textDecoded = string.Empty;
             string search = string.Empty;
             foreach (var c in textToDecode)
@@ -89,7 +89,7 @@ namespace HuffmanWeb.Algorithm
                 search += c;
                 foreach (var key in matchingCharactersTable.Keys)
                 {
-                    if (matchingCharactersTable[key].ToString() == search)
+                    if (matchingCharactersTable[key]!.ToString() == search)
                     {
                         search = string.Empty;
                         textDecoded += key;
