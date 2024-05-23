@@ -58,8 +58,32 @@ body > header {
   display: none;
 }
 .tab-buttons {
-  justify-content: space-evenly;
-  width: 100%;
-  text-align: center;
-  display: flex;
+    margin-bottom: 5px;
+    display: flex;
+}
+.button-tab {
+    margin: 4px 1px !important;
+    transition: all 0.3s !important;
+    text-align: center !important;
+    border: none !important;
+    
+    border-bottom: 0.5pt solid #1d1e22 !important;
+    display: inline-flex !important;
+    -webkit-box-pack: center !important;
+    padding: 5pt 10pt !important;
+    vertical-align: top !important;
+    justify-content: flex-start !important;
+    box-shadow: 1px 1px 2px 1px #231f20 !important;
+    text-transform: uppercase !important;
+    font-weight: 300 !important;
+    background: #26292c !important;
+    margin-bottom: 0.5px !important;
+    border-radius: 7px 7px 0 0 !important;
+    border-top: 1px solid #3b3d3f !important;
+    cursor: pointer !important;
+    color: var(--text-light) !important;
+}
+button:disabled {
+    color: var(--text) !important;
+    border-bottom: 2pt solid #ffffff !important;
 }
