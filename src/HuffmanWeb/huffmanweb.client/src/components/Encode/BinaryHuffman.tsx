@@ -1,5 +1,5 @@
 ﻿import { Button, Tooltip } from "@mui/material";
-import { BinaryHuffmanProps } from "../Interfaces/BinaryHuffmanProps";
+import { BinaryHuffmanProps } from "../../Interfaces/Encode/BinaryHuffmanProps";
 import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 import { useState } from "react";
 const BinaryHuffman = ({ binaryHuffman }: BinaryHuffmanProps) => {
@@ -19,7 +19,7 @@ const BinaryHuffman = ({ binaryHuffman }: BinaryHuffmanProps) => {
   const disabledCopiedSuccess = () => {
     setCopiedSuccess("");
   };
-  return (
+  return binaryHuffman !== "" ? (
     <details>
       <summary>Résultat binaire</summary>
       <div>
@@ -43,6 +43,8 @@ const BinaryHuffman = ({ binaryHuffman }: BinaryHuffmanProps) => {
         </div>
       </div>
     </details>
+  ) : (
+    <></>
   );
 };
 export default BinaryHuffman;

@@ -1,65 +1,41 @@
 /* eslint-disable */
 import { useState } from "react";
 import "./App.css";
-import MatchingTable from "./components/MatchingTable";
-import TextToEncodeForm from "./components/TextToEncodeForm";
-import {
-  textToEncodeResponse,
-  weightedGraph,
-} from "./dtos/TextToEncodeResponse";
-import { Character } from "./dtos/Character";
-import SizeStats from "./components/SizeStats";
-import Tree from "./components/Tree";
-import BinaryHuffman from "./components/BinaryHuffman";
-
+import Encode from "./components/Encode/Encode";
+import Decode from "./components/Decode/Decode";
 function App() {
-  let responseEncoded: textToEncodeResponse;
-  const [binaryHuffman, setBinaryHuffman] = useState("");
-  const [chars, setChars] = useState<Character[]>();
-  const [encodedSize, setEncodedSize] = useState(0);
-  const [originalSize, setOriginalSize] = useState(0);
-  const [graph, setGraph] = useState<weightedGraph>();
+  const [tab, setTab] = useState("encode");
+
   return (
     <div>
-      <TextToEncodeForm onEncodeText={onEncodeText} />
-      <SizeStats encodedSize={encodedSize} originalSize={originalSize} />
-      <BinaryHuffman binaryHuffman={binaryHuffman} />
-      <MatchingTable characters={chars || []} />
-      <Tree graph={graph!} />
+      <div className="tab-buttons">
+        <div>
+          <button
+            disabled={tab === "encode" ? true : false}
+                      onClick={() => setTab("encode")}
+            className="button-tab"
+          >
+            Encodage de texte
+          </button>
+        </div>
+        <div>
+          <button
+            disabled={tab === "decode" ? true : false}
+                      onClick={() => setTab("decode")}
+        className="button-tab"
+          >
+            Decodage du binaire
+          </button>
+        </div>
+          </div>
+      <div className={tab === "encode" ? "tab-visible" : "tab-hidden"}>
+        <Encode />
+      </div>
+      <div className={tab === "decode" ? "tab-visible" : "tab-hidden"}>
+        <Decode />
+      </div>
     </div>
   );
-
-  async function onEncodeText(textToEncode: string) {
-    const form = new FormData();
-    form.append("textToEncode", textToEncode);
-    await fetch("/huffman/encode", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ textToEncode: textToEncode }),
-    })
-      .then(async (response) => {
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        responseEncoded = await response.json();
-        setEncodedSize(responseEncoded.encodedSize);
-        setOriginalSize(responseEncoded.originalSize);
-        setGraph(responseEncoded.graph);
-        setBinaryHuffman(responseEncoded.encodedBinaryString);
-        const chars: Character[] = [];
-        responseEncoded.matchingCharacters.forEach(function (chr) {
-          chars.push({ id: chr.id, value: chr.value });
-        });
-        setChars(chars);
-      })
-      .catch((error: Error) => {
-        console.log(error);
-        throw error;
-      });
-  }
 }
 
 export default App;

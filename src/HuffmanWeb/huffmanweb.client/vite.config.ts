@@ -43,7 +43,8 @@ let target = env.ASPNETCORE_HTTPS_PORT
   : env.ASPNETCORE_URLS
     ? env.ASPNETCORE_URLS.split(";")[0]
     : "https://localhost:7134";
-target = `${target}/huffman/encode`;
+let targetEncode = `${target}/huffman/encode`;
+let targetDecode = `${target}/huffman/decode`;
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [plugin()],
@@ -55,10 +56,16 @@ export default defineConfig({
   server: {
     proxy: {
       "^/huffman/encode": {
-        target,
+        target: targetEncode,
         secure: false,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/huffman\/encode/, ""),
+      },
+      "^/huffman/decode": {
+        target: targetDecode,
+        secure: false,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/huffman\/decode/, ""),
       },
     },
     cors: false,

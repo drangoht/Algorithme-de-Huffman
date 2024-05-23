@@ -78,35 +78,27 @@ namespace HuffmanWeb.Algorithm
             }
             InputHuffmanBinarySize = TextEncoded.Length;
         }
-        // For testingPurpose
-        public void EncodeAndDecodeText(string textToEncode)
-        {
-            _textToEncode = textToEncode;
-            StoreOriginalSize();
-            MakeMatchingTable();
-            foreach (var c in _textToEncode)
-            {
-                if (HuffmanTable.ContainsKey(c))
-                {
-                    TextEncoded += HuffmanTable[c];
-                }
-            }
-            InputHuffmanBinarySize = TextEncoded.Length;
 
+
+        public static string DecodeText(string textToDecode, Hashtable matchingCharactersTable)
+        {
+            
+            string textDecoded = string.Empty;
             string search = string.Empty;
-            foreach (var c in TextEncoded)
+            foreach (var c in textToDecode)
             {
                 search += c;
-                foreach (var key in HuffmanTable.Keys)
+                foreach (var key in matchingCharactersTable.Keys)
                 {
-                    if (HuffmanTable[key].ToString() == search)
+                    if (matchingCharactersTable[key].ToString() == search)
                     {
                         search = string.Empty;
-                        TextDecoded += key;
+                        textDecoded += key;
                         break;
                     }
                 }
             }
+            return textDecoded;
         }
 
     }

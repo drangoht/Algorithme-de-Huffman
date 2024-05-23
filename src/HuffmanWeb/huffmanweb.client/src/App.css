@@ -1,7 +1,9 @@
 ﻿.main {
   padding-bottom: 1.5rem;
 }
-
+body > header {
+  padding: 0 !important;
+}
 .notice .right-action {
   position: relative;
   top: -21px;
@@ -22,7 +24,7 @@
 .notice .right-action-modal {
   position: relative;
   top: -21px;
-  left: 536px;
+  left: -21px;
 }
 .notice .right-action-modal .copy-success {
   background-color: var(--accent-hover);
@@ -48,4 +50,40 @@
   box-shadow: 24px;
   padding: 4px;
   overflow-y: auto;
+}
+.tab-visible {
+  display: block;
+}
+.tab-hidden {
+  display: none;
+}
+.tab-buttons {
+    margin-bottom: 5px;
+    display: flex;
+}
+.button-tab {
+    margin: 4px 1px !important;
+    transition: all 0.3s !important;
+    text-align: center !important;
+    border: none !important;
+    
+    border-bottom: 0.5pt solid #1d1e22 !important;
+    display: inline-flex !important;
+    -webkit-box-pack: center !important;
+    padding: 5pt 10pt !important;
+    vertical-align: top !important;
+    justify-content: flex-start !important;
+    box-shadow: 1px 1px 2px 1px #231f20 !important;
+    text-transform: uppercase !important;
+    font-weight: 300 !important;
+    background: #26292c !important;
+    margin-bottom: 0.5px !important;
+    border-radius: 7px 7px 0 0 !important;
+    border-top: 1px solid #3b3d3f !important;
+    cursor: pointer !important;
+    color: var(--text-light) !important;
+}
+button:disabled {
+    color: var(--text) !important;
+    border-bottom: 2pt solid #ffffff !important;
 }

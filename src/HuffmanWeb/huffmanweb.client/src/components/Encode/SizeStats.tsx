@@ -1,4 +1,4 @@
-﻿import { SizeStatsProps } from "../Interfaces/SizeStatsProps";
+﻿import { SizeStatsProps } from "../../Interfaces/Encode/SizeStatsProps";
 
 const SizeStats = ({ originalSize, encodedSize }: SizeStatsProps) => {
   const gain: string = ((1 - encodedSize / originalSize) * 100).toFixed(2);
