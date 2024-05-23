@@ -5,16 +5,6 @@ namespace HuffmanWeb.Algorithm
 {
     public class Huffman
     {
-        string _textToEncode = string.Empty;
-        string _textToDecode = string.Empty;
-        public string TextEncoded { get; set; } = string.Empty;
-        public string TextDecoded { get; set; } = string.Empty;
-        public long InputBinarySize { get; set; } = 0;
-        public long InputHuffmanBinarySize { get; set; } = 0;
-        public WeightedGraph GeneratedGraph { get; set; } = new();
-
-        public Hashtable HuffmanTable { get; set; } = new();
-        public Huffman() { }
 
         // Extraction du nombre d'occurence des caractères dans l'entrée
         // En un tableau Car:NbOccurence
@@ -26,59 +16,68 @@ namespace HuffmanWeb.Algorithm
         // Conversion du graph en binaire pour stockage
         // stockage de la taille binaire du graph
 
-        private void MakeMatchingTable()
+        public static Hashtable MakeMatchingTable(string textToEncode)
         {
             // Extraction du nombre d'occurence des caractères dans l'entrée
-            List<HuffmanNode> nodes = _textToEncode.GroupBy((c) => c).Select((p) => new HuffmanNode(p.Key, p.Count())).ToList();
-            HuffmanNode root = new(Char.MinValue, 0);
+            List<HuffmanNode> nodes = GetNodesFromString(textToEncode);
+            var generatedGraph = GenerateHuffmanGraph(nodes);
+            return Algorithms.DFS(generatedGraph.Root,generatedGraph.Links);
 
-            while (nodes.Count > 1)
+        }
+        
+        public static List<HuffmanNode> GetNodesFromString(string textToEncode) =>
+            textToEncode.GroupBy((c) => c).Select((p) => new HuffmanNode(p.Key, p.Count())).ToList();
+
+        public static WeightedGraph GenerateHuffmanGraph(List<HuffmanNode> nodes)
+        {
+            WeightedGraph graph = new WeightedGraph();
+            HuffmanNode root = new(Char.MinValue, 0);
+            while (nodes.Count() > 1)
             {
                 // Récupération des 2 plus petits nombre d'occurence
                 List<HuffmanNode> twoSmallestNodes = nodes.OrderBy(n => n.NbOccurence).Select(n => n).Take(2).ToList();
                 root = new HuffmanNode(Char.MinValue, twoSmallestNodes.Sum(n => n.NbOccurence));
-                GeneratedGraph.CreateNode(root);
+                graph.CreateNode(root);
 
                 var weight = 0;
-                if (twoSmallestNodes[0].NbOccurence > 0)
+                if (twoSmallestNodes.Count() > 0)
                 {
-                    GeneratedGraph.CreateNode(twoSmallestNodes[0]);
-                    GeneratedGraph.CreateLink(root, twoSmallestNodes[0], weight);
+                    graph.CreateNode(twoSmallestNodes[0]);
+                    graph.CreateLink(root, twoSmallestNodes[0], weight);
                     nodes.Remove(twoSmallestNodes[0]);
                     weight = 1;
                 }
                 if (twoSmallestNodes.Count() > 1)
                 {
-                    GeneratedGraph.CreateNode(twoSmallestNodes[1]);
-                    GeneratedGraph.CreateLink(root, twoSmallestNodes[1], weight);
+                    graph.CreateNode(twoSmallestNodes[1]);
+                    graph.CreateLink(root, twoSmallestNodes[1], weight);
                     nodes.Remove(twoSmallestNodes[1]);
                 }
                 nodes.Add(root);
 
             }
-            GeneratedGraph.Root = root;
-            HuffmanTable = GeneratedGraph.DFS(root);
+            graph.Root = root;
+            return graph;
+        }
 
-        }
-        private void StoreOriginalSize()
+        public static int GetBinarySize(string textToEncode)
         {
-            InputBinarySize = Encoding.Unicode.GetByteCount(_textToEncode) * 8;
+            return Encoding.Unicode.GetByteCount(textToEncode) * 8;
         }
-        public void EncodeText(string textToEncode)
+
+        public static string EncodeText(string textToEncode)
         {
-            _textToEncode = textToEncode;
-            StoreOriginalSize();
-            MakeMatchingTable();
-            foreach (var c in _textToEncode)
+            string textEncoded = string.Empty;
+            var huffmanTable = MakeMatchingTable(textToEncode);
+            foreach (var c in textToEncode)
             {
-                if (HuffmanTable.ContainsKey(c))
+                if (huffmanTable.ContainsKey(c))
                 {
-                    TextEncoded += HuffmanTable[c];
+                    textEncoded += huffmanTable[c];
                 }
             }
-            InputHuffmanBinarySize = TextEncoded.Length;
+            return textEncoded;
         }
-
 
         public static string DecodeText(string textToDecode, Hashtable matchingCharactersTable)
         {

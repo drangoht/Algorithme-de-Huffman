@@ -51,23 +51,27 @@ app.UseHttpsRedirection();
 
 
 
-app.MapPost("/huffman/encode", (EncodeRequest textToEncode) =>
+app.MapPost("/huffman/encode", (EncodeRequest req) =>
 {
     try
     {
-        var huf = new Huffman();
-        huf.EncodeText(textToEncode.TextToEncode);
+        var nodes = Huffman.GetNodesFromString(req.TextToEncode);
+        var graph = Huffman.GenerateHuffmanGraph(nodes);
+        var textEncoded = Huffman.EncodeText(req.TextToEncode);
         EncodeResponse resp = new EncodeResponse()
         {
-            Graph = huf.GeneratedGraph,
-            EncodedBinaryString = huf.TextEncoded,
-            EncodedSize = huf.InputHuffmanBinarySize,
-            OriginalSize = huf.InputBinarySize
+            Graph = graph,
+            EncodedBinaryString = textEncoded,
+            EncodedSize = textEncoded.Length,
+            OriginalSize = Huffman.GetBinarySize(req.TextToEncode)
         };
-        foreach (var key in huf.HuffmanTable.Keys)
+
+        var huffmanTable= Huffman.MakeMatchingTable(req.TextToEncode);
+        foreach (var key in huffmanTable.Keys)
         {
-            resp.MatchingCharacters.Add(new Character() { Id = key.ToString(), Value = huf.HuffmanTable[key].ToString() });
+            resp.MatchingCharacters.Add(new Character() { Id = key.ToString(), Value = huffmanTable[key].ToString() });
         }
+
         return Results.Ok(resp);
     }
     catch (Exception e)
