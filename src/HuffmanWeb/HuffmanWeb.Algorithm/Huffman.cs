@@ -3,7 +3,7 @@ using System.Text;
 
 namespace HuffmanWeb.Algorithm
 {
-    public class Huffman
+    public static class Huffman
     {
 
         // Extraction du nombre d'occurence des caractères dans l'entrée
