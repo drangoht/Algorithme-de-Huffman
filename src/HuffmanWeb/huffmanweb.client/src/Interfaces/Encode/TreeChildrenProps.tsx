@@ -1,4 +1,4 @@
-import { weightedGraph, link } from "../dtos/TextToEncodeResponse";
+import { weightedGraph, link } from "../../dtos/TextToEncodeResponse";
 
 export interface TreeChildrenProps {
   children: link[];

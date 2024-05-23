@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { textToEncodeResponse } from "../../dtos/Encode/TextToEncodeResponse";
+import { EncodeResponse } from "../../dtos/Encode/EncodeResponse";
 import { WeightedGraph } from "../../dtos/WeightedGraph";
 import { Character } from "../../dtos/Character";
 import TextToEncodeForm from "./TextToEncodeForm";
@@ -9,7 +9,7 @@ import MatchingTable from "./MatchingTable";
 import Tree from "./Tree";
 
 const Encode = () => {
-  let responseEncoded: textToEncodeResponse;
+  let responseEncoded: EncodeResponse;
   const [binaryHuffman, setBinaryHuffman] = useState("");
   const [chars, setChars] = useState<Character[]>([]);
   const [encodedSize, setEncodedSize] = useState(0);

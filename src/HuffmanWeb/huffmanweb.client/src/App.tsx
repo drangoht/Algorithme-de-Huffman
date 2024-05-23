@@ -2,7 +2,7 @@
 import { useState } from "react";
 import "./App.css";
 import Encode from "./components/Encode/Encode";
-
+import Decode from "./components/Decode/Decode";
 function App() {
   const [tab, setTab] = useState("encode");
 
@@ -30,7 +30,7 @@ function App() {
         <Encode />
       </div>
       <div className={tab === "decode" ? "tab-visible" : "tab-hidden"}>
-        decode
+        <Decode />
       </div>
     </div>
   );

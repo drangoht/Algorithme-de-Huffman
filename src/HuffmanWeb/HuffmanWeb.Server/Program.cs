@@ -2,6 +2,7 @@ using HuffmanWeb.Algorithm;
 using HuffmanWeb.Server.DTOs;
 using Microsoft.AspNetCore.Http;
 using Serilog;
+using System.Collections;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -56,7 +57,7 @@ app.MapPost("/huffman/encode", (EncodeRequest textToEncode) =>
     {
         var huf = new Huffman();
         huf.EncodeText(textToEncode.TextToEncode);
-        TextToEncodeResponse resp = new TextToEncodeResponse()
+        EncodeResponse resp = new EncodeResponse()
         {
             Graph = huf.GeneratedGraph,
             EncodedBinaryString = huf.TextEncoded,
@@ -80,6 +81,33 @@ app.MapPost("/huffman/encode", (EncodeRequest textToEncode) =>
 .WithName("PostHuffmanEncode")
 .WithOpenApi();
 
+app.MapPost("/huffman/decode", (DecodeRequest req) =>
+{
+    try
+    {
+        Hashtable matchingCharactersTable = new Hashtable();
+        foreach (var item in req.MatchingCharacters)
+        {
+            matchingCharactersTable.Add(item.Id, item.Value);
+        }
+        
+        var textDecoded =Huffman.DecodeText(req.BinaryHuffman,matchingCharactersTable);
+        DecodeResponse resp = new DecodeResponse()
+        {
+            TextDecoded = textDecoded,
+        };
+        return Results.Ok(resp);
+    }
+    catch (Exception e)
+    {
+        Log.Error(e.Message);
+        return Results.BadRequest();
+    }
+
+
+})
+.WithName("PostHuffmanDecode")
+.WithOpenApi();
 
 app.MapFallbackToFile("/index.html");
 

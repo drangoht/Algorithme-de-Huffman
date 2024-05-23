@@ -1,4 +1,4 @@
-import { Character } from "../dtos/Character";
+import { Character } from "../../dtos/Character";
 
 export interface CharactersListProps {
   characters: Character[];

@@ -1,7 +1,7 @@
 import { Character } from "../Character";
 import { WeightedGraph } from "../WeightedGraph";
 
-export interface textToEncodeResponse {
+export interface EncodeResponse {
   graph: WeightedGraph;
   matchingCharacters: Character[];
   encodedSize: number;

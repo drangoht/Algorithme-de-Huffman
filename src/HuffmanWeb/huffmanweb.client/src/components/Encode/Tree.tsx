@@ -2,9 +2,7 @@ import {
   Button,
   Tooltip,
   Dialog,
-  DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
 } from "@mui/material";
 import { TreeProps } from "../../Interfaces/Encode/TreeProps";
