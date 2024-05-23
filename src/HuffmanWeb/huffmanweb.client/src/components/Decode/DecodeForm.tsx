@@ -6,7 +6,7 @@ const DecodeForm: React.FC<DecodeFormProps> = (props) => {
     "11101111110000001010011100110101",
   );
   const [matchingCharactersJson, setmatchingCharactersJson] = useState(
-    '[{"id":"a","value":"10"},{"id":"c","value":"0"},{"id":"b","value":"11"},{"id":"!","value":"101"},{"id":" ","value":"110"},{"id":"t","value":"1111"},{"id":"I","value":"1110"},{"id":"s","value":"100"},{"id":"o","value":"001"},{"id":"r","value":"010"},{"id":"k","value":"011"},{"id":"w","value":"000"}]',
+    '[{"id":"!","value":"101"},{"id":" ","value":"110"},{"id":"t","value":"1111"},{"id":"I","value":"1110"},{"id":"s","value":"100"},{"id":"o","value":"001"},{"id":"r","value":"010"},{"id":"W","value":"000"},{"id":"k","value":"011"}]',
   );
 
   const handleBinaryHuffmanChange = (

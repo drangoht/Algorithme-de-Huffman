@@ -91,10 +91,10 @@ app.MapPost("/huffman/decode", (DecodeRequest req) =>
             matchingCharactersTable.Add(item.Id, item.Value);
         }
         
-        var textDecoded =Huffman.DecodeText(req.BinaryHuffman,matchingCharactersTable);
+        var decodedText =Huffman.DecodeText(req.BinaryHuffman,matchingCharactersTable);
         DecodeResponse resp = new DecodeResponse()
         {
-            TextDecoded = textDecoded,
+            DecodedText = decodedText,
         };
         return Results.Ok(resp);
     }

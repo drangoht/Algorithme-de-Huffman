@@ -56,13 +56,13 @@ export default defineConfig({
   server: {
     proxy: {
       "^/huffman/encode": {
-        targetEncode,
+        target: targetEncode,
         secure: false,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/huffman\/encode/, ""),
       },
       "^/huffman/decode": {
-        targetDecode,
+        target: targetDecode,
         secure: false,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/huffman\/decode/, ""),

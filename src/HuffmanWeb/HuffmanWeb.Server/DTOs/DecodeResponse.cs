@@ -4,7 +4,7 @@ namespace HuffmanWeb.Server.DTOs
 {
     public class DecodeResponse
     {
-        public string TextDecoded { get; set; } = string.Empty;
+        public string DecodedText { get; set; } = string.Empty;
 
     }
 }

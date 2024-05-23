@@ -2,10 +2,11 @@ import { useState } from "react";
 import { DecodeResponse } from "../../dtos/Decode/DecodeResponse";
 import { Character } from "../../dtos/Character";
 import DecodeForm from "./DecodeForm";
+import DecodedText from "./DecodedText";
 
 const Decode = () => {
   let responseEncoded: DecodeResponse;
-  const [decodedString, setDecodedString] = useState("");
+  const [decodedText, setDecodedText] = useState("");
 
   async function onDecode(
     binaryHuffman: string,
@@ -30,7 +31,7 @@ const Decode = () => {
           throw new Error(response.statusText);
         }
         responseEncoded = await response.json();
-        setDecodedString(responseEncoded.decodedText);
+          setDecodedText(responseEncoded.decodedText);
       })
       .catch((error: Error) => {
         console.log(error);
@@ -41,7 +42,7 @@ const Decode = () => {
   return (
     <>
       <DecodeForm onDecode={onDecode} />
-      {decodedString}
+      <DecodedText decodedText={decodedText} />
     </>
   );
 };
