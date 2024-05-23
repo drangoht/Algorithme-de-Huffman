@@ -12,7 +12,7 @@ function App() {
         <div>
           <button
             disabled={tab === "encode" ? true : false}
-                      onClick={() => setTab("encode")}
+            onClick={() => setTab("encode")}
             className="button-tab"
           >
             Encodage de texte
@@ -21,13 +21,13 @@ function App() {
         <div>
           <button
             disabled={tab === "decode" ? true : false}
-                      onClick={() => setTab("decode")}
-        className="button-tab"
+            onClick={() => setTab("decode")}
+            className="button-tab"
           >
             Decodage du binaire
           </button>
         </div>
-          </div>
+      </div>
       <div className={tab === "encode" ? "tab-visible" : "tab-hidden"}>
         <Encode />
       </div>

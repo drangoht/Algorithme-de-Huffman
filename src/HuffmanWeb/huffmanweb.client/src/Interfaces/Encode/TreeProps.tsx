@@ -1,5 +1,5 @@
-import { weightedGraph } from "../../dtos/TextToEncodeResponse";
+import { WeightedGraph } from "../../dtos/WeightedGraph";
 
 export interface TreeProps {
-  graph: weightedGraph;
+  graph: WeightedGraph;
 }

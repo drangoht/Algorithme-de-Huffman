@@ -1,20 +1,17 @@
 import { useState } from "react";
 import { DecodeResponse } from "../../dtos/Decode/DecodeResponse";
-import { Character } from "../../dtos/Character";
 import DecodeForm from "./DecodeForm";
 import DecodedText from "./DecodedText";
+import { Character } from "../../dtos/Character"
 
 const Decode = () => {
   let responseEncoded: DecodeResponse;
   const [decodedText, setDecodedText] = useState("");
 
-  async function onDecode(
-    binaryHuffman: string,
-    matchingCharacters: Character[],
-  ) {
+  async function onDecode(binaryHuffman: string, matchingCharacters: Character[]) {
     const form = new FormData();
     form.append("binaryHuffman", binaryHuffman);
-    form.append("matchingCharacters", matchingCharacters);
+    form.append("matchingCharacters", JSON.stringify(matchingCharacters));
     await fetch("/huffman/decode", {
       method: "POST",
       headers: {
@@ -31,7 +28,7 @@ const Decode = () => {
           throw new Error(response.statusText);
         }
         responseEncoded = await response.json();
-          setDecodedText(responseEncoded.decodedText);
+        setDecodedText(responseEncoded.decodedText);
       })
       .catch((error: Error) => {
         console.log(error);
