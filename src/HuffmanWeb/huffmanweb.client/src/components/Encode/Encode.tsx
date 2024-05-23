@@ -32,11 +32,12 @@ const Encode = () => {
           throw new Error(response.statusText);
         }
         responseEncoded = await response.json();
+
         setEncodedSize(responseEncoded.encodedSize);
         setOriginalSize(responseEncoded.originalSize);
         setGraph(responseEncoded.graph);
         setBinaryHuffman(responseEncoded.encodedBinaryString);
-
+        chars.splice(0);
         responseEncoded.matchingCharacters.forEach(function (chr) {
           chars.push({ id: chr.id, value: chr.value });
         });
