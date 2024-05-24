@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Text;
-
+using HuffmanWeb.Algorithm.Extensions;
 namespace HuffmanWeb.Algorithm
 {
     public static class Huffman
@@ -32,7 +32,7 @@ namespace HuffmanWeb.Algorithm
         {
             WeightedGraph graph = new WeightedGraph();
             HuffmanNode root = new(Char.MinValue, 0);
-            while (nodes.Count() > 1)
+            while (nodes.Count() > 0)
             {
                 // Récupération des 2 plus petits nombre d'occurence
                 List<HuffmanNode> twoSmallestNodes = nodes.OrderBy(n => n.NbOccurence).Select(n => n).Take(2).ToList();
@@ -53,7 +53,8 @@ namespace HuffmanWeb.Algorithm
                     graph.CreateLink(root, twoSmallestNodes[1], weight);
                     nodes.Remove(twoSmallestNodes[1]);
                 }
-                nodes.Add(root);
+                if(nodes.Count() > 0)
+                    nodes.Add(root);
 
             }
             graph.Root = root;
@@ -87,19 +88,16 @@ namespace HuffmanWeb.Algorithm
             foreach (var c in textToDecode)
             {
                 search += c;
-                foreach (var key in matchingCharactersTable.Keys)
+                var key = matchingCharactersTable.GetKeyByValue(search);
+                if (key != null)
                 {
-                    if (matchingCharactersTable[key]!.ToString() == search)
-                    {
-                        search = string.Empty;
-                        textDecoded += key;
-                        break;
-                    }
+                    search = string.Empty;
+                    textDecoded += key;
                 }
             }
             return textDecoded;
         }
-
+        
     }
 
 }

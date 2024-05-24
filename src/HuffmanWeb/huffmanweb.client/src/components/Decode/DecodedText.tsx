@@ -1,6 +1,6 @@
 import { DecodedTextProps } from "../../Interfaces/Decode/DecodedTextProps";
 
-const DecodedText = ({ decodedText }: DecodedTextProps) => {
+const DecodedText = ({ decodedText, textNotFound }: DecodedTextProps) => {
   return decodedText != "" ? (
     <details>
       <summary>Texte décodé</summary>
@@ -10,6 +10,10 @@ const DecodedText = ({ decodedText }: DecodedTextProps) => {
         </div>
       </div>
     </details>
+  ) : textNotFound ? (
+    <div className="error">
+      Aucun texte trouvé, merci de vérifier la table de correspondance
+    </div>
   ) : (
     <></>
   );

@@ -18,12 +18,18 @@ const TreeChildren = ({ children, graph }: TreeChildrenProps) => {
     );
   }
 
-  const leftChildren = graph.links.filter(
-    (link: Link) => link.parent.identifier == leftChild!.identifier,
-  );
-  const rightChildren = graph.links.filter(
-    (link: Link) => link.parent.identifier == rightChild!.identifier,
-  );
+  const leftChildren =
+    leftChild != undefined
+      ? graph.links.filter(
+          (link: Link) => link.parent.identifier == leftChild!.identifier,
+        )
+      : [];
+  const rightChildren =
+    rightChild != undefined
+      ? graph.links.filter(
+          (link: Link) => link.parent.identifier == rightChild!.identifier,
+        )
+      : [];
   return (
     <>
       <ul>

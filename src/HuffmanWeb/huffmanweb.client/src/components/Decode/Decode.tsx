@@ -7,7 +7,7 @@ import { Character } from "../../dtos/Character";
 const Decode = () => {
   let responseEncoded: DecodeResponse;
   const [decodedText, setDecodedText] = useState("");
-
+  const [textNotFound, setTextNotFound] = useState(false);
   async function onDecode(
     binaryHuffman: string,
     matchingCharacters: Character[],
@@ -32,6 +32,9 @@ const Decode = () => {
         }
         responseEncoded = await response.json();
         setDecodedText(responseEncoded.decodedText);
+        responseEncoded.decodedText == ""
+          ? setTextNotFound(true)
+          : setTextNotFound(false);
       })
       .catch((error: Error) => {
         console.log(error);
@@ -42,7 +45,7 @@ const Decode = () => {
   return (
     <>
       <DecodeForm onDecode={onDecode} />
-      <DecodedText decodedText={decodedText} />
+      <DecodedText decodedText={decodedText} textNotFound={textNotFound} />
     </>
   );
 };
