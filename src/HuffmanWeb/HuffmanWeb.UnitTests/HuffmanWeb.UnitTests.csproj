@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HuffmanWeb.Algorithm\HuffmanWeb.Algorithm.csproj" />
+    <ProjectReference Include="..\HuffmanWeb.Common\HuffmanWeb.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

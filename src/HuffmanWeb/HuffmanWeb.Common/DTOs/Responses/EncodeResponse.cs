@@ -1,6 +1,5 @@
-﻿using HuffmanWeb.Algorithm;
-
-namespace HuffmanWeb.Server.DTOs
+﻿
+namespace HuffmanWeb.Common.DTOs.Responses
 {
     public class EncodeResponse
     {

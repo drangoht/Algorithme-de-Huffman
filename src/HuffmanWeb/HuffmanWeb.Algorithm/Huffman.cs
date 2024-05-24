@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Text;
 using HuffmanWeb.Algorithm.Extensions;
+using HuffmanWeb.Common.DTOs;
 namespace HuffmanWeb.Algorithm
 {
     public static class Huffman

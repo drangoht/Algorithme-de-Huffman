@@ -1,4 +1,4 @@
-﻿namespace HuffmanWeb.Server.DTOs
+﻿namespace HuffmanWeb.Common.DTOs
 {
     public class Character
     {

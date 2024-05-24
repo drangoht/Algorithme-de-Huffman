@@ -1,5 +1,6 @@
 using FluentAssertions;
 using HuffmanWeb.Algorithm;
+using HuffmanWeb.Common.DTOs;
 namespace HuffmanWeb.UnitTests
 {
     public class HuffmanAlgorithmsTests

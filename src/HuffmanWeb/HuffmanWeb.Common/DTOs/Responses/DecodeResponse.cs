@@ -1,4 +1,4 @@
-﻿namespace HuffmanWeb.Server.DTOs
+﻿namespace HuffmanWeb.Common.DTOs.Responses
 {
     public class DecodeResponse
     {

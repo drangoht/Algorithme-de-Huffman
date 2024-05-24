@@ -24,6 +24,7 @@
     <ProjectReference Include="..\huffmanweb.client\huffmanweb.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\HuffmanWeb.Common\HuffmanWeb.Common.csproj" />
   </ItemGroup>
 
 </Project>

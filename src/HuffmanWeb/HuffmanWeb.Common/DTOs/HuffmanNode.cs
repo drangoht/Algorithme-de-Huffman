@@ -1,4 +1,4 @@
-﻿namespace HuffmanWeb.Algorithm
+﻿namespace HuffmanWeb.Common.DTOs
 {
     public class HuffmanNode : IEquatable<HuffmanNode>
     {

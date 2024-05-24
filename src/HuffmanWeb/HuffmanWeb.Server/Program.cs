@@ -1,5 +1,7 @@
 using HuffmanWeb.Algorithm;
-using HuffmanWeb.Server.DTOs;
+using HuffmanWeb.Common.DTOs;
+using HuffmanWeb.Common.DTOs.Requests;
+using HuffmanWeb.Common.DTOs.Responses;
 using Serilog;
 using System.Collections;
 
