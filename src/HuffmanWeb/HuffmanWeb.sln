@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuffmanWeb.Server", "HuffmanWeb.Server\HuffmanWeb.Server.csproj", "{D1DBCB64-47E9-4F9E-A365-B340C1303575}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HuffmanWeb.Server", "HuffmanWeb.Server\HuffmanWeb.Server.csproj", "{D1DBCB64-47E9-4F9E-A365-B340C1303575}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "huffmanweb.client", "huffmanweb.client\huffmanweb.client.esproj", "{44E79023-2DEF-4617-A529-E8257B5864A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuffmanWeb.Algorithm", "HuffmanWeb.Algorithm\HuffmanWeb.Algorithm.csproj", "{1AB0B6E5-6EC8-41C7-86A3-DE76ACAA779A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HuffmanWeb.Algorithm", "HuffmanWeb.Algorithm\HuffmanWeb.Algorithm.csproj", "{1AB0B6E5-6EC8-41C7-86A3-DE76ACAA779A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuffmanWeb.UnitTests", "HuffmanWeb.UnitTests\HuffmanWeb.UnitTests.csproj", "{1248F5B7-4CF9-4125-8856-2745615293B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{1AB0B6E5-6EC8-41C7-86A3-DE76ACAA779A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AB0B6E5-6EC8-41C7-86A3-DE76ACAA779A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AB0B6E5-6EC8-41C7-86A3-DE76ACAA779A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1248F5B7-4CF9-4125-8856-2745615293B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1248F5B7-4CF9-4125-8856-2745615293B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1248F5B7-4CF9-4125-8856-2745615293B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1248F5B7-4CF9-4125-8856-2745615293B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
