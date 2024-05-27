@@ -12,6 +12,6 @@ namespace HuffmanWeb.Mobile.Client.ApiInterfaces
     public interface IDecodeApi
     {
         [Post("/huffman/decode")]
-        DecodeResponse Decode(DecodeRequest request);
+        DecodeResponse Decode([Body] DecodeRequest request);
     }
 }

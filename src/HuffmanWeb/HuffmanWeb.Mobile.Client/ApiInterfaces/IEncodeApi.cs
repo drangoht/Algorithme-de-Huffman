@@ -13,6 +13,6 @@ namespace HuffmanWeb.Mobile.Client.ApiInterfaces
     {
 
         [Post("/huffman/encode")]
-        Task<EncodeResponse> Encode(EncodeRequest req);
+        Task<EncodeResponse> Encode([Body] EncodeRequest req);
     }
 }

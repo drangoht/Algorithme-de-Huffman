@@ -28,14 +28,14 @@ namespace HuffmanWeb.Mobile.Client.Commands
                 CallEncodeApiCommand = new Command(
                     execute: (async) =>
                     {
-                        var huffmanApi = RestService.For<IEncodeApi>("https://huffmanweb.thognard.net");
+                        var huffmanApi = RestService.For<IEncodeApi>("http://10.0.2.2:5041");
                         var req = new EncodeRequest();
                         req.TextToEncode = textToEncode;
                         Task.Run(async () =>
                         {
-                            var response = await huffmanApi.Encode(req);
+                            Response =await huffmanApi.Encode(req);
                         });
-                        Response = response;
+
                     },
                     canExecute: (async) => response != null
                 );
@@ -49,11 +49,8 @@ namespace HuffmanWeb.Mobile.Client.Commands
                 }
                 set
                 {
-                    if (response != null)
-                    {
-                        response = value;
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Response"));
-                    }
+                    response = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Response"));
                 }
             }
         public string TextToEncode
@@ -64,11 +61,8 @@ namespace HuffmanWeb.Mobile.Client.Commands
             }
             set
             {
-                if (!string.IsNullOrWhiteSpace(textToEncode))
-                {
-                    textToEncode = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TexttoEncode"));
-                }
+                textToEncode = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TextToEncode"));
             }
         }
     }
