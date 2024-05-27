@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:HuffmanWeb.Mobile.Client"
-             xmlns:pages="clr-namespace:HuffmanWeb.Mobile.Client.Pages"
+             xmlns:encode="clr-namespace:HuffmanWeb.Mobile.Client.Pages.Encode"
+             xmlns:decode="clr-namespace:HuffmanWeb.Mobile.Client.Pages.Decode"
              x:Class="HuffmanWeb.Mobile.Client.FlyoutMenuPage"
              Title="FlyoutMenuPage">
     <CollectionView x:Name="collectionView"
@@ -15,10 +16,10 @@
                                       TargetType="{x:Type local:MainPage}" />
                 <local:FlyoutPageItem Title="Encoder"
                                       IconSource="contacts.png"
-                                      TargetType="{x:Type pages:EncodePage}" />
+                                      TargetType="{x:Type encode:EncodeTabbedPage}" />
                 <local:FlyoutPageItem Title="Decoder"
                                       IconSource="todo.png"
-                                      TargetType="{x:Type pages:DecodePage}" />
+                                      TargetType="{x:Type decode:DecodeTabbedPage}" />
             </x:Array>
         </CollectionView.ItemsSource>
         <CollectionView.ItemTemplate>
