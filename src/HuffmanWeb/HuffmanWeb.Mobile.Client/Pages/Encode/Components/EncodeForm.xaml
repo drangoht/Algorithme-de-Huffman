@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:commands="clr-namespace:HuffmanWeb.Mobile.Client.Commands"
-             x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.EncodeForm"
-             
-             Title="EncodeForm">
-    <ContentPage.BindingContext>
-        <commands:EncodeCommandViewModel />
-    </ContentPage.BindingContext>
+             xmlns:components="clr-namespace:HuffmanWeb.Mobile.Client.Pages.Encode.Components"
+             x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.Components.EncodeForm"
+             Title="Formulaire"
+             Loaded="OnPageLoaded">
     <VerticalStackLayout VerticalOptions="Fill">
         <Label 
             Text="Saisissez le texte à encoder"
@@ -23,7 +20,11 @@
             AutoSize="TextChanges" />
             </ScrollView>
         </Border>
-        <Button Margin="0,10" Padding="10,0" Text="Encoder" HorizontalOptions="Center" Command="{Binding CallEncodeApiCommand}" />
-        <Label Margin="10,0" x:Name="encodeBinayResponse" Text="{Binding Response.EncodedBinaryString}" />
+        <Button x:Name="EncodeBtn" Margin="0,10" Padding="10,0" Text="Encoder" HorizontalOptions="Center" Clicked="EncodeBtn_Clicked"/>
+        <components:HuffmanBinaryString HuffmanString="{Binding Response.EncodedBinaryString}" />
+        <components:EncodingStatsDisplay 
+            OriginalSize="{Binding Response.OriginalSize}" 
+            EncodedSize="{Binding Response.EncodedSize}" 
+            CompressionPercent="{Binding CompressionPercent}"/>
     </VerticalStackLayout>
 </ContentPage>

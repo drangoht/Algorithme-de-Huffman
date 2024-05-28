@@ -2,8 +2,9 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
             android:TabbedPage.ToolbarPlacement="Bottom"
-            xmlns:local="clr-namespace:HuffmanWeb.Mobile.Client.Pages.Encode"
+            xmlns:local="clr-namespace:HuffmanWeb.Mobile.Client.Pages.Encode.Components"
             x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.EncodeTabbedPage">
+
     <local:EncodeForm />
     <local:EncodeMatchingTable />
     <local:EncodeTree />

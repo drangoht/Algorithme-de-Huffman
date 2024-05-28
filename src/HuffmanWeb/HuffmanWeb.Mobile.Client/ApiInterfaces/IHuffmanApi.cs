@@ -1,18 +1,16 @@
 ﻿using HuffmanWeb.Common.DTOs.Requests;
 using HuffmanWeb.Common.DTOs.Responses;
 using Refit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HuffmanWeb.Mobile.Client.ApiInterfaces
 {
-    public interface IEncodeApi
+    public interface IHuffmanApi
     {
 
-        [Post("/huffman/encode")]
+        [Post("/encode")]
         Task<EncodeResponse> Encode([Body] EncodeRequest req);
+
+        [Post("/decode")]
+        Task<DecodeResponse> Decode([Body] DecodeRequest req);
     }
 }

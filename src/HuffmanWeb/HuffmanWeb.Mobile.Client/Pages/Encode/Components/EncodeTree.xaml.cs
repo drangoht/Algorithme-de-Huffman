@@ -1,4 +1,4 @@
-namespace HuffmanWeb.Mobile.Client.Pages.Encode;
+namespace HuffmanWeb.Mobile.Client.Pages.Encode.Components;
 
 public partial class EncodeTree : ContentPage
 {
