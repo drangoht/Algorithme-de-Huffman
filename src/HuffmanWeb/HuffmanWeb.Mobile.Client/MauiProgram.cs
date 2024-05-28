@@ -1,7 +1,5 @@
-﻿using HuffmanWeb.Mobile.Client.ApiInterfaces;
-using HuffmanWeb.Mobile.Client.ViewModels;
+﻿using HuffmanWeb.Mobile.Client.ViewModels;
 using Microsoft.Extensions.Logging;
-using Refit;
 
 namespace HuffmanWeb.Mobile.Client
 {
@@ -21,9 +19,7 @@ namespace HuffmanWeb.Mobile.Client
             builder.Logging.AddDebug();
 #endif
             builder.Services.AddSingleton<EncodeViewModel>();
-            //builder.Services
-            //    .AddRefitClient<IHuffmanApi>()
-            //    .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:5041/huffman"));
+
             return builder.Build();
         }
     }

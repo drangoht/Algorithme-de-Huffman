@@ -6,6 +6,7 @@
              Title="Formulaire"
              Loaded="OnPageLoaded">
     <VerticalStackLayout VerticalOptions="Fill">
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" BackgroundColor="Black"/>
         <Label 
             Text="Saisissez le texte à encoder"
             VerticalOptions="Center" 

@@ -5,7 +5,7 @@ public partial class EncodeForm : ContentPage
 {
     public EncodeForm()
     {
-		InitializeComponent();
+        InitializeComponent();
         BindingContext = IPlatformApplication.Current.Services.GetService<EncodeViewModel>();
         textToEncode.Focus();
     }
