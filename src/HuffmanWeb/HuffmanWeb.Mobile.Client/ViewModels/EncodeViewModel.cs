@@ -12,24 +12,25 @@ namespace HuffmanWeb.Mobile.Client.ViewModels
         EncodeResponse response = new();
         string textToEncode = string.Empty;
         decimal compressionPercent = 0;
-        bool isBusy = false;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public ICommand CallEncodeApiCommand { get; private set; }
+        private bool isWorking;
 
         public EncodeViewModel()
         {
             CallEncodeApiCommand = new Command(
-                execute: (async) =>
+                execute: async (async) =>
                 {
-                    IsBusy = true;
+                    IsWorking = true;
+                    Response = new();
                     var huffmanApi = RestService.For<IHuffmanApi>("https://huffmanweb.thognard.net/huffman"); // Ugly      
                     var req = new EncodeRequest();
                     req.TextToEncode = textToEncode;
-                    Response = huffmanApi.Encode(req).Result;
+                    Response =await huffmanApi.Encode(req);
                     CompressionPercent = response.OriginalSize > 0 ? ((1 - (decimal)((decimal)response.EncodedSize / (decimal)response.OriginalSize)) * (decimal)100) : 0;
-                    IsBusy = false;
+                    IsWorking = false;
                 },
                 canExecute: (async) => response != null
             );
@@ -71,16 +72,13 @@ namespace HuffmanWeb.Mobile.Client.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CompressionPercent)));
             }
         }
-        public bool IsBusy
+        public bool IsWorking
         {
-            get
-            {
-                return isBusy;
-            }
+            get => isWorking;
             set
             {
-                isBusy = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsBusy)));
+                isWorking = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsWorking)));
             }
         }
     }
