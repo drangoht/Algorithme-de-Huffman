@@ -17,7 +17,7 @@
 
                     <DataTemplate>
                         <Grid 
-                        Margin="5,0"
+                          Margin="5,0"
                           BackgroundColor="Black"
                           RowSpacing="1"
                           ColumnSpacing="1"
