@@ -134,9 +134,6 @@
 	  <MauiXaml Update="Pages\Encode\Components\HuffmanBinaryString.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\Encode\Components\MatchingTable.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Pages\Encode\Components\EncodeForm.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

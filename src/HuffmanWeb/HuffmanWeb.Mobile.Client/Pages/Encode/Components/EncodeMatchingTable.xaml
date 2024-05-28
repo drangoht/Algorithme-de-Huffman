@@ -4,23 +4,41 @@
              x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.Components.EncodeMatchingTable"
              Title="Table">
     <VerticalStackLayout>
-        <CollectionView ItemsSource="{Binding Response.MatchingCharacters}" >
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Text="{Binding Id}" />
-                        <Label Grid.Column="1" Text="{Binding Value}"  FontAttributes="Bold" />
+        <Label Text="Table de correspondance" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" FontSize="Large"/>
+
+            <CollectionView ItemsSource="{Binding Response.MatchingCharacters}" >
+                <CollectionView.Header>
+                    <Grid ColumnDefinitions="*,*,*,*">
+                        <Label Text="Caractère" Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                        <Label Text="Code" Grid.Column="2" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
                     </Grid>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+                        <Grid 
+                        Margin="5,0"
+                          BackgroundColor="Black"
+                          RowSpacing="1"
+                          ColumnSpacing="1"
+                          HorizontalOptions="FillAndExpand"
+                          >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label BackgroundColor="White" HorizontalOptions="FillAndExpand"  Grid.Column="0"  />
+                            <Label BackgroundColor="White" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"  Grid.Column="1" Text="{Binding Id}" />
+                            <Label BackgroundColor="White" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" Grid.Column="2" Text="{Binding Value}" />
+                            <Label BackgroundColor="White" HorizontalOptions="FillAndExpand"  Grid.Column="3" />
+                        </Grid>
+                    
                 </DataTemplate>
+                
             </CollectionView.ItemTemplate>
         </CollectionView>
+
     </VerticalStackLayout>
 </ContentPage>

@@ -28,7 +28,7 @@ namespace HuffmanWeb.Mobile.Client.ViewModels
                     var huffmanApi = RestService.For<IHuffmanApi>("https://huffmanweb.thognard.net/huffman"); // Ugly      
                     var req = new EncodeRequest();
                     req.TextToEncode = textToEncode;
-                    Response =await huffmanApi.Encode(req);
+                    Response = await huffmanApi.Encode(req);
                     CompressionPercent = response.OriginalSize > 0 ? ((1 - (decimal)((decimal)response.EncodedSize / (decimal)response.OriginalSize)) * (decimal)100) : 0;
                     IsWorking = false;
                 },
