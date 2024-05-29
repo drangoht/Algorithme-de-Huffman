@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.Components.EncodeTree"
+             x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.EncodeTree"
+             xmlns:drawables="clr-namespace:HuffmanWeb.Mobile.Client.Components.BinaryTree"
              Title="Arbre">
+
     <VerticalStackLayout>
         <Label 
             Text="Tree"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <drawables:BinaryTreeDrawable HeightRequest="300"
+                      WidthRequest="400"
+                                      Graph="{Binding Response.Graph}"
+                                      />
     </VerticalStackLayout>
 </ContentPage>

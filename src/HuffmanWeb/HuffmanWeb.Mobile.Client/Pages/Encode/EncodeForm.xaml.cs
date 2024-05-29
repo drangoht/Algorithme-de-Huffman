@@ -1,12 +1,12 @@
 using HuffmanWeb.Mobile.Client.ViewModels;
-namespace HuffmanWeb.Mobile.Client.Pages.Encode.Components;
+namespace HuffmanWeb.Mobile.Client.Pages.Encode;
 
 public partial class EncodeForm : ContentPage
 {
     public EncodeForm()
     {
         InitializeComponent();
-        BindingContext = IPlatformApplication.Current.Services.GetService<EncodeViewModel>();
+        BindingContext = IPlatformApplication.Current?.Services.GetService<EncodeViewModel>();
         textToEncode.Focus();
     }
     private void OnPageLoaded(object sender, EventArgs e)

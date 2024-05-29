@@ -45,8 +45,4 @@ public partial class EncodingStatsDisplay : ContentView
         get => (decimal)GetValue(CompressionPercentProperty);
         set => SetValue(CompressionPercentProperty, value);
     }
-    public bool IsVisible
-    {
-        get => OriginalSize > 0;
-    }
 }

@@ -134,16 +134,16 @@
 	  <MauiXaml Update="Pages\Encode\Components\HuffmanBinaryString.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\Encode\Components\EncodeForm.xaml">
+	  <MauiXaml Update="Pages\Encode\EncodeForm.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\Encode\Components\EncodeMatchingTable.xaml">
+	  <MauiXaml Update="Pages\Encode\EncodeMatchingTable.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Encode\EncodeTabbedPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\Encode\Components\EncodeTree.xaml">
+	  <MauiXaml Update="Pages\Encode\EncodeTree.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
