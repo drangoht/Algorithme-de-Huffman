@@ -10,8 +10,8 @@
             Text="Tree"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <drawables:BinaryTreeDrawable HeightRequest="300"
-                      WidthRequest="400"
+        <drawables:BinaryTreeDrawable HeightRequest="2000"
+                      WidthRequest="2000"
                                       Graph="{Binding Response.Graph}"
                                       />
     </VerticalStackLayout>

@@ -25,6 +25,7 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
         public void Draw(ICanvas canvas, RectF dirtyRect)
         {
             if(Graph.AllNodes.Count == 0) return;
+            int nbLeafs = Graph.Links.Where(l => l.Child == null).Count();
 
             var parentGraphicNode = DrawRootNode(canvas, dirtyRect, $"{Graph.Root.Character}:{Graph.Root.NbOccurence}");
             var linksFromRoot = Graph.Links.Where(l => l.Parent.Identifier == Graph.Root.Identifier).ToList();
@@ -38,14 +39,16 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
             {
                 var leftNode = Graph.AllNodes.FirstOrDefault(n => n.Identifier == links[0].Child.Identifier);
                 var leftLabel = $"{leftNode.Character}:{leftNode.NbOccurence}";
-                var leftGraphicNode = DrawLeftChildNode(canvas, dirtyRect, leftLabel, links[0].Weight.ToString(), parentGraphicNode);
+                int nbLeftChildren = Graph.Links.Where(l => l.Parent.Identifier == links[0].Child.Identifier).Count();
+                var leftGraphicNode = DrawLeftChildNode(canvas, dirtyRect, leftLabel, links[0].Weight.ToString(), nbLeftChildren, parentGraphicNode);
                 var leftLinks = Graph.Links.Where(l => l.Parent.Identifier == leftNode.Identifier).ToList();
                 DrawChildrenNode(canvas, dirtyRect, leftLinks, leftGraphicNode);
 
 
                 var rightNode = Graph.AllNodes.FirstOrDefault(n => n.Identifier == links[1].Child.Identifier);
                 var rightLabel = $"{rightNode.Character}:{rightNode.NbOccurence}";
-                var rightGraphicNode = DrawRightChildNode(canvas, dirtyRect, rightLabel, links[1].Weight.ToString(), parentGraphicNode);
+                int nbRightChildren = Graph.Links.Where(l => l.Parent.Identifier == links[1].Child.Identifier).Count();
+                var rightGraphicNode = DrawRightChildNode(canvas, dirtyRect, rightLabel, links[1].Weight.ToString(), nbRightChildren, parentGraphicNode);
                 var rightLinks = Graph.Links.Where(l => l.Parent.Identifier == rightNode.Identifier).ToList();
                 DrawChildrenNode(canvas, dirtyRect, rightLinks, rightGraphicNode);
 
@@ -54,29 +57,30 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
             {
                 var leftNode = Graph.AllNodes.FirstOrDefault(n => n.Identifier == links[0].Child.Identifier);
                 var leftLabel = $"{leftNode.Character}:{leftNode.NbOccurence}";
-                var leftGraphicNode = DrawLeftChildNode(canvas, dirtyRect, leftLabel, links[0].Weight.ToString(), parentGraphicNode);
+                int nbLeftChildren = Graph.Links.Where(l => l.Parent.Identifier == links[0].Child.Identifier).Count();
+                var leftGraphicNode = DrawLeftChildNode(canvas, dirtyRect, leftLabel, links[0].Weight.ToString(),nbLeftChildren, parentGraphicNode);
                 var leftLinks = Graph.Links.Where(l => l.Parent.Identifier == leftNode.Identifier).ToList();
                 DrawChildrenNode(canvas, dirtyRect, leftLinks, leftGraphicNode);
             }
         }
         private GraphicNode DrawRootNode(ICanvas canvas, RectF dirtyRect, string label)
         {
-            GraphicNode node = new((int)(dirtyRect.Width / 2 - dirtyRect.Width / 8), (int)(dirtyRect.Height / 8), (int)(dirtyRect.Width / 4), (int)(dirtyRect.Height / 4));
+            GraphicNode node = new((int)(dirtyRect.Width / 2)-25, 30,50, 20);
             DrawNode(canvas, node, label);
             return node;
         }
-        private GraphicNode DrawLeftChildNode(ICanvas canvas, RectF dirtyRect, string label, string weight, GraphicNode parentGraphicNode)
+        private GraphicNode DrawLeftChildNode(ICanvas canvas, RectF dirtyRect, string label, string weight, int nbChildren,GraphicNode parentGraphicNode)
         {
-            GraphicNode node = new((int)(parentGraphicNode.X - parentGraphicNode.Width), (int)(parentGraphicNode.Y + parentGraphicNode.Height), parentGraphicNode.Width, parentGraphicNode.Height);
+            GraphicNode node = new((int)(parentGraphicNode.X - (parentGraphicNode.Width*nbChildren)), (int)(parentGraphicNode.Y + parentGraphicNode.Height), parentGraphicNode.Width, parentGraphicNode.Height);
             DrawNode(canvas, node, label);
-            DrawLeftLink(canvas, parentGraphicNode, node, weight);
+            DrawLeftLink(canvas, parentGraphicNode, nbChildren,node, weight);
             return node;
         }
-        private GraphicNode DrawRightChildNode(ICanvas canvas, RectF dirtyRect, string label, string weight, GraphicNode parentGraphicNode)
+        private GraphicNode DrawRightChildNode(ICanvas canvas, RectF dirtyRect, string label, string weight, int nbChildren, GraphicNode parentGraphicNode)
         {
-            GraphicNode node = new((int)(parentGraphicNode.X + parentGraphicNode.Width), (int)(parentGraphicNode.Y + parentGraphicNode.Height), parentGraphicNode.Width, parentGraphicNode.Height);
+            GraphicNode node = new((int)(parentGraphicNode.X + (parentGraphicNode.Width * nbChildren)), (int)(parentGraphicNode.Y + parentGraphicNode.Height), parentGraphicNode.Width, parentGraphicNode.Height);
             DrawNode(canvas, node, label);
-            DrawRightLink(canvas, parentGraphicNode, node, weight);
+            DrawRightLink(canvas, parentGraphicNode, nbChildren, node, weight);
             return node;
         }
         private void DrawNode(ICanvas canvas, GraphicNode node, string label)
@@ -89,11 +93,11 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
             canvas.DrawString(label, node.X, node.Y, node.Width, node.Height, HorizontalAlignment.Center, VerticalAlignment.Center);
 
         }
-        private void DrawRightLink(ICanvas canvas, GraphicNode parentGraphicNode, GraphicNode childGraphicNode, string weight)
+        private void DrawRightLink(ICanvas canvas, GraphicNode parentGraphicNode, int nbChildren,GraphicNode childGraphicNode, string weight)
         {
             Point startHorizontalLinePoint = new Point(parentGraphicNode.X + parentGraphicNode.Width, (int)(parentGraphicNode.Y + parentGraphicNode.Height / 2));
             Point endHorizontalLinePoint = new Point((int)(childGraphicNode.X + childGraphicNode.Width / 2), (int)(parentGraphicNode.Y + parentGraphicNode.Height / 2));
-            Point endVerticalLinePoint = new Point((int)(childGraphicNode.X + childGraphicNode.Width / 2), childGraphicNode.Y);
+            Point endVerticalLinePoint = new Point((int)(childGraphicNode.X + childGraphicNode.Width  / 2), childGraphicNode.Y);
             canvas.DrawLine(startHorizontalLinePoint, endHorizontalLinePoint);
             canvas.DrawLine(endHorizontalLinePoint, endVerticalLinePoint);
             int textWidth = (int)(childGraphicNode.Width / 4);
@@ -103,11 +107,11 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
             
             canvas.DrawString(weight,textX,textY, textWidth, textHeight, HorizontalAlignment.Center, VerticalAlignment.Center);
         }
-        private void DrawLeftLink(ICanvas canvas, GraphicNode parentGraphicNode, GraphicNode childGraphicNode, string weight)
+        private void DrawLeftLink(ICanvas canvas, GraphicNode parentGraphicNode, int nbChildren, GraphicNode childGraphicNode, string weight)
         {
             Point startHorizontalLinePoint = new Point(parentGraphicNode.X, (int)(parentGraphicNode.Y + parentGraphicNode.Height / 2));
-            Point endHorizontalLinePoint = new Point((int)(childGraphicNode.X + childGraphicNode.Width / 2), (int)(parentGraphicNode.Y + parentGraphicNode.Height / 2));
-            Point endVerticalLinePoint = new Point((int)(childGraphicNode.X + childGraphicNode.Width / 2), childGraphicNode.Y);
+            Point endHorizontalLinePoint = new Point((int)(childGraphicNode.X + (childGraphicNode.Width / 2)), (int)(parentGraphicNode.Y + parentGraphicNode.Height / 2));
+            Point endVerticalLinePoint = new Point((int)(childGraphicNode.X +( childGraphicNode.Width / 2)), childGraphicNode.Y);
             canvas.DrawLine(startHorizontalLinePoint, endHorizontalLinePoint);
             canvas.DrawLine(endHorizontalLinePoint, endVerticalLinePoint);
             int textWidth = (int)(childGraphicNode.Width / 4);
