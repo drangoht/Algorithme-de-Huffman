@@ -29,12 +29,23 @@ namespace HuffmanWeb.Algorithm.Extensions
                     var child = link.Child;
                     if (node != null && child != null)
                     {
-                        node.DescendantsCount += child.DescendantsCount;
+                        node.DescendantsCount += child.DescendantsCount + 1; // + current Node;
                         visitedNodes.Add(node);
                     }
                 }
                 links = graph.Links.Where(l => l.Child?.DescendantsCount > 0 && !visitedNodes.Any(n => n == l.Parent)).ToList();
-            } 
+            }
+            // Update root
+            links = graph.Links.Where(n => n.Parent == graph.Root).ToList();
+            foreach (var link in links)
+            {
+                var node = graph.AllNodes.FirstOrDefault(n => n == link.Parent);
+                var child = link.Child;
+                if (node != null && child != null)
+                {
+                    node.DescendantsCount += child.DescendantsCount + 1; // + current Node;
+                }
+            }
         }
     }
 }

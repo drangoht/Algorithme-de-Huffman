@@ -10,9 +10,12 @@
             Text="Tree"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <drawables:BinaryTreeDrawable HeightRequest="2000"
-                      WidthRequest="2000"
+        <drawables:BinaryTreeDrawable NodeWidth="40" NodeHeight="20"
                                       Graph="{Binding Response.Graph}"
-                                      />
+                                      >
+            <!--<drawables:BinaryTreeDrawable.GestureRecognizers>
+                <PinchGestureRecognizer PinchUpdated="" />
+            </drawables:BinaryTreeDrawable.GestureRecognizers>-->
+        </drawables:BinaryTreeDrawable>
     </VerticalStackLayout>
 </ContentPage>
