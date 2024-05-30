@@ -5,6 +5,7 @@
         public Guid Identifier { get; set; } = Guid.NewGuid();
         public char Character { get; set; }
         public long NbOccurence { get; set; }
+        public int DescendantsCount { get; set; } = 0;
 
         public HuffmanNode(Char character, long nbOccurence)
         {

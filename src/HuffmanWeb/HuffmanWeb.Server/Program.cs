@@ -1,4 +1,5 @@
 using HuffmanWeb.Algorithm;
+using HuffmanWeb.Algorithm.Extensions;
 using HuffmanWeb.Common.DTOs;
 using HuffmanWeb.Common.DTOs.Requests;
 using HuffmanWeb.Common.DTOs.Responses;
@@ -59,6 +60,7 @@ app.MapPost("/huffman/encode", (EncodeRequest req) =>
         var nodes = Huffman.GetNodesFromString(req.TextToEncode);
         var graph = Huffman.GenerateHuffmanGraph(nodes);
         var textEncoded = Huffman.EncodeText(req.TextToEncode);
+        graph.ComputeDescendants();
         EncodeResponse resp = new EncodeResponse()
         {
             Graph = graph,
@@ -70,7 +72,7 @@ app.MapPost("/huffman/encode", (EncodeRequest req) =>
         var huffmanTable = Huffman.MakeMatchingTable(req.TextToEncode);
         foreach (var key in huffmanTable.Keys)
         {
-            resp.MatchingCharacters.Add(new Character() { Id = key.ToString(), Value = huffmanTable[key].ToString() });
+            resp.MatchingCharacters.Add(new Character() { Id = key.ToString(), Value = huffmanTable[key]?.ToString() });
         }
 
         return Results.Ok(resp);
@@ -93,7 +95,7 @@ app.MapPost("/huffman/decode", (DecodeRequest req) =>
         Hashtable matchingCharactersTable = new Hashtable();
         foreach (var item in req.MatchingCharacters)
         {
-            matchingCharactersTable.Add(item.Id, item.Value);
+            matchingCharactersTable.Add(item.Id!, item.Value);
         }
 
         var decodedText = Huffman.DecodeText(req.BinaryHuffman, matchingCharactersTable);
