@@ -38,6 +38,7 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
         {
             if(links.Count == 0) return;
             int nbLeafs = Graph.Links.Where(l => l.Child == null).Count();
+            
             if (links.Count == 2)
             {
                 var leftNode = Graph.AllNodes.FirstOrDefault(n => n.Identifier == links[0].Child?.Identifier);
@@ -71,14 +72,18 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
         }
         private GraphicNode DrawLeftChildNode(ICanvas canvas, RectF dirtyRect, string label, string weight, int descendantsCount,GraphicNode parentGraphicNode)
         {
-            GraphicNode node = new((int)(parentGraphicNode.X - (parentGraphicNode.Width*2* descendantsCount)), (int)(parentGraphicNode.Y + parentGraphicNode.Height), parentGraphicNode.Width, parentGraphicNode.Height);
+            int linkSpacing = parentGraphicNode.Width * 2;
+            descendantsCount = descendantsCount == 0 ? 1 : descendantsCount;
+            GraphicNode node = new((int)(parentGraphicNode.X - (linkSpacing * descendantsCount)), (int)(parentGraphicNode.Y + parentGraphicNode.Height), parentGraphicNode.Width, parentGraphicNode.Height);
             DrawNode(canvas, node, label);
             DrawLeftLink(canvas, parentGraphicNode, descendantsCount, node, weight);
             return node;
         }
         private GraphicNode DrawRightChildNode(ICanvas canvas, RectF dirtyRect, string label, string weight, int descendantsCount, GraphicNode parentGraphicNode)
         {
-            GraphicNode node = new((int)(parentGraphicNode.X + (parentGraphicNode.Width * 2 * descendantsCount)), (int)(parentGraphicNode.Y + parentGraphicNode.Height), parentGraphicNode.Width, parentGraphicNode.Height);
+            int linkSpacing = parentGraphicNode.Width * 2;
+            descendantsCount = descendantsCount == 0 ? 1 : descendantsCount;
+            GraphicNode node = new((int)(parentGraphicNode.X + (linkSpacing * descendantsCount)), (int)(parentGraphicNode.Y + parentGraphicNode.Height), parentGraphicNode.Width, parentGraphicNode.Height);
             DrawNode(canvas, node, label);
             DrawRightLink(canvas, parentGraphicNode, descendantsCount, node, weight);
             return node;
