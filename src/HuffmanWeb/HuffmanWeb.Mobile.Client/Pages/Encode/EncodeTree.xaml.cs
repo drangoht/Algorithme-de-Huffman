@@ -1,3 +1,4 @@
+using HuffmanWeb.Mobile.Client.Components.BinaryTree;
 using HuffmanWeb.Mobile.Client.ViewModels;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
@@ -18,7 +19,13 @@ public partial class EncodeTree : ContentPage
 
     private async void Button_Clicked(object sender, EventArgs e)
     {
+        binaryTree.IsVisible = true;
         IScreenshotResult screenshotResult = await binaryTree.CaptureAsync();
+        
+
+        //binaryTreeImage.WidthRequest = screenshotResult.Width;
+        //binaryTreeImage.HeightRequest = screenshotResult.Height;
         binaryTreeImage.Source = ImageSource.FromStream(async (async) => await screenshotResult.OpenReadAsync());
+        binaryTree.IsVisible = false;
     }
 }

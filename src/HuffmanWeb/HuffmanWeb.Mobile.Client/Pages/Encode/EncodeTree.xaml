@@ -7,7 +7,9 @@
              Title="Arbre">
 
     <StackLayout>
-        <Image x:Name="binaryTreeImage" WidthRequest="400" HeightRequest="300" />
+        <components:PanContainer>
+            <Image x:Name="binaryTreeImage" HeightRequest="300" HorizontalOptions="CenterAndExpand" BackgroundColor="Aqua"/>
+        </components:PanContainer>
         <Button Clicked="Button_Clicked" Text="click" />
         <drawables:BinaryTreeDrawable x:Name="binaryTree" NodeWidth="40" NodeHeight="20"
                                           
