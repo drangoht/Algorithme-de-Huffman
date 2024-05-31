@@ -7,9 +7,10 @@
              Title="Arbre">
 
     <StackLayout>
-        <Grid RowDefinitions="*">
-        <components:PinchToZoomContainer>
-            <drawables:BinaryTreeDrawable x:Name="binaryTree" NodeWidth="40" NodeHeight="20" 
+        <Image x:Name="binaryTreeImage" WidthRequest="400" HeightRequest="300" />
+        <Button Clicked="Button_Clicked" Text="click" />
+        <drawables:BinaryTreeDrawable x:Name="binaryTree" NodeWidth="40" NodeHeight="20"
+                                          
                                       Graph="{Binding Response.Graph}" >
             <!--NodeColor="Beige"
                                       LineColor="Bisque"
@@ -19,7 +20,6 @@
                 <PanGestureRecognizer PanUpdated="OnPanUpdated" />
             </drawables:BinaryTreeDrawable.GestureRecognizers>-->
         </drawables:BinaryTreeDrawable>
-        </components:PinchToZoomContainer>
-        </Grid>
+
     </StackLayout>
 </ContentPage>

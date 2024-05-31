@@ -81,8 +81,8 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
         }
         private void InitializeGraphicView()
         {
-            WidthRequest = (int)Graph.Root?.DescendantsCount! * NodeWidth;
-            HeightRequest = (int)Graph.Root?.DescendantsCount! * NodeHeight;
+            WidthRequest = 4000;// (int)Graph.Root?.DescendantsCount! * NodeWidth;
+            HeightRequest = 4000;// (int)Graph.Root?.DescendantsCount! * NodeHeight;
             
         }
 

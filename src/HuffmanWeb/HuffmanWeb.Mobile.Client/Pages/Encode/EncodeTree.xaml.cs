@@ -1,6 +1,7 @@
 using HuffmanWeb.Mobile.Client.ViewModels;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using System.IO;
 
 namespace HuffmanWeb.Mobile.Client.Pages.Encode;
 
@@ -12,5 +13,12 @@ public partial class EncodeTree : ContentPage
     {
         InitializeComponent();
         BindingContext = IPlatformApplication.Current?.Services.GetService<EncodeViewModel>();
+
+    }
+
+    private async void Button_Clicked(object sender, EventArgs e)
+    {
+        IScreenshotResult screenshotResult = await binaryTree.CaptureAsync();
+        binaryTreeImage.Source = ImageSource.FromStream(async (async) => await screenshotResult.OpenReadAsync());
     }
 }

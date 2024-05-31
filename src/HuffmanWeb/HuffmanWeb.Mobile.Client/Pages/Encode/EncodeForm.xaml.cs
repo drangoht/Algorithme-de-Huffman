@@ -3,6 +3,7 @@ namespace HuffmanWeb.Mobile.Client.Pages.Encode;
 
 public partial class EncodeForm : ContentPage
 {
+    bool isPageLoaded = false;
     public EncodeForm()
     {
         InitializeComponent();
@@ -11,7 +12,9 @@ public partial class EncodeForm : ContentPage
     }
     private void OnPageLoaded(object sender, EventArgs e)
     {
+        if (isPageLoaded) return;
         textToEncode.Focus();
+        isPageLoaded = true;
     }
     private async void EncodeBtn_Clicked(object sender, EventArgs e)
     {
