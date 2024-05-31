@@ -3,19 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.EncodeTree"
              xmlns:drawables="clr-namespace:HuffmanWeb.Mobile.Client.Components.BinaryTree"
+             xmlns:components="clr-namespace:HuffmanWeb.Mobile.Client.Components"
              Title="Arbre">
 
-    <VerticalStackLayout>
-        <Label 
-            Text="Tree"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <drawables:BinaryTreeDrawable NodeWidth="40" NodeHeight="20"
-                                      Graph="{Binding Response.Graph}"
-                                      >
+    <StackLayout>
+        <Grid RowDefinitions="*">
+        <components:PinchToZoomContainer>
+            <drawables:BinaryTreeDrawable x:Name="binaryTree" NodeWidth="40" NodeHeight="20" 
+                                      Graph="{Binding Response.Graph}" >
+            <!--NodeColor="Beige"
+                                      LineColor="Bisque"
+                                      TextColor="Azure"
+                                      ShadowColor="Chocolate"-->
             <!--<drawables:BinaryTreeDrawable.GestureRecognizers>
-                <PinchGestureRecognizer PinchUpdated="" />
+                <PanGestureRecognizer PanUpdated="OnPanUpdated" />
             </drawables:BinaryTreeDrawable.GestureRecognizers>-->
         </drawables:BinaryTreeDrawable>
-    </VerticalStackLayout>
+        </components:PinchToZoomContainer>
+        </Grid>
+    </StackLayout>
 </ContentPage>

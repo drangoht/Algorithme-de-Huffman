@@ -1,24 +1,23 @@
 using FluentAssertions;
 using HuffmanWeb.Algorithm;
-using HuffmanWeb.Common.DTOs;
 namespace HuffmanWeb.UnitTests
 {
     public class HuffmanAlgorithmsTests
     {
         [Theory]
-        [InlineData("a",16)]
+        [InlineData("a", 16)]
         [InlineData("It works", 128)]
-        public void ShouldReturnBinarySizeWhenTextIsProvided(string text,int size)
+        public void ShouldReturnBinarySizeWhenTextIsProvided(string text, int size)
         {
             var attendedSize = Huffman.GetBinarySize(text);
-            
+
             size.Should().Be(attendedSize);
         }
 
         [Theory]
-        [InlineData("aabb",2)]
+        [InlineData("aabb", 2)]
         [InlineData("abcdefghijklmnopqrstuvwxyz", 26)]
-        public void ShouldReturnCorrectMatchingTableCountWhenTextIsProvided(string text,int count)
+        public void ShouldReturnCorrectMatchingTableCountWhenTextIsProvided(string text, int count)
         {
             var matchingTable = Huffman.MakeMatchingTable(text);
 

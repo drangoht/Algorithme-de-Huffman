@@ -148,4 +148,8 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Components\BinaryTree\Extensions\" />
+	</ItemGroup>
+
 </Project>

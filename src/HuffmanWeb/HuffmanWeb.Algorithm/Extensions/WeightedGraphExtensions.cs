@@ -1,9 +1,4 @@
 ﻿using HuffmanWeb.Common.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HuffmanWeb.Algorithm.Extensions
 {
@@ -11,41 +6,20 @@ namespace HuffmanWeb.Algorithm.Extensions
     {
         public static void ComputeDescendants(this WeightedGraph graph)
         {
-            var leafLinks = graph.Links.Where(l => l.Child?.Character != char.MinValue).ToList();
-            foreach(var link in leafLinks) 
-            {
-                var node = graph.AllNodes.FirstOrDefault(n => n == link.Parent);
-                if(node != null)
-                    node.DescendantsCount++;
-            }
-            List<HuffmanNode> visitedNodes = new();
-            var links = graph.Links.Where(l => l.Child?.DescendantsCount > 0 && !visitedNodes.Any(n => n == l.Parent)).ToList();
-            while (links.Count > 0)
-            {
-                
-                foreach (var link in links)
-                {
-                    var node = graph.AllNodes.FirstOrDefault(n => n == link.Parent);
-                    var child = link.Child;
-                    if (node != null && child != null)
-                    {
-                        node.DescendantsCount += child.DescendantsCount + 1; // + current Node;
-                        visitedNodes.Add(node);
-                    }
-                }
-                links = graph.Links.Where(l => l.Child?.DescendantsCount > 0 && !visitedNodes.Any(n => n == l.Parent)).ToList();
-            }
-            // Update root
-            links = graph.Links.Where(n => n.Parent == graph.Root).ToList();
+            var links = graph.Links.Where(l => l.Child?.Character != char.MinValue).ToList();
             foreach (var link in links)
             {
-                var node = graph.AllNodes.FirstOrDefault(n => n == link.Parent);
-                var child = link.Child;
-                if (node != null && child != null)
-                {
-                    node.DescendantsCount += child.DescendantsCount + 1; // + current Node;
-                }
+                var nodeParent = graph.AllNodes.FirstOrDefault(n => n == link.Parent);
+                FillDescendantsCount(graph, nodeParent, link.Child);
+
             }
+        }
+        private static void FillDescendantsCount(WeightedGraph graph, HuffmanNode? parentNode, HuffmanNode? childNode)
+        {
+            if (parentNode == null) return;
+            // Count direct descendantsNode + add sum of descendants node
+            parentNode.DescendantsCount = graph.Links.Count(l => l.Parent == parentNode) + graph.Links.Where(l => l.Parent == parentNode).Sum(n => n.Child.DescendantsCount);
+            FillDescendantsCount(graph, graph.Links.FirstOrDefault(n => n.Child == parentNode)?.Parent, parentNode);
         }
     }
 }
