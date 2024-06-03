@@ -16,13 +16,13 @@ public partial class EncodingStatsDisplay : ContentView
     private static void OnOriginalSizeChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var view = (EncodingStatsDisplay)bindable;
-        view.OriginalSizeLbl.Text = $"Taille origine:{newValue}";
+        view.OriginalSizeLbl.Text = $"Origine:{newValue} bits";
     }
 
     private static void OnEncodedSizeChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var view = (EncodingStatsDisplay)bindable;
-        view.EncodedSizeLbl.Text = $"Taille encodée:{newValue}";
+        view.EncodedSizeLbl.Text = $"Encodé:{newValue} bits";
     }
 
     private static void OnCompressionPercentChanged(BindableObject bindable, object oldValue, object newValue)

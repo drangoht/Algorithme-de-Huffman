@@ -9,13 +9,13 @@
             Spacing="25">
             <Button
                 x:Name="EncodeBtn"
-                Text="Encoder" 
+                Text="Encoder du texte" 
                 SemanticProperties.Hint="Access to encode page"
                 Clicked="EncodeBtn_Clicked"
                 HorizontalOptions="Fill" />
             <Button
                 x:Name="DecodeBtn"
-                Text="Encoder" 
+                Text="Decoder du texte" 
                 SemanticProperties.Hint="Access to decode page"
                 Clicked="DecodeBtn_Clicked"
                 HorizontalOptions="Fill" />

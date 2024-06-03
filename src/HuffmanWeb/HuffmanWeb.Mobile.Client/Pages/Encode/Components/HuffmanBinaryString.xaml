@@ -3,9 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.Components.HuffmanBinaryString">
     <VerticalStackLayout>
+        <Frame Margin="5" BackgroundColor="Grey">
         <Label x:Name="HuffmanStringLbl"
+               FontSize="Micro"
             Text=""
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        </Frame>
     </VerticalStackLayout>
 </ContentView>

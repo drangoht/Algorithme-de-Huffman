@@ -4,7 +4,7 @@
              x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.EncodeTree"
              xmlns:drawables="clr-namespace:HuffmanWeb.Mobile.Client.Components.BinaryTree"
              xmlns:components="clr-namespace:HuffmanWeb.Mobile.Client.Components"
-             Title="Arbre">
+             Title="Arbre binaire">
 
     <StackLayout>
                 <drawables:BinaryTreeDrawable x:Name="binaryTree" NodeWidth="40" NodeHeight="20"

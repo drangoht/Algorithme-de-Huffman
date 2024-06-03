@@ -151,7 +151,7 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
         private GraphicNode DrawLeftChildNode(string label, string weight, int descendantsCount, GraphicNode parentGraphicNode)
         {
             int linkMargin = 5;
-            int linkSpacing = (int)(NodeWidth / 2) + linkMargin; ;
+            int linkSpacing = (int)NodeWidth  + linkMargin ;
             descendantsCount = descendantsCount == 0 ? 1 : descendantsCount;
             GraphicNode node = new(parentGraphicNode.X - (linkSpacing * descendantsCount), parentGraphicNode.Y + NodeHeight * 2, NodeWidth, NodeHeight);
             DrawNode(node, label);
@@ -162,7 +162,7 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
         {
 
             int linkMargin = 5;
-            int linkSpacing = (int)(NodeWidth / 2) + linkMargin;
+            int linkSpacing = (int)NodeWidth + linkMargin;
             descendantsCount = descendantsCount == 0 ? 1 : descendantsCount;
             GraphicNode node = new(parentGraphicNode.X + (linkSpacing * descendantsCount), parentGraphicNode.Y + NodeHeight * 2, NodeWidth, NodeHeight);
             DrawNode(node, label);

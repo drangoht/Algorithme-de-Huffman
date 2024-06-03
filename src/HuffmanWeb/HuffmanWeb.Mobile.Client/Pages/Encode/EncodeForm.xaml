@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:components="clr-namespace:HuffmanWeb.Mobile.Client.Pages.Encode.Components"
              x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.EncodeForm"
-             Title="Formulaire"
+             Title="Encodage du texte"
              Loaded="OnPageLoaded">
     <VerticalStackLayout VerticalOptions="Fill">
         
@@ -11,16 +11,18 @@
             Text="Saisissez le texte à encoder"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Border 
-                    Padding="4,0"
-                    HeightRequest="300" >
+        <Frame Margin="5,2"  Padding="0,10" 
+                    HeightRequest="300" 
+               Background="Beige">
             <ScrollView HeightRequest="300"
-                            HorizontalScrollBarVisibility="Always"
+                            HorizontalScrollBarVisibility="Never"
                             VerticalScrollBarVisibility="Always" WidthRequest="380" IsEnabled="True" ZIndex="2000">
-                <Editor x:Name="textToEncode" Text="{Binding TextToEncode}"
-            AutoSize="TextChanges" />
+                <Editor x:Name="textToEncode" 
+                        
+                        Text="{Binding TextToEncode}"
+                        AutoSize="TextChanges" />
             </ScrollView>
-        </Border>
+        </Frame>
         <Button x:Name="EncodeBtn" Margin="0,10" Padding="10,0" Text="Encoder" HorizontalOptions="Center" Clicked="EncodeBtn_Clicked"/>
         <ActivityIndicator IsVisible="{Binding IsWorking}" IsRunning="{Binding IsWorking}" />
         <components:HuffmanBinaryString HuffmanString="{Binding Response.EncodedBinaryString}" />
@@ -28,19 +30,21 @@
             OriginalSize="{Binding Response.OriginalSize}" 
             EncodedSize="{Binding Response.EncodedSize}" 
             CompressionPercent="{Binding CompressionPercent}"/>
-        <Button
+        <Grid ColumnDefinitions="*,*" RowDefinitions="*">
+        <Button Grid.Column="0" Margin="5,2"  Padding="0,10"
                 x:Name="MatchingTablebtn"
                 Text="Table de correspondance" 
                 SemanticProperties.Hint="Access to Matching table"
                 Clicked="MatchingTablebtn_Clicked"
                 HorizontalOptions="Fill" 
             IsVisible="False"/>
-        <Button
+            <Button Grid.Column="1" Margin="5,2"  Padding="0,10"
                 x:Name="TreeBtn"
                 Text="Arbre" 
                 SemanticProperties.Hint="Access to binary tree"
                 Clicked="TreeBtn_Clicked"
                 HorizontalOptions="Fill" 
             IsVisible="False"/>
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

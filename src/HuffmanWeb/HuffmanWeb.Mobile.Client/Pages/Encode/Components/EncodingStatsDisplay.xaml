@@ -3,20 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.Components.EncodingStatsDisplay">
     <VerticalStackLayout IsVisible="{Binding IsVisible}">
-        <Label 
+        <Grid RowDefinitions="*" ColumnDefinitions="*,*,*">
+            <Frame Grid.Column="0" Margin="5,2" BackgroundColor="Grey" Padding="0,10">
+            <Label 
             x:Name="OriginalSizeLbl"
             Text=""
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Label 
+        </Frame>
+        <Frame Grid.Column="1" Margin="5,2" BackgroundColor="Grey" Padding="0,10">
+            <Label 
             x:Name="EncodedSizeLbl"
             Text=""
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Label 
+        </Frame>
+        <Frame Grid.Column="2" Margin="5,2" BackgroundColor="Grey" Padding="0,10">
+            <Label 
             x:Name="CompressionPercentLbl"
             Text=""
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        </Frame>
+        </Grid>
     </VerticalStackLayout>
 </ContentView>
