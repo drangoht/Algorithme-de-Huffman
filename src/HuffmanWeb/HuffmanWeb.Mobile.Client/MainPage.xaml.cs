@@ -1,4 +1,6 @@
-﻿namespace HuffmanWeb.Mobile.Client
+﻿using HuffmanWeb.Mobile.Client.Pages.Encode;
+using HuffmanWeb.Mobile.Client.Pages.Decode;
+namespace HuffmanWeb.Mobile.Client
 {
     public partial class MainPage : ContentPage
     {
@@ -9,16 +11,16 @@
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+
+
+        private async void EncodeBtn_Clicked(object sender, EventArgs e)
         {
-            count++;
+            await Navigation.PushAsync(new EncodeForm());
+        }
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+        private async void DecodeBtn_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new DecodeForm());
         }
     }
 

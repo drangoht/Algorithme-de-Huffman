@@ -28,5 +28,19 @@
             OriginalSize="{Binding Response.OriginalSize}" 
             EncodedSize="{Binding Response.EncodedSize}" 
             CompressionPercent="{Binding CompressionPercent}"/>
+        <Button
+                x:Name="MatchingTablebtn"
+                Text="Table de correspondance" 
+                SemanticProperties.Hint="Access to Matching table"
+                Clicked="MatchingTablebtn_Clicked"
+                HorizontalOptions="Fill" 
+            IsVisible="False"/>
+        <Button
+                x:Name="TreeBtn"
+                Text="Arbre" 
+                SemanticProperties.Hint="Access to binary tree"
+                Clicked="TreeBtn_Clicked"
+                HorizontalOptions="Fill" 
+            IsVisible="False"/>
     </VerticalStackLayout>
 </ContentPage>

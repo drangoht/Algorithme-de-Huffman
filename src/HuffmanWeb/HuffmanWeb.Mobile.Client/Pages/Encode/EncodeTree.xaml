@@ -7,21 +7,12 @@
              Title="Arbre">
 
     <StackLayout>
-        <components:PanContainer>
-            <Image x:Name="binaryTreeImage" HeightRequest="300" HorizontalOptions="CenterAndExpand" BackgroundColor="Aqua"/>
-        </components:PanContainer>
-        <Button Clicked="Button_Clicked" Text="click" />
-        <drawables:BinaryTreeDrawable x:Name="binaryTree" NodeWidth="40" NodeHeight="20"
+                <drawables:BinaryTreeDrawable x:Name="binaryTree" NodeWidth="40" NodeHeight="20"
                                           
                                       Graph="{Binding Response.Graph}" >
-            <!--NodeColor="Beige"
-                                      LineColor="Bisque"
-                                      TextColor="Azure"
-                                      ShadowColor="Chocolate"-->
-            <!--<drawables:BinaryTreeDrawable.GestureRecognizers>
+            <drawables:BinaryTreeDrawable.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="OnPanUpdated" />
-            </drawables:BinaryTreeDrawable.GestureRecognizers>-->
-        </drawables:BinaryTreeDrawable>
-
-    </StackLayout>
+            </drawables:BinaryTreeDrawable.GestureRecognizers>
+                </drawables:BinaryTreeDrawable>
+        </StackLayout>
 </ContentPage>

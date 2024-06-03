@@ -6,7 +6,7 @@
         {
             InitializeComponent();
 
-            MainPage = new AppFlyout();
+            MainPage = new NavigationPage(new MainPage());
         }
     }
 }
