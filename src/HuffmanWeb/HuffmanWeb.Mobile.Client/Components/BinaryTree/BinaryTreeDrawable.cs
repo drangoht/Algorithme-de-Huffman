@@ -1,5 +1,6 @@
 ﻿
 using HuffmanWeb.Common.DTOs;
+using System.Text.Json;
 namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
 {
     public class BinaryTreeDrawable : GraphicsView, IDrawable
@@ -71,27 +72,25 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
         {
             if (Graph.AllNodes.Count == 0) return;
             _canvas = canvas;
-
-            InitializeGraphicView();
+           InitializeGraphicView();
             var startPosition = DefineStartPosition(dirtyRect);
             var rootGraphicNode = DrawRootNode(startPosition, $"{Graph.Root?.NbOccurence}", Graph.Root!.DescendantsCount);
             var linksFromRoot = Graph.Links.Where(l => l.Parent?.Identifier == Graph.Root?.Identifier).ToList();
-            DrawChildrenNode(linksFromRoot, rootGraphicNode, Graph.Root.DescendantsCount);
+            DrawChildrenNode(linksFromRoot, rootGraphicNode);
 
         }
         private void InitializeGraphicView()
         {
-            WidthRequest = (int)Graph.Root?.DescendantsCount! * NodeWidth * 2;
+            WidthRequest = (int)Graph.Root?.DescendantsCount! * NodeWidth * 10;
             HeightRequest = (int)Graph.Root?.DescendantsCount! * NodeHeight * 2;
         }
 
         private Point DefineStartPosition(RectF directRect) =>
                 new((int)(directRect.Width / 2) - NodeWidth + NodeWidth / 2, 2 * NodeHeight);
 
-        public void DrawChildrenNode(List<Link<HuffmanNode>> links, GraphicNode parentGraphicNode, int descendantsCount)
+        public void DrawChildrenNode(List<Link<HuffmanNode>> links, GraphicNode parentGraphicNode)
         {
             if (links.Count == 0) return;
-            int nbLeafs = Graph.Links.Where(l => l.Child == null).Count();
 
             if (links.Count == 2)
             {
@@ -102,9 +101,10 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
                 else
                     leftLabel = $"{leftNode?.NbOccurence}";
 
-                var leftGraphicNode = DrawLeftChildNode(leftLabel, links[0].Weight.ToString(), leftNode!.DescendantsCount, parentGraphicNode);
+                
+                var leftGraphicNode = DrawLeftChildNode(leftLabel, links[0].Weight.ToString(), GetRightDescendantsCount(leftNode), parentGraphicNode);
                 var leftLinks = Graph.Links.Where(l => l.Parent?.Identifier == leftNode?.Identifier).ToList();
-                DrawChildrenNode(leftLinks, leftGraphicNode, GetSubDescendantsCount(leftNode));
+                DrawChildrenNode(leftLinks, leftGraphicNode);
 
 
                 var rightNode = Graph.AllNodes.FirstOrDefault(n => n.Identifier == links[1].Child?.Identifier);
@@ -114,9 +114,9 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
                 else
                     rightLabel = $"{rightNode?.NbOccurence}";
 
-                var rightGraphicNode = DrawRightChildNode(rightLabel, links[1].Weight.ToString(), rightNode!.DescendantsCount, parentGraphicNode);
+                var rightGraphicNode = DrawRightChildNode(rightLabel, links[1].Weight.ToString(), GetLeftDescendantsCount(rightNode), parentGraphicNode);
                 var rightLinks = Graph.Links.Where(l => l.Parent?.Identifier == rightNode?.Identifier).ToList();
-                DrawChildrenNode(rightLinks, rightGraphicNode, GetSubDescendantsCount(rightNode));
+                DrawChildrenNode(rightLinks, rightGraphicNode);
 
             }
             if (links.Count == 1)
@@ -128,15 +128,30 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
                 else
                     leftLabel = $"{leftNode?.NbOccurence}";
 
-                var leftGraphicNode = DrawLeftChildNode(leftLabel, links[0].Weight.ToString(), leftNode!.DescendantsCount, parentGraphicNode);
+                
+                var leftGraphicNode = DrawLeftChildNode(leftLabel, links[0].Weight.ToString(), GetRightDescendantsCount(leftNode), parentGraphicNode);
                 var leftLinks = Graph.Links.Where(l => l.Parent?.Identifier == leftNode?.Identifier).ToList();
-                DrawChildrenNode(leftLinks, leftGraphicNode, GetSubDescendantsCount(leftNode));
+                DrawChildrenNode(leftLinks, leftGraphicNode);
             }
         }
 
-        private int GetSubDescendantsCount(HuffmanNode parentNode) =>
-            Graph.Links.Where(l => l.Parent == parentNode).Sum(n => n.Child.DescendantsCount);
-        
+        private int GetLeftDescendantsCount(HuffmanNode? parentNode)
+        {
+            if (parentNode is not null && Graph.Links.Where(l => l.Parent!.Identifier == parentNode.Identifier).Count() == 0 )
+                return 1;
+
+            var node = Graph.Links.Where(l => l.Parent!.Identifier == parentNode!.Identifier).ToList()[0].Child;
+            return node!.DescendantsCount+2; // 2 = last link + last node
+        }
+        private int GetRightDescendantsCount(HuffmanNode? parentNode)
+        {
+            if (parentNode is not null && ((Graph.Links.Where(l => l.Parent!.Identifier == parentNode.Identifier).Count() == 0)  ||
+               (Graph.Links.Where(l => l.Parent!.Identifier == parentNode.Identifier).Count()!=2)))
+                return 1;
+            var node = Graph.Links.Where(l => l.Parent!.Identifier == parentNode!.Identifier).ToList()[1].Child;
+            return node!.DescendantsCount+2; // 2 = last link + last node
+        }
+
         private GraphicNode DrawRootNode(Point startPosition, string label, int descendantsCount)
         {
             GraphicNode node = new(
@@ -151,9 +166,9 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
         private GraphicNode DrawLeftChildNode(string label, string weight, int descendantsCount, GraphicNode parentGraphicNode)
         {
             int linkMargin = 5;
-            int linkSpacing = (int)NodeWidth  + linkMargin ;
+            int linkSpacing = NodeWidth + linkMargin ;
             descendantsCount = descendantsCount == 0 ? 1 : descendantsCount;
-            GraphicNode node = new(parentGraphicNode.X - (linkSpacing * descendantsCount), parentGraphicNode.Y + NodeHeight * 2, NodeWidth, NodeHeight);
+            GraphicNode node = new(parentGraphicNode.X - (linkSpacing * descendantsCount), parentGraphicNode.Y + NodeHeight * 3, NodeWidth, NodeHeight);
             DrawNode(node, label);
             DrawLeftLink(parentGraphicNode, node, weight);
             return node;
@@ -162,9 +177,9 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
         {
 
             int linkMargin = 5;
-            int linkSpacing = (int)NodeWidth + linkMargin;
+            int linkSpacing = NodeWidth + linkMargin;
             descendantsCount = descendantsCount == 0 ? 1 : descendantsCount;
-            GraphicNode node = new(parentGraphicNode.X + (linkSpacing * descendantsCount), parentGraphicNode.Y + NodeHeight * 2, NodeWidth, NodeHeight);
+            GraphicNode node = new(parentGraphicNode.X + (linkSpacing * descendantsCount), parentGraphicNode.Y + NodeHeight * 3, NodeWidth, NodeHeight);
             DrawNode(node, label);
             DrawRightLink(parentGraphicNode, node, weight);
             return node;
