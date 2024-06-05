@@ -19,7 +19,7 @@ namespace HuffmanWeb.Mobile.Client
             builder.Logging.AddDebug();
 #endif
             builder.Services.AddSingleton<EncodeViewModel>();
-
+            builder.Services.AddSingleton<EncodeTreeViewModel>();
             return builder.Build();
         }
     }

@@ -2,7 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.Components.EncodingStatsDisplay">
-    <VerticalStackLayout IsVisible="{Binding IsVisible}">
+    <VerticalStackLayout>
         <Grid RowDefinitions="*" ColumnDefinitions="*,*,*">
             <Frame Grid.Column="0" Margin="5,2" BackgroundColor="Grey" Padding="0,10">
             <Label 

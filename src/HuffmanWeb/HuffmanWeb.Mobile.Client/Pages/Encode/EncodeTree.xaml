@@ -5,11 +5,24 @@
              xmlns:drawables="clr-namespace:HuffmanWeb.Mobile.Client.Components.BinaryTree"
              xmlns:components="clr-namespace:HuffmanWeb.Mobile.Client.Components"
              Title="Arbre binaire">
-
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="settingsToolsBarItem"  Text="Paramètres"  Clicked="settingsToolsBarItem_Clicked"/>
+    </ContentPage.ToolbarItems>
     <StackLayout>
-                <drawables:BinaryTreeDrawable x:Name="binaryTree" NodeWidth="40" NodeHeight="20"
+        <Grid x:Name="settingsGrid" RowDefinitions="*,*,*,*,*" ColumnDefinitions="*,*" HorizontalOptions="FillAndExpand" IsVisible="False">
+            <Label Grid.Column="0" Grid.Row="0" Text="Largeur Arbre" />
+            <Label Grid.Column="1" Grid.Row="0" Text="Hauteur Arbre" />
+            <Entry Grid.Column="0" Grid.Row="1" x:Name="treeWidth" Text="{Binding TreeViewModel.TreeWidth }" />
+            <Entry Grid.Column="1" Grid.Row="1" x:Name="treeHeight" Text="{Binding TreeViewModel.TreeHeight }" />
+            <Label Grid.Column="0" Grid.Row="2"  Text="Largeur noeud" />
+            <Label Grid.Column="1" Grid.Row="2" Text="Hauteur noeud" />
+            <Entry Grid.Column="0" Grid.Row="3" x:Name="nodeWidth" Text="{Binding TreeViewModel.NodeWidth }" />
+            <Entry Grid.Column="1" Grid.Row="3" x:Name="nodeHeight" Text="{Binding TreeViewModel.NodeHeight }" />
+            <Button x:Name="refreshBtn" Text="Refresh" Grid.Row="4" Grid.Column="1" Clicked="refreshBtn_Clicked"/>
+        </Grid>
+                <drawables:BinaryTreeDrawable x:Name="binaryTree" NodeWidth="40" NodeHeight="20" WidthRequest="2000" HeightRequest="2000"
                                           
-                                      Graph="{Binding Response.Graph}" >
+                                      Graph="{Binding ViewModel.Response.Graph}" >
             <drawables:BinaryTreeDrawable.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="OnPanUpdated" />
             </drawables:BinaryTreeDrawable.GestureRecognizers>

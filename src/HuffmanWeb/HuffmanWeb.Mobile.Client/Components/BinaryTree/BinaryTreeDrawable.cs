@@ -72,18 +72,18 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
         {
             if (Graph.AllNodes.Count == 0) return;
             _canvas = canvas;
-           InitializeGraphicView();
+           //InitializeGraphicView();
             var startPosition = DefineStartPosition(dirtyRect);
             var rootGraphicNode = DrawRootNode(startPosition, $"{Graph.Root?.NbOccurence}", Graph.Root!.DescendantsCount);
             var linksFromRoot = Graph.Links.Where(l => l.Parent?.Identifier == Graph.Root?.Identifier).ToList();
             DrawChildrenNode(linksFromRoot, rootGraphicNode);
 
         }
-        private void InitializeGraphicView()
-        {
-            WidthRequest = (int)Graph.Root?.DescendantsCount! * NodeWidth * 10;
-            HeightRequest = (int)Graph.Root?.DescendantsCount! * NodeHeight * 2;
-        }
+        //private void InitializeGraphicView()
+        //{
+        //    WidthRequest = 2000; //(int)Graph.Root?.DescendantsCount! * NodeWidth*5 ;
+        //    HeightRequest = 2000; //(int)Graph.Root?.DescendantsCount! * NodeHeight ;
+        //}
 
         private Point DefineStartPosition(RectF directRect) =>
                 new((int)(directRect.Width / 2) - NodeWidth + NodeWidth / 2, 2 * NodeHeight);
@@ -197,7 +197,7 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
 
             _canvas.StrokeColor = Colors.Black;
             _canvas.Font = Microsoft.Maui.Graphics.Font.DefaultBold;
-            _canvas.DrawString(label, node.X, node.Y, node.Width, node.Height, HorizontalAlignment.Center, VerticalAlignment.Center);
+            _canvas.DrawString(label, paintRectangle, HorizontalAlignment.Center, VerticalAlignment.Center);
 
         }
         private void DrawRightLink(GraphicNode parentGraphicNode, GraphicNode childGraphicNode, string weight)
