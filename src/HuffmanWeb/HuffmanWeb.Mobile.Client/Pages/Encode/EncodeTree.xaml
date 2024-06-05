@@ -9,7 +9,7 @@
         <ToolbarItem x:Name="settingsToolsBarItem"  Text="Paramètres"  Clicked="settingsToolsBarItem_Clicked"/>
     </ContentPage.ToolbarItems>
     <StackLayout>
-        <Grid x:Name="settingsGrid" RowDefinitions="*,*,*,*,*" ColumnDefinitions="*,*" HorizontalOptions="FillAndExpand" IsVisible="False">
+        <Grid x:Name="settingsGrid" RowDefinitions="*,*,*,*,*,*" ColumnDefinitions="*,*" HorizontalOptions="FillAndExpand" IsVisible="False">
             <Label Grid.Column="0" Grid.Row="0" Text="Largeur Arbre" />
             <Label Grid.Column="1" Grid.Row="0" Text="Hauteur Arbre" />
             <Entry Grid.Column="0" Grid.Row="1" x:Name="treeWidth" Text="{Binding TreeViewModel.TreeWidth }" />

@@ -44,4 +44,9 @@ public partial class EncodeForm : ContentPage
     {
         await Navigation.PushAsync(new EncodeTree());
     }
+
+    private void ResetBtn_Clicked(object sender, EventArgs e)
+    {
+        textToEncode.Text = string.Empty;
+    }
 }
