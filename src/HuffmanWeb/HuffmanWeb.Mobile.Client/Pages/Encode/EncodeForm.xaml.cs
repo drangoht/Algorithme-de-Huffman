@@ -1,6 +1,6 @@
 using HuffmanWeb.Mobile.Client.ViewModels;
 namespace HuffmanWeb.Mobile.Client.Pages.Encode;
-
+using CommunityToolkit.Maui.Core.Platform;
 public partial class EncodeForm : ContentPage
 {
     bool isPageLoaded = false;
@@ -8,22 +8,19 @@ public partial class EncodeForm : ContentPage
     {
         InitializeComponent();
         BindingContext = IPlatformApplication.Current?.Services.GetService<EncodeViewModel>();
-        textToEncode.Focus();
+        //textToEncode.Focus();
     }
     private void OnPageLoaded(object sender, EventArgs e)
     {
         if (isPageLoaded) return;
-        textToEncode.Focus();
+        //textToEncode.Focus();
         isPageLoaded = true;
     }
     private async void EncodeBtn_Clicked(object sender, EventArgs e)
     {
-        textToEncode.Unfocus();
+        //textToEncode.Unfocus();
         MatchingTablebtn.IsVisible = false;
         TreeBtn.IsVisible = false;
-
-
-        await HideKeyboard();
 
         var viewModel = (EncodeViewModel)BindingContext;
         if (viewModel.CallEncodeApiCommand.CanExecute(null))
@@ -32,11 +29,6 @@ public partial class EncodeForm : ContentPage
             MatchingTablebtn.IsVisible = true;
             TreeBtn.IsVisible = true;
         }
-    }
-    private async Task HideKeyboard()
-    {
-        if (textToEncode.IsSoftInputShowing())
-            await textToEncode.HideSoftInputAsync(System.Threading.CancellationToken.None);
     }
 
     private async void MatchingTablebtn_Clicked(object sender, EventArgs e)
