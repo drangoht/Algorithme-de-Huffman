@@ -1,6 +1,4 @@
-﻿using HuffmanWeb.Common.DTOs.Responses;
-using Microsoft.Maui.Graphics;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace HuffmanWeb.Mobile.Client.ViewModels
 {
@@ -11,8 +9,9 @@ namespace HuffmanWeb.Mobile.Client.ViewModels
         private int nodeWidth = 40;
         private int nodeHeight = 20;
         private Color nodeColor;
-        private Color textColor;
+        private Color nodeTextColor;
         private Color lineColor;
+        private Color lineTextColor;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -76,16 +75,16 @@ namespace HuffmanWeb.Mobile.Client.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NodeColor)));
             }
         }
-        public Color TextColor
+        public Color NodeTextColor
         {
             get
             {
-                return textColor;
+                return nodeTextColor;
             }
             set
             {
-                textColor = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TextColor)));
+                nodeTextColor = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NodeTextColor)));
             }
         }
         public Color Linecolor
@@ -98,6 +97,18 @@ namespace HuffmanWeb.Mobile.Client.ViewModels
             {
                 lineColor = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Linecolor)));
+            }
+        }
+        public Color LineTextColor
+        {
+            get
+            {
+                return lineTextColor;
+            }
+            set
+            {
+                lineTextColor = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(LineTextColor)));
             }
         }
     }

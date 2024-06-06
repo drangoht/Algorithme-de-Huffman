@@ -94,6 +94,7 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.40" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="nor0x.Maui.ColorPicker" Version="2.0.1" />
 		<PackageReference Include="Refit" Version="7.0.0" />
 		<PackageReference Include="Refit.HttpClientFactory" Version="7.0.0" />
 		<PackageReference Include="Serilog" Version="3.1.1" />
@@ -104,9 +105,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="AppFlyout.xaml.cs">
-	    <DependentUpon>AppFlyout.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="Pages\Decode\DecodeTabbedPage.xaml.cs">
 	    <DependentUpon>DecodeTabbedPage.xaml</DependentUpon>
 	  </Compile>
@@ -116,12 +114,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="AppFlyout.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="FlyoutMenuPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Pages\Decode\DecodeForm.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

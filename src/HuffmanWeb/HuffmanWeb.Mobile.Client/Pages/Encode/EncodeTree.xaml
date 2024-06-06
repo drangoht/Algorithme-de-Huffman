@@ -1,31 +1,144 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.EncodeTree"
-             xmlns:drawables="clr-namespace:HuffmanWeb.Mobile.Client.Components.BinaryTree"
-             xmlns:components="clr-namespace:HuffmanWeb.Mobile.Client.Components"
-             Title="Arbre binaire">
+<ContentPage
+    x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.EncodeTree"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:HuffmanWeb.Mobile.Client.Components"
+    xmlns:controls="clr-namespace:Maui.ColorPicker;assembly=Maui.ColorPicker"
+    xmlns:drawables="clr-namespace:HuffmanWeb.Mobile.Client.Components.BinaryTree"
+    Title="Arbre binaire">
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="settingsToolsBarItem"  Text="Paramètres"  Clicked="settingsToolsBarItem_Clicked"/>
+        <ToolbarItem
+            x:Name="settingsToolsBarItem"
+            Clicked="settingsToolsBarItem_Clicked"
+            Text="Paramètres" />
     </ContentPage.ToolbarItems>
     <StackLayout>
-        <Grid x:Name="settingsGrid" RowDefinitions="*,*,*,*,*,*" ColumnDefinitions="*,*" HorizontalOptions="FillAndExpand" IsVisible="False">
-            <Label Grid.Column="0" Grid.Row="0" Text="Largeur Arbre" />
-            <Label Grid.Column="1" Grid.Row="0" Text="Hauteur Arbre" />
-            <Entry Grid.Column="0" Grid.Row="1" x:Name="treeWidth" Text="{Binding TreeViewModel.TreeWidth }" />
-            <Entry Grid.Column="1" Grid.Row="1" x:Name="treeHeight" Text="{Binding TreeViewModel.TreeHeight }" />
-            <Label Grid.Column="0" Grid.Row="2"  Text="Largeur noeud" />
-            <Label Grid.Column="1" Grid.Row="2" Text="Hauteur noeud" />
-            <Entry Grid.Column="0" Grid.Row="3" x:Name="nodeWidth" Text="{Binding TreeViewModel.NodeWidth }" />
-            <Entry Grid.Column="1" Grid.Row="3" x:Name="nodeHeight" Text="{Binding TreeViewModel.NodeHeight }" />
-            <Button x:Name="refreshBtn" Text="Refresh" Grid.Row="4" Grid.Column="1" Clicked="refreshBtn_Clicked"/>
+
+        <Grid
+            x:Name="settingsGrid"
+            Margin="5"
+            ColumnDefinitions="*,*"
+            HorizontalOptions="FillAndExpand"
+            IsVisible="False"
+            RowDefinitions="*,*,*,*,*,*,*,*,*,*"
+            RowSpacing="5">
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Text="Largeur Arbre" />
+            <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                Text="Hauteur Arbre" />
+            <Slider
+                x:Name="treeWidth"
+                Grid.Row="1"
+                Grid.Column="0"
+                Maximum="3000"
+                Minimum="400"
+                ValueChanged="treeWidth_ValueChanged"
+                Value="{Binding TreeViewModel.TreeWidth}" />
+            <Slider
+                x:Name="treeHeight"
+                Grid.Row="1"
+                Grid.Column="1"
+                Maximum="3000"
+                Minimum="400"
+                ValueChanged="treeHeight_ValueChanged"
+                Value="{Binding TreeViewModel.TreeHeight}" />
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                Text="Largeur noeud" />
+            <Label
+                Grid.Row="2"
+                Grid.Column="1"
+                Text="Hauteur noeud" />
+            <Slider
+                x:Name="nodewidth"
+                Grid.Row="3"
+                Grid.Column="0"
+                Maximum="150"
+                Minimum="30"
+                ValueChanged="nodewidth_ValueChanged"
+                Value="{Binding TreeViewModel.NodeWidth}" />
+            <Slider
+                x:Name="nodeHeight"
+                Grid.Row="3"
+                Grid.Column="1"
+                Maximum="150"
+                Minimum="30"
+                ValueChanged="nodeHeight_ValueChanged"
+                Value="{Binding TreeViewModel.NodeHeight}" />
+            <Label
+                Grid.Row="4"
+                Grid.Column="0"
+                Text="Couleur du noeud" />
+            <controls:ColorPicker
+                x:Name="NodeColor"
+                Grid.Row="4"
+                Grid.Column="1"
+                ColorFlowDirection="Horizontal"
+                ColorSpectrumStyle="ShadeToHueStyle"
+                PickedColor="{Binding TreeViewModel.NodeColor}"
+                PickedColorChanged="NodeColor_PickedColorChanged"
+                PointerRingBorderUnits="0.3"
+                PointerRingDiameterUnits="0.7" />
+            <Label
+                Grid.Row="5"
+                Grid.Column="0"
+                Text="Couleur du texte des noeuds" />
+            <controls:ColorPicker
+                x:Name="NodeTextColor"
+                Grid.Row="5"
+                Grid.Column="1"
+                ColorFlowDirection="Horizontal"
+                ColorSpectrumStyle="ShadeToHueStyle"
+                PickedColor="{Binding TreeViewModel.NodeTextColor}"
+                PickedColorChanged="NodeTextColor_PickedColorChanged"
+                PointerRingBorderUnits="0.3"
+                PointerRingDiameterUnits="0.7" />
+            <Label
+                Grid.Row="6"
+                Grid.Column="0"
+                Text="Couleur des liens" />
+            <controls:ColorPicker
+                x:Name="LineColor"
+                Grid.Row="6"
+                Grid.Column="1"
+                ColorFlowDirection="Horizontal"
+                ColorSpectrumStyle="ShadeToHueStyle"
+                PickedColor="{Binding TreeViewModel.LineColor}"
+                PickedColorChanged="LineColor_PickedColorChanged"
+                PointerRingBorderUnits="0.3"
+                PointerRingDiameterUnits="0.7" />
+            <Label
+                Grid.Row="7"
+                Grid.Column="0"
+                Text="Couleur du texte des lignes" />
+            <controls:ColorPicker
+                x:Name="LineTextColor"
+                Grid.Row="7"
+                Grid.Column="1"
+                ColorFlowDirection="Horizontal"
+                ColorSpectrumStyle="ShadeToHueStyle"
+                PickedColor="{Binding TreeViewModel.LineTextColor}"
+                PickedColorChanged="LineTextColor_PickedColorChanged"
+                PointerRingBorderUnits="0.3"
+                PointerRingDiameterUnits="0.7" />
+
         </Grid>
-                <drawables:BinaryTreeDrawable x:Name="binaryTree" NodeWidth="40" NodeHeight="20" WidthRequest="2000" HeightRequest="2000"
-                                          
-                                      Graph="{Binding ViewModel.Response.Graph}" >
+        <drawables:BinaryTreeDrawable
+            x:Name="binaryTree"
+            Graph="{Binding ViewModel.Response.Graph}"
+            HeightRequest="2000"
+            NodeHeight="20"
+            NodeWidth="40"
+            WidthRequest="2000">
             <drawables:BinaryTreeDrawable.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="OnPanUpdated" />
             </drawables:BinaryTreeDrawable.GestureRecognizers>
-                </drawables:BinaryTreeDrawable>
-        </StackLayout>
+        </drawables:BinaryTreeDrawable>
+    </StackLayout>
 </ContentPage>

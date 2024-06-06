@@ -1,10 +1,10 @@
-﻿using HuffmanWeb.Mobile.Client.Pages.Encode;
-using HuffmanWeb.Mobile.Client.Pages.Decode;
+﻿using HuffmanWeb.Mobile.Client.Pages.Decode;
+using HuffmanWeb.Mobile.Client.Pages.Encode;
 namespace HuffmanWeb.Mobile.Client
 {
     public partial class MainPage : ContentPage
     {
-         public MainPage()
+        public MainPage()
         {
             InitializeComponent();
         }

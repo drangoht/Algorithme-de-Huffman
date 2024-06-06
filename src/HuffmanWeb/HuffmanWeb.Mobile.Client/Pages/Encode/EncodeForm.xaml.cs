@@ -22,8 +22,8 @@ public partial class EncodeForm : ContentPage
         MatchingTablebtn.IsVisible = false;
         TreeBtn.IsVisible = false;
 
-        if (textToEncode.IsSoftInputShowing())
-            await textToEncode.HideSoftInputAsync(System.Threading.CancellationToken.None);
+
+        await HideKeyboard();
 
         var viewModel = (EncodeViewModel)BindingContext;
         if (viewModel.CallEncodeApiCommand.CanExecute(null))
@@ -33,7 +33,11 @@ public partial class EncodeForm : ContentPage
             TreeBtn.IsVisible = true;
         }
     }
-
+    private async Task HideKeyboard()
+    {
+        if (textToEncode.IsSoftInputShowing())
+            await textToEncode.HideSoftInputAsync(System.Threading.CancellationToken.None);
+    }
 
     private async void MatchingTablebtn_Clicked(object sender, EventArgs e)
     {

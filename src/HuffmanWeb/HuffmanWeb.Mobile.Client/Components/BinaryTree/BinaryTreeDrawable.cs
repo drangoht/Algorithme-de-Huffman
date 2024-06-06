@@ -1,6 +1,5 @@
 ﻿
 using HuffmanWeb.Common.DTOs;
-using System.Text.Json;
 namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
 {
     public class BinaryTreeDrawable : GraphicsView, IDrawable
@@ -13,7 +12,8 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
         public static readonly BindableProperty NodeColorProperty = BindableProperty.Create(nameof(NodeColor), typeof(Color), typeof(BinaryTreeDrawable), Colors.Silver);
         public static readonly BindableProperty ShadowColorProperty = BindableProperty.Create(nameof(ShadowColor), typeof(Color), typeof(BinaryTreeDrawable), Colors.Grey);
         public static readonly BindableProperty LineColorProperty = BindableProperty.Create(nameof(LineColor), typeof(Color), typeof(BinaryTreeDrawable), Colors.Black);
-        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(BinaryTreeDrawable), Colors.Black);
+        public static readonly BindableProperty LineTextColorProperty = BindableProperty.Create(nameof(LineTextColor), typeof(Color), typeof(BinaryTreeDrawable), Colors.Black);
+        public static readonly BindableProperty NodeTextColorProperty = BindableProperty.Create(nameof(NodeTextColor), typeof(Color), typeof(BinaryTreeDrawable), Colors.Black);
 
         public WeightedGraph Graph
         {
@@ -46,10 +46,16 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
             get => (Color)GetValue(ShadowColorProperty);
             set => SetValue(ShadowColorProperty, value);
         }
-        public Color TextColor
+        public Color LineTextColor
         {
-            get => (Color)GetValue(TextColorProperty);
-            set => SetValue(TextColorProperty, value);
+            get => (Color)GetValue(LineTextColorProperty);
+            set => SetValue(LineTextColorProperty, value);
+        }
+
+        public Color NodeTextColor
+        {
+            get => (Color)GetValue(NodeTextColorProperty);
+            set => SetValue(NodeTextColorProperty, value);
         }
         #endregion
 
@@ -72,18 +78,12 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
         {
             if (Graph.AllNodes.Count == 0) return;
             _canvas = canvas;
-           //InitializeGraphicView();
             var startPosition = DefineStartPosition(dirtyRect);
             var rootGraphicNode = DrawRootNode(startPosition, $"{Graph.Root?.NbOccurence}", Graph.Root!.DescendantsCount);
             var linksFromRoot = Graph.Links.Where(l => l.Parent?.Identifier == Graph.Root?.Identifier).ToList();
             DrawChildrenNode(linksFromRoot, rootGraphicNode);
 
         }
-        //private void InitializeGraphicView()
-        //{
-        //    WidthRequest = 2000; //(int)Graph.Root?.DescendantsCount! * NodeWidth*5 ;
-        //    HeightRequest = 2000; //(int)Graph.Root?.DescendantsCount! * NodeHeight ;
-        //}
 
         private Point DefineStartPosition(RectF directRect) =>
                 new((int)(directRect.Width / 2) - NodeWidth + NodeWidth / 2, 2 * NodeHeight);
@@ -99,9 +99,22 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
                 if (leftNode?.Character != char.MinValue)
                     leftLabel = $"{leftNode?.Character}";
                 else
+
+                    /* Unmerged change from project 'HuffmanWeb.Mobile.Client (net8.0-maccatalyst)'
+                    Before:
+                                        leftLabel = $"{leftNode?.NbOccurence}";
+
+
+                                    var leftGraphicNode = DrawLeftChildNode(leftLabel, links[0].Weight.ToString(), GetRightDescendantsCount(leftNode), parentGraphicNode);
+                    After:
+                                        leftLabel = $"{leftNode?.NbOccurence}";
+
+
+                                    var leftGraphicNode = DrawLeftChildNode(leftLabel, links[0].Weight.ToString(), GetRightDescendantsCount(leftNode), parentGraphicNode);
+                    */
                     leftLabel = $"{leftNode?.NbOccurence}";
 
-                
+
                 var leftGraphicNode = DrawLeftChildNode(leftLabel, links[0].Weight.ToString(), GetRightDescendantsCount(leftNode), parentGraphicNode);
                 var leftLinks = Graph.Links.Where(l => l.Parent?.Identifier == leftNode?.Identifier).ToList();
                 DrawChildrenNode(leftLinks, leftGraphicNode);
@@ -128,7 +141,7 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
                 else
                     leftLabel = $"{leftNode?.NbOccurence}";
 
-                
+
                 var leftGraphicNode = DrawLeftChildNode(leftLabel, links[0].Weight.ToString(), GetRightDescendantsCount(leftNode), parentGraphicNode);
                 var leftLinks = Graph.Links.Where(l => l.Parent?.Identifier == leftNode?.Identifier).ToList();
                 DrawChildrenNode(leftLinks, leftGraphicNode);
@@ -137,19 +150,19 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
 
         private int GetLeftDescendantsCount(HuffmanNode? parentNode)
         {
-            if (parentNode is not null && Graph.Links.Where(l => l.Parent!.Identifier == parentNode.Identifier).Count() == 0 )
+            if (parentNode is not null && Graph.Links.Where(l => l.Parent!.Identifier == parentNode.Identifier).Count() == 0)
                 return 1;
 
             var node = Graph.Links.Where(l => l.Parent!.Identifier == parentNode!.Identifier).ToList()[0].Child;
-            return node!.DescendantsCount+2; // 2 = last link + last node
+            return node!.DescendantsCount + 2; // 2 = last link + last node
         }
         private int GetRightDescendantsCount(HuffmanNode? parentNode)
         {
-            if (parentNode is not null && ((Graph.Links.Where(l => l.Parent!.Identifier == parentNode.Identifier).Count() == 0)  ||
-               (Graph.Links.Where(l => l.Parent!.Identifier == parentNode.Identifier).Count()!=2)))
+            if (parentNode is not null && ((Graph.Links.Where(l => l.Parent!.Identifier == parentNode.Identifier).Count() == 0) ||
+               (Graph.Links.Where(l => l.Parent!.Identifier == parentNode.Identifier).Count() != 2)))
                 return 1;
             var node = Graph.Links.Where(l => l.Parent!.Identifier == parentNode!.Identifier).ToList()[1].Child;
-            return node!.DescendantsCount+2; // 2 = last link + last node
+            return node!.DescendantsCount + 2; // 2 = last link + last node
         }
 
         private GraphicNode DrawRootNode(Point startPosition, string label, int descendantsCount)
@@ -166,9 +179,9 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
         private GraphicNode DrawLeftChildNode(string label, string weight, int descendantsCount, GraphicNode parentGraphicNode)
         {
             int linkMargin = 5;
-            int linkSpacing = NodeWidth + linkMargin ;
+            int linkSpacing = NodeWidth + linkMargin;
             descendantsCount = descendantsCount == 0 ? 1 : descendantsCount;
-            GraphicNode node = new(parentGraphicNode.X - (linkSpacing * descendantsCount), parentGraphicNode.Y + NodeHeight * 3, NodeWidth, NodeHeight);
+            GraphicNode node = new(parentGraphicNode.X - (linkSpacing * descendantsCount), parentGraphicNode.Y + NodeHeight + 20, NodeWidth, NodeHeight);
             DrawNode(node, label);
             DrawLeftLink(parentGraphicNode, node, weight);
             return node;
@@ -179,7 +192,7 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
             int linkMargin = 5;
             int linkSpacing = NodeWidth + linkMargin;
             descendantsCount = descendantsCount == 0 ? 1 : descendantsCount;
-            GraphicNode node = new(parentGraphicNode.X + (linkSpacing * descendantsCount), parentGraphicNode.Y + NodeHeight * 3, NodeWidth, NodeHeight);
+            GraphicNode node = new(parentGraphicNode.X + (linkSpacing * descendantsCount), parentGraphicNode.Y + NodeHeight + 20, NodeWidth, NodeHeight);
             DrawNode(node, label);
             DrawRightLink(parentGraphicNode, node, weight);
             return node;
@@ -195,7 +208,7 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
             _canvas.SetShadow(new SizeF(10, 10), 10, ShadowColor);
             _canvas.FillEllipse(paintRectangle);
 
-            _canvas.StrokeColor = Colors.Black;
+            _canvas.FontColor = NodeTextColor;
             _canvas.Font = Microsoft.Maui.Graphics.Font.DefaultBold;
             _canvas.DrawString(label, paintRectangle, HorizontalAlignment.Center, VerticalAlignment.Center);
 
@@ -226,11 +239,11 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
             int textY = (int)(endHorizontalLinePoint.Y + ((endVerticalLinePoint.Y - endHorizontalLinePoint.Y) / 2));
             DrawWeight(weight, new Point(textX, textY), HorizontalAlignment.Right);
         }
-        
+
         private void DrawWeight(string weight, Point weightPosition, HorizontalAlignment hAlignment)
         {
             int textHeight = 5;
-            _canvas!.StrokeColor = TextColor;
+            _canvas!.FontColor = LineTextColor;
             _canvas!.DrawString(weight, (int)weightPosition.X, (int)weightPosition.Y, NodeWidth, textHeight, hAlignment, VerticalAlignment.Top);
         }
     }
