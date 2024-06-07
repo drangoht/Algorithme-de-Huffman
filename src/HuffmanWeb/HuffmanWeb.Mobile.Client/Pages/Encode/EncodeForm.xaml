@@ -20,6 +20,7 @@
             <material:EditorField
                 x:Name="textToEncode"
                 Title="Texte à encoder"
+                HeightRequest="300"
                 Text="{Binding TextToEncode}" />
         </ScrollView>
 
@@ -31,6 +32,7 @@
                 Padding="10,0"
                 Clicked="ResetBtn_Clicked"
                 HorizontalOptions="Center"
+                StyleClass="FilledButton"
                 Text="Effacer" />
             <Button
                 x:Name="EncodeBtn"
@@ -39,6 +41,7 @@
                 Padding="10,0"
                 Clicked="EncodeBtn_Clicked"
                 HorizontalOptions="Center"
+                StyleClass="FilledButton"
                 Text="Encoder" />
         </Grid>
 
@@ -58,6 +61,7 @@
                 HorizontalOptions="Fill"
                 IsVisible="False"
                 SemanticProperties.Hint="Access to Matching table"
+                StyleClass="FilledButton"
                 Text="Table de correspondance" />
             <Button
                 x:Name="TreeBtn"
@@ -68,6 +72,7 @@
                 HorizontalOptions="Fill"
                 IsVisible="False"
                 SemanticProperties.Hint="Access to binary tree"
+                StyleClass="FilledButton"
                 Text="Arbre" />
         </Grid>
     </VerticalStackLayout>

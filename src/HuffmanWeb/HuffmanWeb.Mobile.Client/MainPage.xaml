@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30,0" Spacing="25">
+        <VerticalStackLayout Padding="20,0" Spacing="5">
+            <Image Source="splash.svg" />
+            <Label Style="{StaticResource maintitle}" Text="Huffman Playground" />
             <Button
                 x:Name="EncodeBtn"
                 Clicked="EncodeBtn_Clicked"

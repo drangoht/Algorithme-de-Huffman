@@ -14,7 +14,6 @@
             Text="Paramètres" />
     </ContentPage.ToolbarItems>
     <StackLayout>
-
         <Grid
             x:Name="settingsGrid"
             Margin="5"
@@ -129,6 +128,7 @@
                 PointerRingDiameterUnits="0.7" />
 
         </Grid>
+
         <drawables:BinaryTreeDrawable
             x:Name="binaryTree"
             Graph="{Binding ViewModel.Response.Graph}"

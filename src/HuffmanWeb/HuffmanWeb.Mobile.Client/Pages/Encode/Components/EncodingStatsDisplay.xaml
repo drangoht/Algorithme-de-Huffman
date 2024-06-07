@@ -9,7 +9,7 @@
                 Grid.Column="0"
                 Margin="5,2"
                 Padding="0,10"
-                BackgroundColor="Grey">
+                StyleClass="PrimaryContainer">
                 <Label
                     x:Name="OriginalSizeLbl"
                     HorizontalOptions="Center"
@@ -20,7 +20,7 @@
                 Grid.Column="1"
                 Margin="5,2"
                 Padding="0,10"
-                BackgroundColor="Grey">
+                StyleClass="PrimaryContainer">
                 <Label
                     x:Name="EncodedSizeLbl"
                     HorizontalOptions="Center"
@@ -31,7 +31,7 @@
                 Grid.Column="2"
                 Margin="5,2"
                 Padding="0,10"
-                BackgroundColor="Grey">
+                StyleClass="PrimaryContainer">
                 <Label
                     x:Name="CompressionPercentLbl"
                     HorizontalOptions="Center"
