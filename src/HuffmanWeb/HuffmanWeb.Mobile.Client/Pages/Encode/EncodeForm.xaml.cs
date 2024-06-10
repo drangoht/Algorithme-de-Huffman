@@ -21,13 +21,20 @@ public partial class EncodeForm : ContentPage
         //textToEncode.Unfocus();
         MatchingTablebtn.IsVisible = false;
         TreeBtn.IsVisible = false;
-
+        encodingStats.IsVisible = false;
+        binaryString.IsVisible = false;
+        
         var viewModel = (EncodeViewModel)BindingContext;
-        if (viewModel.CallEncodeApiCommand.CanExecute(null))
+        if (!string.IsNullOrWhiteSpace(viewModel.TextToEncode))
         {
-            viewModel.CallEncodeApiCommand.Execute(null);
-            MatchingTablebtn.IsVisible = true;
-            TreeBtn.IsVisible = true;
+            if (viewModel.CallEncodeApiCommand.CanExecute(null))
+            {
+                viewModel.CallEncodeApiCommand.Execute(null);
+                MatchingTablebtn.IsVisible = true;
+                TreeBtn.IsVisible = true;
+                encodingStats.IsVisible = true;
+                binaryString.IsVisible = true;
+            }
         }
     }
 

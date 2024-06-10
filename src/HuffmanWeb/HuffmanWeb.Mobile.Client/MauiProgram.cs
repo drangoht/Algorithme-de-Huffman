@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using CommunityToolkit.Maui;
-using UraniumUI;
+
 
 namespace HuffmanWeb.Mobile.Client
 {
@@ -14,8 +14,6 @@ namespace HuffmanWeb.Mobile.Client
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
-                .UseUraniumUI()
-                .UseUraniumUIMaterial() 
                 .UseSkiaSharp()
                 .ConfigureFonts(fonts =>
                 {

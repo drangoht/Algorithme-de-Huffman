@@ -8,8 +8,7 @@
             <Frame
                 Grid.Column="0"
                 Margin="5,2"
-                Padding="0,10"
-                StyleClass="PrimaryContainer">
+                Padding="0,10">
                 <Label
                     x:Name="OriginalSizeLbl"
                     HorizontalOptions="Center"
@@ -19,8 +18,7 @@
             <Frame
                 Grid.Column="1"
                 Margin="5,2"
-                Padding="0,10"
-                StyleClass="PrimaryContainer">
+                Padding="0,10">
                 <Label
                     x:Name="EncodedSizeLbl"
                     HorizontalOptions="Center"
@@ -30,8 +28,7 @@
             <Frame
                 Grid.Column="2"
                 Margin="5,2"
-                Padding="0,10"
-                StyleClass="PrimaryContainer">
+                Padding="0,10">
                 <Label
                     x:Name="CompressionPercentLbl"
                     HorizontalOptions="Center"
