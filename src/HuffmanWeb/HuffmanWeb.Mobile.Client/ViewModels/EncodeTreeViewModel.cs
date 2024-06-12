@@ -4,14 +4,14 @@ namespace HuffmanWeb.Mobile.Client.ViewModels
 {
     public class EncodeTreeViewModel : INotifyPropertyChanged
     {
-        private int treeWidth = 2000;
+        private int treeWidth = 4000;
         private int treeHeight = 2000;
         private int nodeWidth = 40;
         private int nodeHeight = 20;
-        private Color nodeColor;
-        private Color nodeTextColor;
-        private Color lineColor;
-        private Color lineTextColor;
+        private Color nodeColor = Colors.Silver;
+        private Color nodeTextColor = Colors.Black;
+        private Color lineColor = Colors.Black;
+        private Color lineTextColor = Colors.Silver;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

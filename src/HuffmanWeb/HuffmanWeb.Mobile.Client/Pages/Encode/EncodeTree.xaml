@@ -25,38 +25,18 @@
             <Label
                 Grid.Row="0"
                 Grid.Column="0"
-                Text="Largeur Arbre" />
+                HorizontalOptions="Center"
+                Style="{StaticResource LabelConfigTree}"
+                Text="Largeur noeud" />
             <Label
                 Grid.Row="0"
                 Grid.Column="1"
-                Text="Hauteur Arbre" />
-            <Slider
-                x:Name="treeWidth"
-                Grid.Row="1"
-                Grid.Column="0"
-                Maximum="3000"
-                Minimum="400"
-                ValueChanged="treeWidth_ValueChanged"
-                Value="{Binding TreeViewModel.TreeWidth}" />
-            <Slider
-                x:Name="treeHeight"
-                Grid.Row="1"
-                Grid.Column="1"
-                Maximum="3000"
-                Minimum="400"
-                ValueChanged="treeHeight_ValueChanged"
-                Value="{Binding TreeViewModel.TreeHeight}" />
-            <Label
-                Grid.Row="2"
-                Grid.Column="0"
-                Text="Largeur noeud" />
-            <Label
-                Grid.Row="2"
-                Grid.Column="1"
+                HorizontalOptions="Center"
+                Style="{StaticResource LabelConfigTree}"
                 Text="Hauteur noeud" />
             <Slider
                 x:Name="nodewidth"
-                Grid.Row="3"
+                Grid.Row="1"
                 Grid.Column="0"
                 Maximum="150"
                 Minimum="30"
@@ -64,19 +44,20 @@
                 Value="{Binding TreeViewModel.NodeWidth}" />
             <Slider
                 x:Name="nodeHeight"
-                Grid.Row="3"
+                Grid.Row="1"
                 Grid.Column="1"
                 Maximum="150"
                 Minimum="30"
                 ValueChanged="nodeHeight_ValueChanged"
                 Value="{Binding TreeViewModel.NodeHeight}" />
             <Label
-                Grid.Row="4"
+                Grid.Row="2"
                 Grid.Column="0"
+                Style="{StaticResource LabelConfigTree}"
                 Text="Couleur du noeud" />
             <controls:ColorPicker
                 x:Name="NodeColor"
-                Grid.Row="4"
+                Grid.Row="2"
                 Grid.Column="1"
                 ColorFlowDirection="Horizontal"
                 ColorSpectrumStyle="ShadeToHueStyle"
@@ -85,12 +66,13 @@
                 PointerRingBorderUnits="0.3"
                 PointerRingDiameterUnits="0.7" />
             <Label
-                Grid.Row="5"
+                Grid.Row="3"
                 Grid.Column="0"
+                Style="{StaticResource LabelConfigTree}"
                 Text="Couleur du texte des noeuds" />
             <controls:ColorPicker
                 x:Name="NodeTextColor"
-                Grid.Row="5"
+                Grid.Row="3"
                 Grid.Column="1"
                 ColorFlowDirection="Horizontal"
                 ColorSpectrumStyle="ShadeToHueStyle"
@@ -99,12 +81,13 @@
                 PointerRingBorderUnits="0.3"
                 PointerRingDiameterUnits="0.7" />
             <Label
-                Grid.Row="6"
+                Grid.Row="4"
                 Grid.Column="0"
+                Style="{StaticResource LabelConfigTree}"
                 Text="Couleur des liens" />
             <controls:ColorPicker
                 x:Name="LineColor"
-                Grid.Row="6"
+                Grid.Row="4"
                 Grid.Column="1"
                 ColorFlowDirection="Horizontal"
                 ColorSpectrumStyle="ShadeToHueStyle"
@@ -113,12 +96,13 @@
                 PointerRingBorderUnits="0.3"
                 PointerRingDiameterUnits="0.7" />
             <Label
-                Grid.Row="7"
+                Grid.Row="5"
                 Grid.Column="0"
+                Style="{StaticResource LabelConfigTree}"
                 Text="Couleur du texte des lignes" />
             <controls:ColorPicker
                 x:Name="LineTextColor"
-                Grid.Row="7"
+                Grid.Row="5"
                 Grid.Column="1"
                 ColorFlowDirection="Horizontal"
                 ColorSpectrumStyle="ShadeToHueStyle"

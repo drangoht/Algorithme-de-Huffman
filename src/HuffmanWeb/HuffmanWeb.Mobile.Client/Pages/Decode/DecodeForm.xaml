@@ -4,10 +4,48 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="DecodeForm">
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Decode Form"
-            VerticalOptions="Center" />
+    <VerticalStackLayout Spacing="5" VerticalOptions="Fill">
+
+
+        <Editor
+            x:Name="textToDecode"
+            HeightRequest="200"
+            Placeholder="Text à decoder"
+            Text="{Binding TextToDecode}" />
+        <Editor
+            x:Name="matchintTableJson"
+            HeightRequest="200"
+            Placeholder="Table de correspondance (JSON)"
+            Text="{Binding MatchinTableJson}" />
+        <Grid
+            Padding="15"
+            ColumnDefinitions="3*,*,*"
+            HorizontalOptions="FillAndExpand">
+            <Button
+                x:Name="ResetBtn"
+                Grid.Column="1"
+                Margin="0,10"
+                Padding="10,0"
+                BorderWidth="1"
+                Clicked="ResetBtn_Clicked"
+                HorizontalOptions="Center"
+                Text="Effacer" />
+            <Button
+                x:Name="DecodeBtn"
+                Grid.Column="2"
+                Margin="0,10"
+                Padding="10,0"
+                BorderWidth="1"
+                Clicked="DecodeBtn_Clicked"
+                HorizontalOptions="Center"
+                Text="Decoder" />
+        </Grid>
+
+        <Editor
+            x:Name="decodedText"
+            HeightRequest="200"
+            IsReadOnly="True"
+            Placeholder="Résultat"
+            Text="{Binding Response.DecodedText}" />
     </VerticalStackLayout>
 </ContentPage>

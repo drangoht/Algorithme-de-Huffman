@@ -10,7 +10,7 @@
     <Color x:Key="Secondary">#ebe6c4</Color>
     <Color x:Key="SecondaryDarkText">#9880e5</Color>
     <Color x:Key="Tertiary">#2B0B98</Color>
-
+    <Color x:Key="LabelBeige">#d8b694</Color>
     <Color x:Key="White">#ffffff</Color>
     <Color x:Key="TextTree">#01223b</Color>
     <Color x:Key="BackgroundTree">#01223b</Color>

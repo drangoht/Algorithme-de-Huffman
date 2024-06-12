@@ -14,18 +14,18 @@ public partial class EncodeTree : ContentPage
         };
     }
 
-    private async void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+    private void OnPanUpdated(object sender, PanUpdatedEventArgs e)
     {
         binaryTree.TranslationX += e.TotalX;
         binaryTree.TranslationY += e.TotalY;
-        await HideSettings();
+        HideSettings();
     }
 
-    private async void refreshBtn_Clicked(object sender, EventArgs e)
+    private void refreshBtn_Clicked(object sender, EventArgs e)
     {
-        await RefreshTree();
+        RefreshTree();
     }
-    private async Task RefreshTree()
+    private void RefreshTree()
     {
         var currBindingContext = ((EncodeTreeBindingContext)BindingContext);
         binaryTree.WidthRequest = currBindingContext.TreeViewModel!.TreeWidth;
@@ -33,12 +33,12 @@ public partial class EncodeTree : ContentPage
         binaryTree.NodeWidth = currBindingContext.TreeViewModel!.NodeWidth;
         binaryTree.NodeHeight = currBindingContext.TreeViewModel!.NodeHeight;
         binaryTree.Invalidate();
-        await HideSettings();
+        HideSettings();
     }
     private void settingsToolsBarItem_Clicked(object sender, EventArgs e) =>
         settingsGrid.IsVisible = !settingsGrid.IsVisible;
 
-    private async Task HideSettings() =>
+    private void HideSettings() =>
         settingsGrid.IsVisible = false;
 
 
@@ -46,7 +46,7 @@ public partial class EncodeTree : ContentPage
     {
         var currBindingContext = ((EncodeTreeBindingContext)BindingContext);
         binaryTree.NodeColor = e.NewPickedColorValue;
-        currBindingContext.TreeViewModel.NodeColor = e.NewPickedColorValue;
+        currBindingContext.TreeViewModel!.NodeColor = e.NewPickedColorValue;
         binaryTree.Invalidate();
     }
 
@@ -54,7 +54,7 @@ public partial class EncodeTree : ContentPage
     {
         var currBindingContext = ((EncodeTreeBindingContext)BindingContext);
         binaryTree.NodeTextColor = e.NewPickedColorValue;
-        currBindingContext.TreeViewModel.NodeTextColor = e.NewPickedColorValue;
+        currBindingContext.TreeViewModel!.NodeTextColor = e.NewPickedColorValue;
         binaryTree.Invalidate();
     }
 
@@ -62,14 +62,14 @@ public partial class EncodeTree : ContentPage
     {
         var currBindingContext = ((EncodeTreeBindingContext)BindingContext);
         binaryTree.LineColor = e.NewPickedColorValue;
-        currBindingContext.TreeViewModel.Linecolor = e.NewPickedColorValue;
+        currBindingContext.TreeViewModel!.Linecolor = e.NewPickedColorValue;
         binaryTree.Invalidate();
     }
     private void LineTextColor_PickedColorChanged(object sender, Maui.ColorPicker.PickedColorChangedEventArgs e)
     {
         var currBindingContext = ((EncodeTreeBindingContext)BindingContext);
         binaryTree.LineTextColor = e.NewPickedColorValue;
-        currBindingContext.TreeViewModel.LineTextColor = e.NewPickedColorValue;
+        currBindingContext.TreeViewModel!.LineTextColor = e.NewPickedColorValue;
         binaryTree.Invalidate();
     }
     private void treeWidth_ValueChanged(object sender, ValueChangedEventArgs e)

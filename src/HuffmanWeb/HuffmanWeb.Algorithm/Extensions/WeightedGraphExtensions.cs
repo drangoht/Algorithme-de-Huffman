@@ -18,7 +18,7 @@ namespace HuffmanWeb.Algorithm.Extensions
         {
             if (parentNode == null) return;
             // Count direct descendantsNode + add sum of descendants node
-            parentNode.DescendantsCount = graph.Links.Count(l => l.Parent == parentNode) + graph.Links.Where(l => l.Parent == parentNode).Sum(n => n.Child.DescendantsCount);
+            parentNode.DescendantsCount = graph.Links.Count(l => l.Parent == parentNode) + graph.Links.Where(l => l.Parent == parentNode).Sum(n => n.Child!.DescendantsCount);
             FillDescendantsCount(graph, graph.Links.FirstOrDefault(n => n.Child == parentNode)?.Parent, parentNode);
         }
     }

@@ -16,7 +16,7 @@ public partial class EncodeForm : ContentPage
         //textToEncode.Focus();
         isPageLoaded = true;
     }
-    private async void EncodeBtn_Clicked(object sender, EventArgs e)
+    private void EncodeBtn_Clicked(object sender, EventArgs e)
     {
         //textToEncode.Unfocus();
         MatchingTablebtn.IsVisible = false;
