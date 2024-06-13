@@ -12,12 +12,9 @@ public partial class DecodeForm : ContentPage
     private void DecodeBtn_Clicked(object sender, EventArgs e)
     {
         var viewModel = (DecodeViewModel)BindingContext;
-        if (!string.IsNullOrWhiteSpace(viewModel.TextToDecode) && !string.IsNullOrWhiteSpace(viewModel.MatchinTableJson))
+        if (!string.IsNullOrWhiteSpace(viewModel.TextToDecode) && !string.IsNullOrWhiteSpace(viewModel.MatchingTableJson))
         {
-            if (viewModel.CallDecodeApiCommand.CanExecute(null))
-            {
-                viewModel.CallDecodeApiCommand.Execute(null);
-            }
+            viewModel.CallDecodeApiCommand.Execute(null);
         }
     }
     private void ResetBtn_Clicked(object sender, EventArgs e)

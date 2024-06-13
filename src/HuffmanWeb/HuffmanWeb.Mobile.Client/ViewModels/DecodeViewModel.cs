@@ -1,89 +1,50 @@
-﻿using HuffmanWeb.Common.DTOs;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using HuffmanWeb.Common.DTOs;
 using HuffmanWeb.Common.DTOs.Requests;
 using HuffmanWeb.Common.DTOs.Responses;
 using HuffmanWeb.Mobile.Client.ApiInterfaces;
+using HuffmanPlayground.Mobile.Client.Enumerations;
+
 using Refit;
-using System.ComponentModel;
 using System.Text.Json;
-using System.Windows.Input;
+
 namespace HuffmanWeb.Mobile.Client.ViewModels
 {
-    public class DecodeViewModel : INotifyPropertyChanged
+    public partial class DecodeViewModel : BaseViewModel
     {
-
+        [ObservableProperty]
         DecodeResponse response = new();
+        [ObservableProperty]
         string textToDecode = string.Empty;
+        [ObservableProperty]
         string matchingTableJson = string.Empty;
-        decimal compressionPercent = 0;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public ICommand CallDecodeApiCommand { get; private set; }
-        private bool isWorking;
-
-        public DecodeViewModel()
-        {
-            CallDecodeApiCommand = new Command(
-                execute: async (async) =>
+        [RelayCommand]
+        public async Task CallDecodeApi()
+        { 
+            try
+            {
+                Response = new();
+                var huffmanApi = RestService.For<IHuffmanApi>("https://huffmanweb.thognard.net/huffman"); // Ugly      
+                var req = new DecodeRequest();
+                req.BinaryHuffman = TextToDecode;
+                var serializeOptions = new JsonSerializerOptions
                 {
-                    IsWorking = true;
-                    Response = new();
-                    var huffmanApi = RestService.For<IHuffmanApi>("https://huffmanweb.thognard.net/huffman"); // Ugly      
-                    var req = new DecodeRequest();
-                    req.BinaryHuffman = textToDecode;
-                    req.MatchingCharacters = JsonSerializer.Deserialize<List<Character>>(matchingTableJson)!;
-                    Response = await huffmanApi.Decode(req);
-                    IsWorking = false;
-                },
-                canExecute: (async) => response != null
-            );
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    WriteIndented = true
+                };
+                req.MatchingCharacters = JsonSerializer.Deserialize<List<Character>>(MatchingTableJson, serializeOptions)!;
+                Response = await huffmanApi.Decode(req);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = "Une erreur est survenue";
+                ErrorType = ErrorTypeEnum.Error;
+
+            }
+
         }
 
-        public DecodeResponse Response
-        {
-            get
-            {
-                return response;
-            }
-            set
-            {
-                response = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Response)));
-            }
-        }
-        public string TextToDecode
-        {
-            get
-            {
-                return textToDecode;
-            }
-            set
-            {
-                textToDecode = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TextToDecode)));
-            }
-        }
-        public string MatchinTableJson
-        {
-            get
-            {
-                return matchingTableJson;
-            }
-            set
-            {
-                matchingTableJson = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MatchinTableJson)));
-            }
-        }
-
-        public bool IsWorking
-        {
-            get => isWorking;
-            set
-            {
-                isWorking = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsWorking)));
-            }
-        }
     }
 }

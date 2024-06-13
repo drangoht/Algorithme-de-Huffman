@@ -16,7 +16,7 @@
             x:Name="matchintTableJson"
             HeightRequest="200"
             Placeholder="Table de correspondance (JSON)"
-            Text="{Binding MatchinTableJson}" />
+            Text="{Binding MatchingTableJson}" />
         <Grid
             Padding="15"
             ColumnDefinitions="3*,*,*"

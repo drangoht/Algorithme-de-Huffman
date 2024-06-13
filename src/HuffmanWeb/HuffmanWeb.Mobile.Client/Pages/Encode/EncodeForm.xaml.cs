@@ -27,14 +27,11 @@ public partial class EncodeForm : ContentPage
         var viewModel = (EncodeViewModel)BindingContext;
         if (!string.IsNullOrWhiteSpace(viewModel.TextToEncode))
         {
-            if (viewModel.CallEncodeApiCommand.CanExecute(null))
-            {
-                viewModel.CallEncodeApiCommand.Execute(null);
-                MatchingTablebtn.IsVisible = true;
-                TreeBtn.IsVisible = true;
-                encodingStats.IsVisible = true;
-                binaryString.IsVisible = true;
-            }
+            viewModel.CallEncodeApiCommand.Execute(null);
+            MatchingTablebtn.IsVisible = true;
+            TreeBtn.IsVisible = true;
+            encodingStats.IsVisible = true;
+            binaryString.IsVisible = true;
         }
     }
 

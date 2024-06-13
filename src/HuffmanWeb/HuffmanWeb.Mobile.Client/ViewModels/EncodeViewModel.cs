@@ -1,85 +1,42 @@
-﻿using HuffmanWeb.Common.DTOs.Requests;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using HuffmanWeb.Common.DTOs.Requests;
 using HuffmanWeb.Common.DTOs.Responses;
 using HuffmanWeb.Mobile.Client.ApiInterfaces;
+using HuffmanPlayground.Mobile.Client.Enumerations;
 using Refit;
-using System.ComponentModel;
-using System.Windows.Input;
+
 namespace HuffmanWeb.Mobile.Client.ViewModels
 {
-    public class EncodeViewModel : INotifyPropertyChanged
+    public partial class EncodeViewModel : BaseViewModel
     {
-
+        [ObservableProperty]
         EncodeResponse response = new();
+        [ObservableProperty]
         string textToEncode = string.Empty;
+        [ObservableProperty]
         decimal compressionPercent = 0;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public ICommand CallEncodeApiCommand { get; private set; }
-        private bool isWorking;
-
-        public EncodeViewModel()
+        [RelayCommand]
+        public async Task CallEncodeApi()
         {
-            CallEncodeApiCommand = new Command(
-                execute: async (async) =>
-                {
-                    IsWorking = true;
-                    Response = new();
-                    var huffmanApi = RestService.For<IHuffmanApi>("https://huffmanweb.thognard.net/huffman"); // Ugly      
-                    var req = new EncodeRequest();
-                    req.TextToEncode = textToEncode;
-                    Response = await huffmanApi.Encode(req);
-                    CompressionPercent = response.OriginalSize > 0 ? ((1 - (decimal)((decimal)response.EncodedSize / (decimal)response.OriginalSize)) * (decimal)100) : 0;
-                    IsWorking = false;
-                },
-                canExecute: (async) => response != null
-            );
+            try
+            {
+                Response = new();
+                var huffmanApi = RestService.For<IHuffmanApi>("https://huffmanweb.thognard.net/huffman"); // Ugly      
+                var req = new EncodeRequest();
+                req.TextToEncode = TextToEncode;
+                Response = await huffmanApi.Encode(req);
+                CompressionPercent = Response.OriginalSize > 0 ? ((1 - (decimal)((decimal)Response.EncodedSize / (decimal)Response.OriginalSize)) * (decimal)100) : 0;
+                ErrorType = ErrorTypeEnum.None;
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = "Une erreur est survenue";
+                ErrorType = ErrorTypeEnum.Error;
+            }
+
         }
 
-        public EncodeResponse Response
-        {
-            get
-            {
-                return response;
-            }
-            set
-            {
-                response = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Response)));
-            }
-        }
-        public string TextToEncode
-        {
-            get
-            {
-                return textToEncode;
-            }
-            set
-            {
-                textToEncode = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TextToEncode)));
-            }
-        }
-        public decimal CompressionPercent
-        {
-            get
-            {
-                return compressionPercent;
-            }
-            set
-            {
-                compressionPercent = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CompressionPercent)));
-            }
-        }
-        public bool IsWorking
-        {
-            get => isWorking;
-            set
-            {
-                isWorking = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsWorking)));
-            }
-        }
     }
 }
