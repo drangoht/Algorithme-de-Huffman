@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.EncodeMatchingTable"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Table de correspondance">
+    <StackLayout>
+
+        <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout Margin="5">
+                <Frame
+                    Margin="5,2"
+                    Padding="0,10"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource TextTree},
+                                                      Dark={StaticResource TextTree}}"
+                    BorderColor="{AppThemeBinding Light={StaticResource TextTree},
+                                                  Dark={StaticResource TextTree}}">
+                    <CollectionView ItemsSource="{Binding Response.MatchingCharacters}">
+                        <CollectionView.Header>
+                            <Grid ColumnDefinitions="*,*">
+                                <Label
+                                    Grid.Column="0"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},
+                                                                      Dark={StaticResource Primary}}"
+                                    FontAttributes="Bold"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Caractère"
+                                    TextColor="{AppThemeBinding Light={StaticResource TextTree},
+                                                                Dark={StaticResource TextTree}}" />
+                                <Label
+                                    Grid.Column="1"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},
+                                                                      Dark={StaticResource Primary}}"
+                                    FontAttributes="Bold"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Code"
+                                    TextColor="{AppThemeBinding Light={StaticResource TextTree},
+                                                                Dark={StaticResource TextTree}}" />
+                            </Grid>
+                        </CollectionView.Header>
+                        <CollectionView.ItemTemplate>
+
+                            <DataTemplate>
+                                <Grid
+                                    Margin="5,1"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},
+                                                                      Dark={StaticResource Primary}}"
+                                    ColumnDefinitions="*,*"
+                                    ColumnSpacing="1"
+                                    HorizontalOptions="FillAndExpand"
+                                    RowSpacing="2">
+
+                                    <Label
+                                        Grid.Column="0"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource TextTree},
+                                                                          Dark={StaticResource TextTree}}"
+                                        HorizontalOptions="FillAndExpand"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding Id}"
+                                        TextColor="{AppThemeBinding Light={StaticResource Primary},
+                                                                    Dark={StaticResource Primary}}" />
+                                    <Label
+                                        Grid.Column="1"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource TextTree},
+                                                                          Dark={StaticResource TextTree}}"
+                                        HorizontalOptions="FillAndExpand"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding Value}"
+                                        TextColor="{AppThemeBinding Light={StaticResource Primary},
+                                                                    Dark={StaticResource Primary}}" />
+
+                                </Grid>
+
+                            </DataTemplate>
+
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</ContentPage>

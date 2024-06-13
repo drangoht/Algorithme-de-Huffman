@@ -9,7 +9,11 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "huffmanweb.client", "huffma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HuffmanWeb.Algorithm", "HuffmanWeb.Algorithm\HuffmanWeb.Algorithm.csproj", "{1AB0B6E5-6EC8-41C7-86A3-DE76ACAA779A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuffmanWeb.UnitTests", "HuffmanWeb.UnitTests\HuffmanWeb.UnitTests.csproj", "{1248F5B7-4CF9-4125-8856-2745615293B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HuffmanWeb.UnitTests", "HuffmanWeb.UnitTests\HuffmanWeb.UnitTests.csproj", "{1248F5B7-4CF9-4125-8856-2745615293B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuffmanWeb.Mobile.Client", "HuffmanWeb.Mobile.Client\HuffmanWeb.Mobile.Client.csproj", "{0089BEDE-F43E-4F13-8F6B-C007306698F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuffmanWeb.Common", "HuffmanWeb.Common\HuffmanWeb.Common.csproj", "{C7914719-ECB6-4519-87C1-E842ED0A0AD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,16 @@ Global
 		{1248F5B7-4CF9-4125-8856-2745615293B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1248F5B7-4CF9-4125-8856-2745615293B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1248F5B7-4CF9-4125-8856-2745615293B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0089BEDE-F43E-4F13-8F6B-C007306698F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0089BEDE-F43E-4F13-8F6B-C007306698F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0089BEDE-F43E-4F13-8F6B-C007306698F4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0089BEDE-F43E-4F13-8F6B-C007306698F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0089BEDE-F43E-4F13-8F6B-C007306698F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0089BEDE-F43E-4F13-8F6B-C007306698F4}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C7914719-ECB6-4519-87C1-E842ED0A0AD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7914719-ECB6-4519-87C1-E842ED0A0AD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7914719-ECB6-4519-87C1-E842ED0A0AD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7914719-ECB6-4519-87C1-E842ED0A0AD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

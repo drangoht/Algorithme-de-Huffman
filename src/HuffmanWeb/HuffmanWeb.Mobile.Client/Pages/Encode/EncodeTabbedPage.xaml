@@ -1,0 +1,12 @@
+<TabbedPage
+    x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.EncodeTabbedPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:local="clr-namespace:HuffmanWeb.Mobile.Client.Pages.Encode"
+    android:TabbedPage.ToolbarPlacement="Bottom">
+
+    <local:EncodeForm />
+    <local:EncodeMatchingTable />
+    <local:EncodeTree />
+</TabbedPage>

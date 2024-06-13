@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using HuffmanWeb.Common.DTOs;
+using System.Collections;
 
 namespace HuffmanWeb.Algorithm
 {

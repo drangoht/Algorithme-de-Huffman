@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="HuffmanWeb.Mobile.Client.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,0" Spacing="5">
+
+
+            <Image Source="splash.svg" />
+            <Label Style="{StaticResource MainTitle}" Text="Huffman Playground" />
+            <Grid ColumnDefinitions="*,*" RowDefinitions="200,30">
+                <ImageButton
+                    x:Name="EncodeBtn"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Clicked="EncodeBtn_Clicked"
+                    HorizontalOptions="Fill"
+                    SemanticProperties.Hint="Access to encode page"
+                    Source="btn_encoding.png"
+                    VerticalOptions="Start" />
+                <ImageButton
+                    x:Name="DecodeBtn"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Clicked="DecodeBtn_Clicked"
+                    HorizontalOptions="Fill"
+                    SemanticProperties.Hint="Access to decode page"
+                    Source="btn_decoding.png" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Style="{StaticResource ButtonLabel}"
+                    Text="Encoder" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Style="{StaticResource ButtonLabel}"
+                    Text="Decoder" />
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

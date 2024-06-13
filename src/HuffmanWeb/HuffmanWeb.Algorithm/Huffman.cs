@@ -1,6 +1,7 @@
-﻿using System.Collections;
+﻿using HuffmanWeb.Algorithm.Extensions;
+using HuffmanWeb.Common.DTOs;
+using System.Collections;
 using System.Text;
-using HuffmanWeb.Algorithm.Extensions;
 namespace HuffmanWeb.Algorithm
 {
     public static class Huffman
@@ -53,7 +54,7 @@ namespace HuffmanWeb.Algorithm
                     graph.CreateLink(root, twoSmallestNodes[1], weight);
                     nodes.Remove(twoSmallestNodes[1]);
                 }
-                if(nodes.Count() > 0)
+                if (nodes.Count() > 0)
                     nodes.Add(root);
 
             }
@@ -97,7 +98,7 @@ namespace HuffmanWeb.Algorithm
             }
             return textDecoded;
         }
-        
+
     }
 
 }
