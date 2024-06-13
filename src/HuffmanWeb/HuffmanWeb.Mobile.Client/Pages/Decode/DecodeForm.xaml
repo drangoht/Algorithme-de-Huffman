@@ -4,7 +4,10 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="DecodeForm">
-    <VerticalStackLayout Spacing="5" VerticalOptions="Fill">
+    <VerticalStackLayout
+        Padding="15,0"
+        Spacing="5"
+        VerticalOptions="Fill">
 
 
         <Editor
@@ -17,10 +20,7 @@
             HeightRequest="200"
             Placeholder="Table de correspondance (JSON)"
             Text="{Binding MatchingTableJson}" />
-        <Grid
-            Padding="15"
-            ColumnDefinitions="3*,*,*"
-            HorizontalOptions="FillAndExpand">
+        <Grid ColumnDefinitions="3*,*,*" HorizontalOptions="FillAndExpand">
             <Button
                 x:Name="ResetBtn"
                 Grid.Column="1"
@@ -43,9 +43,11 @@
 
         <Editor
             x:Name="decodedText"
+            BackgroundColor="{StaticResource Primary}"
             HeightRequest="200"
             IsReadOnly="True"
             Placeholder="Résultat"
-            Text="{Binding Response.DecodedText}" />
+            Text="{Binding Response.DecodedText}"
+            TextColor="{StaticResource LabelBeige}" />
     </VerticalStackLayout>
 </ContentPage>

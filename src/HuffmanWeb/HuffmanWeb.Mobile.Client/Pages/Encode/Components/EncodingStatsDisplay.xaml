@@ -11,6 +11,7 @@
                 Padding="0,10">
                 <Label
                     x:Name="OriginalSizeLbl"
+                    FontSize="Micro"
                     HorizontalOptions="Center"
                     Text=""
                     VerticalOptions="Center" />
@@ -21,6 +22,7 @@
                 Padding="0,10">
                 <Label
                     x:Name="EncodedSizeLbl"
+                    FontSize="Micro"
                     HorizontalOptions="Center"
                     Text=""
                     VerticalOptions="Center" />
@@ -31,6 +33,7 @@
                 Padding="0,10">
                 <Label
                     x:Name="CompressionPercentLbl"
+                    FontSize="Micro"
                     HorizontalOptions="Center"
                     Text=""
                     VerticalOptions="Center" />

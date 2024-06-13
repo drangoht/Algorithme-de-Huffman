@@ -8,11 +8,11 @@
     HideSoftInputOnTapped="True"
     Loaded="OnPageLoaded">
     <ScrollView VerticalOptions="FillAndExpand">
-        <VerticalStackLayout VerticalOptions="Fill">
+        <VerticalStackLayout>
 
             <StackLayout>
                 <ScrollView
-                    HeightRequest="300"
+                    HeightRequest="200"
                     HorizontalScrollBarVisibility="Never"
                     IsEnabled="True"
                     VerticalScrollBarVisibility="Always"
@@ -20,13 +20,13 @@
                     ZIndex="2000">
                     <Editor
                         x:Name="textToEncode"
-                        HeightRequest="300"
+                        HeightRequest="200"
                         Placeholder="Text à encoder"
                         Text="{Binding TextToEncode}" />
                 </ScrollView>
 
                 <Grid
-                    Padding="15"
+                    Padding="15,0"
                     ColumnDefinitions="3*,*,*"
                     HorizontalOptions="FillAndExpand">
                     <Button
@@ -53,25 +53,29 @@
 
                 <components:HuffmanBinaryString
                     x:Name="binaryString"
-                    Padding="15"
+                    Padding="15,0"
                     HuffmanString="{Binding Response.EncodedBinaryString}"
                     IsVisible="False" />
                 <components:EncodingStatsDisplay
                     x:Name="encodingStats"
-                    Padding="15"
+                    Padding="15,0"
                     CompressionPercent="{Binding CompressionPercent}"
                     EncodedSize="{Binding Response.EncodedSize}"
                     IsVisible="False"
                     OriginalSize="{Binding Response.OriginalSize}" />
-                <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+                <Grid
+                    Padding="15,5"
+                    ColumnDefinitions="*,*"
+                    RowDefinitions="*,*">
                     <Button
                         x:Name="MatchingTablebtn"
                         Grid.Row="0"
                         Grid.Column="0"
                         Margin="5,2"
-                        Padding="0,10"
+                        Padding="15,10"
                         BorderWidth="1"
                         Clicked="MatchingTablebtn_Clicked"
+                        FontSize="Micro"
                         HorizontalOptions="Fill"
                         IsVisible="False"
                         SemanticProperties.Hint="Access to Matching table"
@@ -81,9 +85,10 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         Margin="5,2"
-                        Padding="0,10"
+                        Padding="15,10"
                         BorderWidth="1"
                         Clicked="TreeBtn_Clicked"
+                        FontSize="Micro"
                         HorizontalOptions="Fill"
                         IsVisible="False"
                         SemanticProperties.Hint="Access to binary tree"
@@ -96,6 +101,7 @@
                         Padding="0,10"
                         BorderWidth="1"
                         Clicked="copyToDecodeBtn_Clicked"
+                        FontSize="Micro"
                         HorizontalOptions="Fill"
                         IsVisible="False"
                         SemanticProperties.Hint="Copy to decoding part"
