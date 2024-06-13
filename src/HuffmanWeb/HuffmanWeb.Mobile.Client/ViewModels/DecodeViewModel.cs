@@ -29,12 +29,7 @@ namespace HuffmanWeb.Mobile.Client.ViewModels
                 var huffmanApi = RestService.For<IHuffmanApi>("https://huffmanweb.thognard.net/huffman"); // Ugly      
                 var req = new DecodeRequest();
                 req.BinaryHuffman = TextToDecode;
-                var serializeOptions = new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    WriteIndented = true
-                };
-                req.MatchingCharacters = JsonSerializer.Deserialize<List<Character>>(MatchingTableJson, serializeOptions)!;
+                req.MatchingCharacters = JsonSerializer.Deserialize<List<Character>>(MatchingTableJson)!;
                 Response = await huffmanApi.Decode(req);
             }
             catch (Exception ex)

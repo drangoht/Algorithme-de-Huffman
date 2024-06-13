@@ -7,82 +7,102 @@
     Title="Encodage du texte"
     HideSoftInputOnTapped="True"
     Loaded="OnPageLoaded">
-    <VerticalStackLayout VerticalOptions="Fill">
+    <ScrollView VerticalOptions="FillAndExpand">
+        <VerticalStackLayout VerticalOptions="Fill">
 
-        <ScrollView
-            HeightRequest="300"
-            HorizontalScrollBarVisibility="Never"
-            IsEnabled="True"
-            VerticalScrollBarVisibility="Always"
-            WidthRequest="380"
-            ZIndex="2000">
-            <Editor
-                x:Name="textToEncode"
-                HeightRequest="300"
-                Placeholder="Text à encoder"
-                Text="{Binding TextToEncode}" />
-        </ScrollView>
+            <StackLayout>
+                <ScrollView
+                    HeightRequest="300"
+                    HorizontalScrollBarVisibility="Never"
+                    IsEnabled="True"
+                    VerticalScrollBarVisibility="Always"
+                    WidthRequest="380"
+                    ZIndex="2000">
+                    <Editor
+                        x:Name="textToEncode"
+                        HeightRequest="300"
+                        Placeholder="Text à encoder"
+                        Text="{Binding TextToEncode}" />
+                </ScrollView>
 
-        <Grid
-            Padding="15"
-            ColumnDefinitions="3*,*,*"
-            HorizontalOptions="FillAndExpand">
-            <Button
-                x:Name="ResetBtn"
-                Grid.Column="1"
-                Margin="0,10"
-                Padding="10,0"
-                BorderWidth="1"
-                Clicked="ResetBtn_Clicked"
-                HorizontalOptions="Center"
-                Text="Effacer" />
-            <Button
-                x:Name="EncodeBtn"
-                Grid.Column="2"
-                Margin="0,10"
-                Padding="10,0"
-                BorderWidth="1"
-                Clicked="EncodeBtn_Clicked"
-                HorizontalOptions="Center"
-                Text="Encoder" />
-        </Grid>
+                <Grid
+                    Padding="15"
+                    ColumnDefinitions="3*,*,*"
+                    HorizontalOptions="FillAndExpand">
+                    <Button
+                        x:Name="ResetBtn"
+                        Grid.Column="1"
+                        Margin="0,10"
+                        Padding="10,0"
+                        BorderWidth="1"
+                        Clicked="ResetBtn_Clicked"
+                        HorizontalOptions="Center"
+                        Text="Effacer" />
+                    <Button
+                        x:Name="EncodeBtn"
+                        Grid.Column="2"
+                        Margin="0,10"
+                        Padding="10,0"
+                        BorderWidth="1"
+                        Clicked="EncodeBtn_Clicked"
+                        HorizontalOptions="Center"
+                        Text="Encoder" />
+                </Grid>
 
-        <ActivityIndicator IsRunning="{Binding IsWorking}" IsVisible="{Binding IsWorking}" />
-        <components:HuffmanBinaryString
-            x:Name="binaryString"
-            Padding="15"
-            HuffmanString="{Binding Response.EncodedBinaryString}"
-            IsVisible="False" />
-        <components:EncodingStatsDisplay
-            x:Name="encodingStats"
-            Padding="15"
-            CompressionPercent="{Binding CompressionPercent}"
-            EncodedSize="{Binding Response.EncodedSize}"
-            IsVisible="False"
-            OriginalSize="{Binding Response.OriginalSize}" />
-        <Grid ColumnDefinitions="*,*" RowDefinitions="*">
-            <Button
-                x:Name="MatchingTablebtn"
-                Grid.Column="0"
-                Margin="5,2"
-                Padding="0,10"
-                BorderWidth="1"
-                Clicked="MatchingTablebtn_Clicked"
-                HorizontalOptions="Fill"
-                IsVisible="False"
-                SemanticProperties.Hint="Access to Matching table"
-                Text="Table de correspondance" />
-            <Button
-                x:Name="TreeBtn"
-                Grid.Column="1"
-                Margin="5,2"
-                Padding="0,10"
-                BorderWidth="1"
-                Clicked="TreeBtn_Clicked"
-                HorizontalOptions="Fill"
-                IsVisible="False"
-                SemanticProperties.Hint="Access to binary tree"
-                Text="Arbre" />
-        </Grid>
-    </VerticalStackLayout>
+                <ActivityIndicator IsRunning="{Binding IsWorking}" IsVisible="{Binding IsWorking}" />
+
+                <components:HuffmanBinaryString
+                    x:Name="binaryString"
+                    Padding="15"
+                    HuffmanString="{Binding Response.EncodedBinaryString}"
+                    IsVisible="False" />
+                <components:EncodingStatsDisplay
+                    x:Name="encodingStats"
+                    Padding="15"
+                    CompressionPercent="{Binding CompressionPercent}"
+                    EncodedSize="{Binding Response.EncodedSize}"
+                    IsVisible="False"
+                    OriginalSize="{Binding Response.OriginalSize}" />
+                <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+                    <Button
+                        x:Name="MatchingTablebtn"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="5,2"
+                        Padding="0,10"
+                        BorderWidth="1"
+                        Clicked="MatchingTablebtn_Clicked"
+                        HorizontalOptions="Fill"
+                        IsVisible="False"
+                        SemanticProperties.Hint="Access to Matching table"
+                        Text="Table de correspondance" />
+                    <Button
+                        x:Name="TreeBtn"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="5,2"
+                        Padding="0,10"
+                        BorderWidth="1"
+                        Clicked="TreeBtn_Clicked"
+                        HorizontalOptions="Fill"
+                        IsVisible="False"
+                        SemanticProperties.Hint="Access to binary tree"
+                        Text="Arbre" />
+                    <Button
+                        x:Name="copyToDecodeBtn"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Margin="5,2"
+                        Padding="0,10"
+                        BorderWidth="1"
+                        Clicked="copyToDecodeBtn_Clicked"
+                        HorizontalOptions="Fill"
+                        IsVisible="False"
+                        SemanticProperties.Hint="Copy to decoding part"
+                        Text="Copier vers la partie décodage" />
+                </Grid>
+            </StackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

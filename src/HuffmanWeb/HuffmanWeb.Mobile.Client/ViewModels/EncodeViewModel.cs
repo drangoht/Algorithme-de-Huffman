@@ -16,12 +16,14 @@ namespace HuffmanWeb.Mobile.Client.ViewModels
         string textToEncode = string.Empty;
         [ObservableProperty]
         decimal compressionPercent = 0;
-
+        [ObservableProperty]
+        bool isWorking = false;
         [RelayCommand]
         public async Task CallEncodeApi()
         {
             try
             {
+                IsWorking = true;
                 Response = new();
                 var huffmanApi = RestService.For<IHuffmanApi>("https://huffmanweb.thognard.net/huffman"); // Ugly      
                 var req = new EncodeRequest();
@@ -35,7 +37,10 @@ namespace HuffmanWeb.Mobile.Client.ViewModels
                 ErrorMessage = "Une erreur est survenue";
                 ErrorType = ErrorTypeEnum.Error;
             }
-
+            finally
+            {
+                IsWorking=false;
+            }
         }
 
     }

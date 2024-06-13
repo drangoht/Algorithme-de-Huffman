@@ -13,7 +13,7 @@
             Placeholder="Text à decoder"
             Text="{Binding TextToDecode}" />
         <Editor
-            x:Name="matchintTableJson"
+            x:Name="matchingTableJson"
             HeightRequest="200"
             Placeholder="Table de correspondance (JSON)"
             Text="{Binding MatchingTableJson}" />
