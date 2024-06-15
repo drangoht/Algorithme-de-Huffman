@@ -23,6 +23,7 @@
                                     BackgroundColor="{AppThemeBinding Light={StaticResource Primary},
                                                                       Dark={StaticResource Primary}}"
                                     FontAttributes="Bold"
+                                    FontSize="24"
                                     HorizontalTextAlignment="Center"
                                     Text="Caractère"
                                     TextColor="{AppThemeBinding Light={StaticResource TextTree},
@@ -32,6 +33,7 @@
                                     BackgroundColor="{AppThemeBinding Light={StaticResource Primary},
                                                                       Dark={StaticResource Primary}}"
                                     FontAttributes="Bold"
+                                    FontSize="24"
                                     HorizontalTextAlignment="Center"
                                     Text="Code"
                                     TextColor="{AppThemeBinding Light={StaticResource TextTree},
@@ -54,6 +56,7 @@
                                         Grid.Column="0"
                                         BackgroundColor="{AppThemeBinding Light={StaticResource TextTree},
                                                                           Dark={StaticResource TextTree}}"
+                                        FontSize="24"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
                                         Text="{Binding Id}"
@@ -63,6 +66,7 @@
                                         Grid.Column="1"
                                         BackgroundColor="{AppThemeBinding Light={StaticResource TextTree},
                                                                           Dark={StaticResource TextTree}}"
+                                        FontSize="24"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
                                         Text="{Binding Value}"

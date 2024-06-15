@@ -32,12 +32,20 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     Style="{StaticResource ButtonLabel}"
-                    Text="Encoder" />
+                    Text="Encoder">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="EncodeBtn_Clicked" />
+                    </Label.GestureRecognizers>
+                </Label>
                 <Label
                     Grid.Row="1"
                     Grid.Column="1"
                     Style="{StaticResource ButtonLabel}"
-                    Text="Decoder" />
+                    Text="Decoder">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="DecodeBtn_Clicked" />
+                    </Label.GestureRecognizers>
+                </Label>
             </Grid>
         </VerticalStackLayout>
     </ScrollView>
