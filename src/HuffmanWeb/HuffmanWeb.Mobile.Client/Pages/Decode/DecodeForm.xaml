@@ -20,7 +20,7 @@
             HeightRequest="200"
             Placeholder="Table de correspondance (JSON)"
             Text="{Binding MatchingTableJson}" />
-        <Grid ColumnDefinitions="3*,*,*" HorizontalOptions="FillAndExpand">
+        <Grid ColumnDefinitions="*,*,*" HorizontalOptions="FillAndExpand">
             <Button
                 x:Name="ResetBtn"
                 Grid.Column="1"

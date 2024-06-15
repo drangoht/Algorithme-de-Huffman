@@ -27,7 +27,7 @@
 
                 <Grid
                     Padding="15,0"
-                    ColumnDefinitions="3*,*,*"
+                    ColumnDefinitions="*,*,*"
                     HorizontalOptions="FillAndExpand">
                     <Button
                         x:Name="ResetBtn"
@@ -75,11 +75,10 @@
                         Padding="15,10"
                         BorderWidth="1"
                         Clicked="MatchingTablebtn_Clicked"
-                        FontSize="Micro"
                         HorizontalOptions="Fill"
                         IsVisible="False"
                         SemanticProperties.Hint="Access to Matching table"
-                        Text="Table de correspondance" />
+                        Text="Table" />
                     <Button
                         x:Name="TreeBtn"
                         Grid.Row="0"
@@ -88,7 +87,6 @@
                         Padding="15,10"
                         BorderWidth="1"
                         Clicked="TreeBtn_Clicked"
-                        FontSize="Micro"
                         HorizontalOptions="Fill"
                         IsVisible="False"
                         SemanticProperties.Hint="Access to binary tree"
@@ -101,7 +99,6 @@
                         Padding="0,10"
                         BorderWidth="1"
                         Clicked="copyToDecodeBtn_Clicked"
-                        FontSize="Micro"
                         HorizontalOptions="Fill"
                         IsVisible="False"
                         SemanticProperties.Hint="Copy to decoding part"
