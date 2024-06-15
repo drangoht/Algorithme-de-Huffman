@@ -43,7 +43,7 @@
 
         <Editor
             x:Name="decodedText"
-            BackgroundColor="{StaticResource Primary}"
+            BackgroundColor="{StaticResource White}"
             HeightRequest="200"
             IsReadOnly="True"
             Placeholder="Résultat"
