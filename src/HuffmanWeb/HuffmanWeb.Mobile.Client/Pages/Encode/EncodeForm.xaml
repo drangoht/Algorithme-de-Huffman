@@ -49,7 +49,10 @@
                         Text="Encoder" />
                 </Grid>
 
-                <ActivityIndicator IsRunning="{Binding IsWorking}" IsVisible="{Binding IsWorking}" />
+                <ActivityIndicator
+                    IsRunning="{Binding IsWorking}"
+                    IsVisible="{Binding IsWorking}"
+                    Color="{StaticResource LabelBeige}" />
 
                 <components:HuffmanBinaryString
                     x:Name="binaryString"

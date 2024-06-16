@@ -17,7 +17,7 @@
                                                   Dark={StaticResource TextTree}}">
                     <CollectionView ItemsSource="{Binding Response.MatchingCharacters}">
                         <CollectionView.Header>
-                            <Grid ColumnDefinitions="*,*">
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="48">
                                 <Label
                                     Grid.Column="0"
                                     BackgroundColor="{AppThemeBinding Light={StaticResource Primary},
@@ -50,6 +50,7 @@
                                     ColumnDefinitions="*,*"
                                     ColumnSpacing="1"
                                     HorizontalOptions="FillAndExpand"
+                                    RowDefinitions="48"
                                     RowSpacing="2">
 
                                     <Label

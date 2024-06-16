@@ -11,6 +11,7 @@
                 FontSize="Micro"
                 HorizontalOptions="Center"
                 Text=""
+                TextColor="Black"
                 VerticalOptions="Center" />
         </Frame>
     </VerticalStackLayout>

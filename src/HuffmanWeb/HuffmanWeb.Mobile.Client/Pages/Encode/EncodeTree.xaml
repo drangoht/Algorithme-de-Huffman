@@ -40,6 +40,8 @@
                 Grid.Column="0"
                 Maximum="150"
                 Minimum="30"
+                SemanticProperties.Description="Modifier largeur des noeuds"
+                SemanticProperties.Hint="Modifier largeur des noeuds"
                 ValueChanged="nodewidth_ValueChanged"
                 Value="{Binding TreeViewModel.NodeWidth}" />
             <Slider
@@ -48,6 +50,8 @@
                 Grid.Column="1"
                 Maximum="150"
                 Minimum="30"
+                SemanticProperties.Description="Modifier hauteur des noeuds"
+                SemanticProperties.Hint="Modifier hauteur des noeuds"
                 ValueChanged="nodeHeight_ValueChanged"
                 Value="{Binding TreeViewModel.NodeHeight}" />
             <Label

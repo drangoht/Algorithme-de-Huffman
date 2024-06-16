@@ -17,7 +17,8 @@
                     Grid.Column="0"
                     Clicked="EncodeBtn_Clicked"
                     HorizontalOptions="Fill"
-                    SemanticProperties.Hint="Access to encode page"
+                    SemanticProperties.Description="Accès à la page d'encodage"
+                    SemanticProperties.Hint="Accès à la page d'encodage"
                     Source="btn_encoding.png"
                     VerticalOptions="Start" />
                 <ImageButton
@@ -26,7 +27,8 @@
                     Grid.Column="1"
                     Clicked="DecodeBtn_Clicked"
                     HorizontalOptions="Fill"
-                    SemanticProperties.Hint="Access to decode page"
+                    SemanticProperties.Description="Accès à la page de decodage"
+                    SemanticProperties.Hint="Accès à la page de decodage"
                     Source="btn_decoding.png" />
                 <Label
                     Grid.Row="1"
