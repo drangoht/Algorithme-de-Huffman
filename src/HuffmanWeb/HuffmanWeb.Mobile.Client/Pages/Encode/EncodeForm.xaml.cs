@@ -1,6 +1,5 @@
 using HuffmanWeb.Mobile.Client.ViewModels;
 namespace HuffmanWeb.Mobile.Client.Pages.Encode;
-using CommunityToolkit.Maui.Core.Platform;
 using System.Text.Json;
 
 public partial class EncodeForm : ContentPage

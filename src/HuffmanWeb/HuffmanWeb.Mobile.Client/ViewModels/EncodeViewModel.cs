@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using HuffmanPlayground.Mobile.Client.Enumerations;
 using HuffmanWeb.Common.DTOs.Requests;
 using HuffmanWeb.Common.DTOs.Responses;
 using HuffmanWeb.Mobile.Client.ApiInterfaces;
-using HuffmanPlayground.Mobile.Client.Enumerations;
 using Refit;
 
 namespace HuffmanWeb.Mobile.Client.ViewModels
@@ -39,7 +39,7 @@ namespace HuffmanWeb.Mobile.Client.ViewModels
             }
             finally
             {
-                IsWorking=false;
+                IsWorking = false;
             }
         }
 

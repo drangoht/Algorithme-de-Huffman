@@ -1,12 +1,21 @@
-﻿using HuffmanPlayground.Mobile.Client.Enumerations;
-using HuffmanWeb.Common.DTOs.Responses;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+/* Unmerged change from project 'HuffmanWeb.Mobile.Client (net8.0-android)'
+Before:
+using HuffmanPlayground.Mobile.Client.Enumerations;
+After:
 using CommunityToolkit.Mvvm.ComponentModel;
+using HuffmanPlayground.Mobile.Client.Enumerations;
+*/
+using CommunityToolkit.Mvvm.ComponentModel;
+using HuffmanPlayground.Mobile.
+/* Unmerged change from project 'HuffmanWeb.Mobile.Client (net8.0-android)'
+Before:
+using CommunityToolkit.Mvvm.ComponentModel;
+namespace HuffmanWeb.Mobile.Client.ViewModels
+After:
+namespace HuffmanWeb.Mobile.Client.ViewModels
+*/
+Client.Enumerations;
 namespace HuffmanWeb.Mobile.Client.ViewModels
 {
     public partial class BaseViewModel : ObservableObject

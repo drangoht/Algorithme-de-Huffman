@@ -1,7 +1,6 @@
-﻿using HuffmanWeb.Mobile.Client.ViewModels;
-using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using HuffmanWeb.Mobile.Client.ViewModels;
 using SkiaSharp.Views.Maui.Controls.Hosting;
-using CommunityToolkit.Maui;
 
 
 namespace HuffmanWeb.Mobile.Client
