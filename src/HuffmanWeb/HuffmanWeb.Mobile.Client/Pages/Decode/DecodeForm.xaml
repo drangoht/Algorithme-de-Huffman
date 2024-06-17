@@ -3,7 +3,8 @@
     x:Class="HuffmanWeb.Mobile.Client.Pages.Decode.DecodeForm"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="DecodeForm">
+    xmlns:strings="clr-namespace:HuffmanPlayground.Mobile.Client.Resources.Strings"
+    Title="{x:Static strings:AppResources.DecodePageTitle}">
     <VerticalStackLayout
         Padding="15,0"
         Spacing="5"
@@ -13,12 +14,12 @@
         <Editor
             x:Name="textToDecode"
             HeightRequest="200"
-            Placeholder="Text à decoder"
+            Placeholder="{x:Static strings:AppResources.DecodeTextEditorPlaceHoler}"
             Text="{Binding TextToDecode}" />
         <Editor
             x:Name="matchingTableJson"
             HeightRequest="200"
-            Placeholder="Table de correspondance (JSON)"
+            Placeholder="{x:Static strings:AppResources.DecodeMatchingTableJsonPlaceHolder}"
             Text="{Binding MatchingTableJson}" />
         <Grid ColumnDefinitions="*,*,*" HorizontalOptions="FillAndExpand">
             <Button
@@ -28,8 +29,8 @@
                 Padding="10,0"
                 BorderWidth="1"
                 Clicked="ResetBtn_Clicked"
-                HorizontalOptions="Center"
-                Text="Effacer" />
+                HorizontalOptions="End"
+                Text="{x:Static strings:AppResources.ResetButton}" />
             <Button
                 x:Name="DecodeBtn"
                 Grid.Column="2"
@@ -38,7 +39,7 @@
                 BorderWidth="1"
                 Clicked="DecodeBtn_Clicked"
                 HorizontalOptions="Center"
-                Text="Decoder" />
+                Text="{x:Static strings:AppResources.DecodeButton}" />
         </Grid>
 
         <Editor
@@ -46,7 +47,7 @@
             BackgroundColor="{StaticResource White}"
             HeightRequest="200"
             IsReadOnly="True"
-            Placeholder="Résultat"
+            Placeholder="{x:Static strings:AppResources.DecodeResultEditorPlaceHolder}"
             Text="{Binding Response.DecodedText}"
             TextColor="{StaticResource LabelBeige}" />
     </VerticalStackLayout>

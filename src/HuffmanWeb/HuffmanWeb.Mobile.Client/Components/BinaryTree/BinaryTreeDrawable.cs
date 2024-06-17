@@ -99,19 +99,6 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
                 if (leftNode?.Character != char.MinValue)
                     leftLabel = $"{leftNode?.Character}";
                 else
-
-                    /* Unmerged change from project 'HuffmanWeb.Mobile.Client (net8.0-maccatalyst)'
-                    Before:
-                                        leftLabel = $"{leftNode?.NbOccurence}";
-
-
-                                    var leftGraphicNode = DrawLeftChildNode(leftLabel, links[0].Weight.ToString(), GetRightDescendantsCount(leftNode), parentGraphicNode);
-                    After:
-                                        leftLabel = $"{leftNode?.NbOccurence}";
-
-
-                                    var leftGraphicNode = DrawLeftChildNode(leftLabel, links[0].Weight.ToString(), GetRightDescendantsCount(leftNode), parentGraphicNode);
-                    */
                     leftLabel = $"{leftNode?.NbOccurence}";
 
 

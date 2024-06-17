@@ -1,3 +1,4 @@
+using HuffmanPlayground.Mobile.Client.Resources.Strings;
 namespace HuffmanWeb.Mobile.Client.Pages.Encode.Components;
 
 public partial class EncodingStatsDisplay : ContentView
@@ -16,19 +17,19 @@ public partial class EncodingStatsDisplay : ContentView
     private static void OnOriginalSizeChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var view = (EncodingStatsDisplay)bindable;
-        view.OriginalSizeLbl.Text = $"Origine:{newValue} bits";
+        view.OriginalSizeLbl.Text = $"{AppResources.OriginalSizeBeforeLabel}{newValue} {AppResources.OriginalSizeAfterLabel}";
     }
 
     private static void OnEncodedSizeChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var view = (EncodingStatsDisplay)bindable;
-        view.EncodedSizeLbl.Text = $"Encodé:{newValue} bits";
+        view.EncodedSizeLbl.Text = $"{AppResources.EncodedSizeBeforeLabel}{newValue} {AppResources.EncodedSizeAfterLabel}";
     }
 
     private static void OnCompressionPercentChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var view = (EncodingStatsDisplay)bindable;
-        view.CompressionPercentLbl.Text = $"Gain:{string.Format("{0:0.00}%", newValue)}";
+        view.CompressionPercentLbl.Text = $"{AppResources.CompressionLabel}{string.Format("{0:0.00}%", newValue)}";
     }
     public int OriginalSize
     {

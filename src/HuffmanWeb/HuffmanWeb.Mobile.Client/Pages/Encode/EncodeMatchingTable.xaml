@@ -3,7 +3,8 @@
     x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.EncodeMatchingTable"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Table de correspondance">
+    xmlns:strings="clr-namespace:HuffmanPlayground.Mobile.Client.Resources.Strings"
+    Title="{x:Static strings:AppResources.EncodeMatchingTablePageTitle}">
     <StackLayout>
 
         <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
@@ -25,7 +26,7 @@
                                     FontAttributes="Bold"
                                     FontSize="24"
                                     HorizontalTextAlignment="Center"
-                                    Text="Caractère"
+                                    Text="Car"
                                     TextColor="{AppThemeBinding Light={StaticResource TextTree},
                                                                 Dark={StaticResource TextTree}}" />
                                 <Label

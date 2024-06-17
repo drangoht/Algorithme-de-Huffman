@@ -6,12 +6,13 @@
     xmlns:components="clr-namespace:HuffmanWeb.Mobile.Client.Components"
     xmlns:controls="clr-namespace:Maui.ColorPicker;assembly=Maui.ColorPicker"
     xmlns:drawables="clr-namespace:HuffmanWeb.Mobile.Client.Components.BinaryTree"
-    Title="Arbre binaire">
+    xmlns:strings="clr-namespace:HuffmanPlayground.Mobile.Client.Resources.Strings"
+    Title="{x:Static strings:AppResources.EncodeTreePageTitle}">
     <ContentPage.ToolbarItems>
         <ToolbarItem
             x:Name="settingsToolsBarItem"
             Clicked="settingsToolsBarItem_Clicked"
-            Text="Paramètres" />
+            Text="{x:Static strings:AppResources.TreeSettingsLabel}" />
     </ContentPage.ToolbarItems>
     <StackLayout>
         <Grid
@@ -27,21 +28,21 @@
                 Grid.Column="0"
                 HorizontalOptions="Center"
                 Style="{StaticResource LabelConfigTree}"
-                Text="Largeur noeud" />
+                Text="{x:Static strings:AppResources.TreeNodeWidthSettingLabel}" />
             <Label
                 Grid.Row="0"
                 Grid.Column="1"
                 HorizontalOptions="Center"
                 Style="{StaticResource LabelConfigTree}"
-                Text="Hauteur noeud" />
+                Text="{x:Static strings:AppResources.TreeNodeHeightSettingLabel}" />
             <Slider
                 x:Name="nodewidth"
                 Grid.Row="1"
                 Grid.Column="0"
                 Maximum="150"
                 Minimum="30"
-                SemanticProperties.Description="Modifier largeur des noeuds"
-                SemanticProperties.Hint="Modifier largeur des noeuds"
+                SemanticProperties.Description="{x:Static strings:AppResources.TreeNodeWidthSemanticHintSettingLabel}"
+                SemanticProperties.Hint="{x:Static strings:AppResources.TreeNodeWidthSemanticHintSettingLabel}"
                 ValueChanged="nodewidth_ValueChanged"
                 Value="{Binding TreeViewModel.NodeWidth}" />
             <Slider
@@ -50,15 +51,15 @@
                 Grid.Column="1"
                 Maximum="150"
                 Minimum="30"
-                SemanticProperties.Description="Modifier hauteur des noeuds"
-                SemanticProperties.Hint="Modifier hauteur des noeuds"
+                SemanticProperties.Description="{x:Static strings:AppResources.TreeNodeHeightSemanticHintSettingLabel1}"
+                SemanticProperties.Hint="{x:Static strings:AppResources.TreeNodeHeightSemanticHintSettingLabel1}"
                 ValueChanged="nodeHeight_ValueChanged"
                 Value="{Binding TreeViewModel.NodeHeight}" />
             <Label
                 Grid.Row="2"
                 Grid.Column="0"
                 Style="{StaticResource LabelConfigTree}"
-                Text="Couleur du noeud" />
+                Text="{x:Static strings:AppResources.TreeNodeColorSettingLabel}" />
             <controls:ColorPicker
                 x:Name="NodeColor"
                 Grid.Row="2"
@@ -73,7 +74,7 @@
                 Grid.Row="3"
                 Grid.Column="0"
                 Style="{StaticResource LabelConfigTree}"
-                Text="Couleur du texte des noeuds" />
+                Text="{x:Static strings:AppResources.TreeNodeLabelColorSettingLabel}" />
             <controls:ColorPicker
                 x:Name="NodeTextColor"
                 Grid.Row="3"
@@ -88,7 +89,7 @@
                 Grid.Row="4"
                 Grid.Column="0"
                 Style="{StaticResource LabelConfigTree}"
-                Text="Couleur des liens" />
+                Text="{x:Static strings:AppResources.TreeLineColorSettingLabel}" />
             <controls:ColorPicker
                 x:Name="LineColor"
                 Grid.Row="4"
@@ -103,7 +104,7 @@
                 Grid.Row="5"
                 Grid.Column="0"
                 Style="{StaticResource LabelConfigTree}"
-                Text="Couleur du texte des lignes" />
+                Text="{x:Static strings:AppResources.TreeLineLabelColorSettingLabel}" />
             <controls:ColorPicker
                 x:Name="LineTextColor"
                 Grid.Row="5"
