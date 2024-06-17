@@ -2,7 +2,8 @@
 <ContentPage
     x:Class="HuffmanWeb.Mobile.Client.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:strings="clr-namespace:HuffmanPlayground.Mobile.Client.Resources.Strings">
 
     <ScrollView>
         <VerticalStackLayout Padding="20,0" Spacing="5">
@@ -17,8 +18,8 @@
                     Grid.Column="0"
                     Clicked="EncodeBtn_Clicked"
                     HorizontalOptions="Fill"
-                    SemanticProperties.Description="Accès à la page d'encodage"
-                    SemanticProperties.Hint="Accès à la page d'encodage"
+                    SemanticProperties.Description="{x:Static strings:AppResources.EncodeImageButtonSemanticHint}"
+                    SemanticProperties.Hint="{x:Static strings:AppResources.EncodeImageButtonSemanticHint}"
                     Source="btn_encoding.png"
                     VerticalOptions="Start" />
                 <ImageButton
@@ -27,14 +28,14 @@
                     Grid.Column="1"
                     Clicked="DecodeBtn_Clicked"
                     HorizontalOptions="Fill"
-                    SemanticProperties.Description="Accès à la page de decodage"
-                    SemanticProperties.Hint="Accès à la page de decodage"
+                    SemanticProperties.Description="{x:Static strings:AppResources.DecodeImageButtonSemanticHint}"
+                    SemanticProperties.Hint="{x:Static strings:AppResources.DecodeImageButtonSemanticHint}"
                     Source="btn_decoding.png" />
                 <Label
                     Grid.Row="1"
                     Grid.Column="0"
                     Style="{StaticResource ButtonLabel}"
-                    Text="Encoder">
+                    Text="{x:Static strings:AppResources.EncodeButton}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="EncodeBtn_Clicked" />
                     </Label.GestureRecognizers>
@@ -43,7 +44,7 @@
                     Grid.Row="1"
                     Grid.Column="1"
                     Style="{StaticResource ButtonLabel}"
-                    Text="Decoder">
+                    Text="{x:Static strings:AppResources.DecodeButton}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="DecodeBtn_Clicked" />
                     </Label.GestureRecognizers>

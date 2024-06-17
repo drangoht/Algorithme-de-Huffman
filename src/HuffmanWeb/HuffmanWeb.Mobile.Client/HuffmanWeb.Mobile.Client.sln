@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HuffmanWeb - Backup.Mobile.Client", "HuffmanWeb - Backup.Mobile.Client.csproj", "{18A8906B-ED70-4CC4-8E56-F780712C9585}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HuffmanWeb.Mobile.Client", "HuffmanWeb.Mobile.Client.csproj", "{BD7F8CEB-BE2C-4F5E-B7D7-1F64A0E4AD10}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18A8906B-ED70-4CC4-8E56-F780712C9585}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18A8906B-ED70-4CC4-8E56-F780712C9585}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18A8906B-ED70-4CC4-8E56-F780712C9585}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18A8906B-ED70-4CC4-8E56-F780712C9585}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD7F8CEB-BE2C-4F5E-B7D7-1F64A0E4AD10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD7F8CEB-BE2C-4F5E-B7D7-1F64A0E4AD10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD7F8CEB-BE2C-4F5E-B7D7-1F64A0E4AD10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD7F8CEB-BE2C-4F5E-B7D7-1F64A0E4AD10}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {142FB09A-4BFC-40B3-879B-CB2DFF47510C}
+	EndGlobalSection
+EndGlobal

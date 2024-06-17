@@ -4,7 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:components="clr-namespace:HuffmanWeb.Mobile.Client.Pages.Encode.Components"
-    Title="Encodage du texte"
+    xmlns:strings="clr-namespace:HuffmanPlayground.Mobile.Client.Resources.Strings"
+    Title="{x:Static strings:AppResources.EncodePageTitle}"
     HideSoftInputOnTapped="True"
     Loaded="OnPageLoaded">
     <ScrollView VerticalOptions="FillAndExpand">
@@ -21,7 +22,7 @@
                     <Editor
                         x:Name="textToEncode"
                         HeightRequest="200"
-                        Placeholder="Text à encoder"
+                        Placeholder="{x:Static strings:AppResources.EncodeEditorPlaceHoler}"
                         Text="{Binding TextToEncode}" />
                 </ScrollView>
 
@@ -36,8 +37,8 @@
                         Padding="10,0"
                         BorderWidth="1"
                         Clicked="ResetBtn_Clicked"
-                        HorizontalOptions="Center"
-                        Text="Effacer" />
+                        HorizontalOptions="End"
+                        Text="{x:Static strings:AppResources.ResetButton}" />
                     <Button
                         x:Name="EncodeBtn"
                         Grid.Column="2"
@@ -46,7 +47,8 @@
                         BorderWidth="1"
                         Clicked="EncodeBtn_Clicked"
                         HorizontalOptions="Center"
-                        Text="Encoder" />
+                        SemanticProperties.Hint="Encode text"
+                        Text="{x:Static strings:AppResources.EncodeButton}" />
                 </Grid>
 
                 <ActivityIndicator
@@ -80,8 +82,8 @@
                         Clicked="MatchingTablebtn_Clicked"
                         HorizontalOptions="Fill"
                         IsVisible="False"
-                        SemanticProperties.Hint="Access to Matching table"
-                        Text="Table" />
+                        SemanticProperties.Hint="{x:Static strings:AppResources.MatchingTableButtonSemanticHint}"
+                        Text="{x:Static strings:AppResources.MatchingTableButton}" />
                     <Button
                         x:Name="TreeBtn"
                         Grid.Row="0"
@@ -92,8 +94,8 @@
                         Clicked="TreeBtn_Clicked"
                         HorizontalOptions="Fill"
                         IsVisible="False"
-                        SemanticProperties.Hint="Access to binary tree"
-                        Text="Arbre" />
+                        SemanticProperties.Hint="{x:Static strings:AppResources.TreeButtonSemanticHint}"
+                        Text="{x:Static strings:AppResources.TreeButton}" />
                     <Button
                         x:Name="copyToDecodeBtn"
                         Grid.Row="1"
@@ -104,8 +106,8 @@
                         Clicked="copyToDecodeBtn_Clicked"
                         HorizontalOptions="Fill"
                         IsVisible="False"
-                        SemanticProperties.Hint="Copy to decoding part"
-                        Text="Copier vers la partie décodage" />
+                        SemanticProperties.Hint="{x:Static strings:AppResources.CopytoDecodePageButtonSemanticHint}"
+                        Text="{x:Static strings:AppResources.CopytoDecodePageButton}" />
                 </Grid>
             </StackLayout>
 
