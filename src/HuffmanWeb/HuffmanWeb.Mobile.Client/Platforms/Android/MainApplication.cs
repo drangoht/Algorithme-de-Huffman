@@ -11,6 +11,6 @@ namespace HuffmanWeb.Mobile.Client
         {
         }
 
-        protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+        protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApplication();
     }
 }

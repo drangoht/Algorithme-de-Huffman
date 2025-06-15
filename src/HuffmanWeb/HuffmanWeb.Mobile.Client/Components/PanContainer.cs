@@ -8,11 +8,11 @@ public class PanContainer : ContentView
         // Set PanGestureRecognizer.TouchPoints to control the
         // number of touch points needed to pan
         PanGestureRecognizer panGesture = new PanGestureRecognizer();
-        panGesture.PanUpdated += OnPanUpdated;
+        panGesture.PanUpdated += OnPanUpdated!;
         GestureRecognizers.Add(panGesture);
     }
 
-    void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+    void OnPanUpdated(object? sender, PanUpdatedEventArgs e) // Updated sender to nullable
     {
         switch (e.StatusType)
         {

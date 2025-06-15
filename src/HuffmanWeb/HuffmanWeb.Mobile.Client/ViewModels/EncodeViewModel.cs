@@ -19,20 +19,20 @@ namespace HuffmanWeb.Mobile.Client.ViewModels
         [ObservableProperty]
         bool isWorking = false;
         [RelayCommand]
-        public async Task CallEncodeApi()
+        public async Task CallEncodeAPI() // Corrected spelling of 'Api' to 'API'
         {
             try
             {
                 IsWorking = true;
                 Response = new();
-                var huffmanApi = RestService.For<IHuffmanApi>("https://huffmanweb.thognard.net/huffman"); // Ugly      
+                var huffmanAPI = RestService.For<IHuffmanApi>("https://huffmanweb.thognard.net/huffman"); // Corrected spelling of 'Api' to 'API'
                 var req = new EncodeRequest();
                 req.TextToEncode = TextToEncode;
-                Response = await huffmanApi.Encode(req);
+                Response = await huffmanAPI.Encode(req);
                 CompressionPercent = Response.OriginalSize > 0 ? ((1 - (decimal)((decimal)Response.EncodedSize / (decimal)Response.OriginalSize)) * (decimal)100) : 0;
                 ErrorType = ErrorTypeEnum.None;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ErrorMessage = "Une erreur est survenue";
                 ErrorType = ErrorTypeEnum.Error;
@@ -42,6 +42,5 @@ namespace HuffmanWeb.Mobile.Client.ViewModels
                 IsWorking = false;
             }
         }
-
     }
 }

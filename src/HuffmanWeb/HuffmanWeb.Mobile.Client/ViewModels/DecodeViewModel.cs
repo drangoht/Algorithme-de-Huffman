@@ -20,25 +20,22 @@ namespace HuffmanWeb.Mobile.Client.ViewModels
         string matchingTableJson = string.Empty;
 
         [RelayCommand]
-        public async Task CallDecodeApi()
+        public async Task CallDecodeAPI() // Corrected spelling of 'Api' to 'API'
         {
             try
             {
                 Response = new();
-                var huffmanApi = RestService.For<IHuffmanApi>("https://huffmanweb.thognard.net/huffman"); // Ugly      
+                var huffmanAPI = RestService.For<IHuffmanApi>("https://huffmanweb.thognard.net/huffman"); // Corrected spelling of 'Api' to 'API'
                 var req = new DecodeRequest();
                 req.BinaryHuffman = TextToDecode;
                 req.MatchingCharacters = JsonSerializer.Deserialize<List<Character>>(MatchingTableJson)!;
-                Response = await huffmanApi.Decode(req);
+                Response = await huffmanAPI.Decode(req);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ErrorMessage = "Une erreur est survenue";
                 ErrorType = ErrorTypeEnum.Error;
-
             }
-
         }
-
     }
 }

@@ -20,7 +20,7 @@ public partial class DecodeForm : ContentPage
         var viewModel = (DecodeViewModel)BindingContext;
         if (!string.IsNullOrWhiteSpace(viewModel.TextToDecode) && !string.IsNullOrWhiteSpace(viewModel.MatchingTableJson))
         {
-            viewModel.CallDecodeApiCommand.Execute(null);
+            viewModel.CallDecodeAPICommand.Execute(null);
         }
     }
     private void ResetBtn_Clicked(object sender, EventArgs e)

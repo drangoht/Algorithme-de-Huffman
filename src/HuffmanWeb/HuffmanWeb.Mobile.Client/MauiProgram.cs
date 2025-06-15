@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using HuffmanWeb.Mobile.Client.ViewModels;
+using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 
 
@@ -7,7 +8,7 @@ namespace HuffmanWeb.Mobile.Client
 {
     public static class MauiProgram
     {
-        public static MauiApp CreateMauiApp()
+        public static MauiApp CreateMauiApplication() // Corrected spelling of 'App' to 'Application'
         {
             var builder = MauiApp.CreateBuilder();
             builder

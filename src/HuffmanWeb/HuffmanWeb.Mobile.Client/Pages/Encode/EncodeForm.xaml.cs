@@ -31,7 +31,7 @@ public partial class EncodeForm : ContentPage
         var viewModel = (EncodeViewModel)BindingContext;
         if (!string.IsNullOrWhiteSpace(viewModel.TextToEncode))
         {
-            viewModel.CallEncodeApiCommand.Execute(null);
+            viewModel.CallEncodeAPICommand.Execute(null);
             MatchingTablebtn.IsVisible = true;
             TreeBtn.IsVisible = true;
             encodingStats.IsVisible = true;
