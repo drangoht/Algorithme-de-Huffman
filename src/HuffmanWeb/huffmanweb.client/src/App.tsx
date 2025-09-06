@@ -24,7 +24,7 @@ function App() {
             onClick={() => setTab("decode")}
             className="button-tab"
           >
-            Decodage du binaire
+            Decodage du resultat binaire
           </button>
         </div>
       </div>
