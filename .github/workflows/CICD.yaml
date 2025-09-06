@@ -133,7 +133,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - name: 🌐 Deploy to VPS
-        uses: appleboy/ssh-action@b50ca1ce23b1552117d2d16ab697f65b1f614591 # v0.1.10
+        uses: appleboy/ssh-action@31ae9d7dc2c876097ff50c0f52feb537692a0e30 # v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
