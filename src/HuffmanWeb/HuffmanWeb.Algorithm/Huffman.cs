@@ -2,6 +2,8 @@
 using HuffmanWeb.Common.DTOs;
 using System.Collections;
 using System.Text;
+using System.Linq;
+
 namespace HuffmanWeb.Algorithm
 {
     public static class Huffman
@@ -33,7 +35,7 @@ namespace HuffmanWeb.Algorithm
         {
             WeightedGraph graph = new WeightedGraph();
             HuffmanNode root = new(Char.MinValue, 0);
-            while (nodes.Count() > 0)
+            while (nodes.Count > 0)
             {
                 // Récupération des 2 plus petits nombre d'occurence
                 List<HuffmanNode> twoSmallestNodes = nodes.OrderBy(n => n.NbOccurence).Select(n => n).Take(2).ToList();
@@ -41,20 +43,20 @@ namespace HuffmanWeb.Algorithm
                 graph.CreateNode(root);
 
                 var weight = 0;
-                if (twoSmallestNodes.Count() > 0)
+                if (twoSmallestNodes.Count > 0)
                 {
                     graph.CreateNode(twoSmallestNodes[0]);
                     graph.CreateLink(root, twoSmallestNodes[0], weight);
                     nodes.Remove(twoSmallestNodes[0]);
                     weight = 1;
                 }
-                if (twoSmallestNodes.Count() > 1)
+                if (twoSmallestNodes.Count > 1)
                 {
                     graph.CreateNode(twoSmallestNodes[1]);
                     graph.CreateLink(root, twoSmallestNodes[1], weight);
                     nodes.Remove(twoSmallestNodes[1]);
                 }
-                if (nodes.Count() > 0)
+                if (nodes.Count > 0)
                     nodes.Add(root);
 
             }
@@ -71,13 +73,11 @@ namespace HuffmanWeb.Algorithm
         {
             string textEncoded = string.Empty;
             var huffmanTable = MakeMatchingTable(textToEncode);
-            foreach (var c in textToEncode)
+            foreach (var c in textToEncode.Where(c => huffmanTable.ContainsKey(c)))
             {
-                if (huffmanTable.ContainsKey(c))
-                {
-                    textEncoded += huffmanTable[c];
-                }
+                textEncoded += huffmanTable[c];
             }
+
             return textEncoded;
         }
 

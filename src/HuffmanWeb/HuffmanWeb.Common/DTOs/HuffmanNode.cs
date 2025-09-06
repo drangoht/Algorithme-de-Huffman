@@ -12,10 +12,12 @@
             Character = character;
             NbOccurence = nbOccurence;
         }
+
         public bool Equals(HuffmanNode? other)
         {
             return other?.Identifier == this.Identifier;
         }
+
         public override string ToString()
         {
             return $"Id:{Identifier} Character:{Character} NbOccurence :{NbOccurence}";
