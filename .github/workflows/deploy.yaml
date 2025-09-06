@@ -58,18 +58,45 @@ jobs:
           dotnet tool install --global dotnet-sonarscanner
           dotnet tool install --global dotnet-coverage
 
+      - name: 🔍 Set SonarCloud Analysis Parameters
+        id: sonar-params
+        env:
+          PR_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_BRANCH: ${{ github.head_ref }}
+          PR_BASE: ${{ github.base_ref }}
+          BRANCH_NAME: ${{ github.ref_name }}
+          EVENT_NAME: ${{ github.event_name }}
+        shell: bash
+        run: |
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            args="/d:sonar.github.repository=${PR_REPO}"
+            args="$args /d:sonar.pullrequest.key=${PR_NUMBER}"
+            args="$args /d:sonar.pullrequest.branch=${PR_BRANCH}"
+            args="$args /d:sonar.pullrequest.base=${PR_BASE}"
+            echo "sonar_args=$args" >> $GITHUB_OUTPUT
+          else
+            echo "sonar_args=/d:sonar.branch.name=${BRANCH_NAME}" >> $GITHUB_OUTPUT
+          fi
+
       - name: 🔍 SonarCloud Analysis
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_KEY: ${{ github.repository_owner }}_${{ github.event.repository.name }}
+          SONAR_ORG: ${{ github.repository_owner }}
+          SONAR_ARGS: ${{ steps.sonar-params.outputs.sonar_args }}
         run: |
-          dotnet sonarscanner begin /k:"${{ github.repository_owner }}_${{ github.event.repository.name }}" \
-          /o:"${{ github.repository_owner }}" \
-          /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
-          /d:sonar.host.url="https://sonarcloud.io" \
-          /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml \
-          /d:sonar.coverage.exclusions="**/Program.cs" \
-          /d:sonar.branch.name="${{ github.ref_name }}"
+          dotnet sonarscanner begin \
+            /k:"${SONAR_PROJECT_KEY}" \
+            /o:"${SONAR_ORG}" \
+            /d:sonar.token="${SONAR_TOKEN}" \
+            /d:sonar.host.url="https://sonarcloud.io" \
+            /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml \
+            /d:sonar.coverage.exclusions="**/Program.cs" \
+            /d:sonar.scm.provider=git \
+            /d:sonar.qualitygate.wait=true \
+            ${SONAR_ARGS}
 
       - name: 🏗️ Build & Test
         run: |
@@ -78,7 +105,7 @@ jobs:
           dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
   build-docker:
-    name: � Build & Push Docker
+    name: 🛠️ Build & Push Docker
     needs: analyze
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
