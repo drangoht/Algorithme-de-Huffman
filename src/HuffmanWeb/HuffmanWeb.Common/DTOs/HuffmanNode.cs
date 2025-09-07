@@ -1,6 +1,6 @@
 ﻿namespace HuffmanWeb.Common.DTOs
 {
-    public class HuffmanNode : IEquatable<HuffmanNode>
+    public sealed class HuffmanNode : IEquatable<HuffmanNode>
     {
         public Guid Identifier { get; set; } = Guid.NewGuid();
         public char Character { get; set; }
@@ -15,7 +15,19 @@
 
         public bool Equals(HuffmanNode? other)
         {
-            return other?.Identifier == this.Identifier;
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Identifier.Equals(other.Identifier);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return Equals(obj as HuffmanNode);
+        }
+
+        public override int GetHashCode()
+        {
+            return Identifier.GetHashCode();
         }
 
         public override string ToString()

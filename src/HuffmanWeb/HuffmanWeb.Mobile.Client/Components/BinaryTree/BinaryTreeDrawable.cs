@@ -59,30 +59,19 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
         }
         #endregion
 
-        #region ctor & Bind
         public BinaryTreeDrawable()
         {
             Drawable = this;
         }
-
-        private static void RequestInvalidate(BindableObject bindable, object oldValue, object newValue)
-        {
-            if (bindable is GraphicsView)
-            {
-                ((GraphicsView)bindable).Invalidate();
-            }
-        }
-        #endregion
-
+        // Update the call to DrawRootNode in Draw to remove the descendantsCount argument
         public void Draw(ICanvas canvas, RectF dirtyRect)
         {
             if (Graph.AllNodes.Count == 0) return;
             _canvas = canvas;
             var startPosition = DefineStartPosition(dirtyRect);
-            var rootGraphicNode = DrawRootNode(startPosition, $"{Graph.Root?.NbOccurence}", Graph.Root!.DescendantsCount);
+            var rootGraphicNode = DrawRootNode(startPosition, $"{Graph.Root?.NbOccurence}");
             var linksFromRoot = Graph.Links.Where(l => l.Parent?.Identifier == Graph.Root?.Identifier).ToList();
             DrawChildrenNode(linksFromRoot, rootGraphicNode);
-
         }
 
         private Point DefineStartPosition(RectF directRect) =>
@@ -94,50 +83,49 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
 
             if (links.Count == 2)
             {
-                var leftNode = Graph.AllNodes.FirstOrDefault(n => n.Identifier == links[0].Child?.Identifier);
-                string leftLabel = string.Empty;
-                if (leftNode?.Character != char.MinValue)
-                    leftLabel = $"{leftNode?.Character}";
-                else
-                    leftLabel = $"{leftNode?.NbOccurence}";
+                LeftNodeProcess(links, parentGraphicNode);
 
-
-                var leftGraphicNode = DrawLeftChildNode(leftLabel, links[0].Weight.ToString(), GetRightDescendantsCount(leftNode), parentGraphicNode);
-                var leftLinks = Graph.Links.Where(l => l.Parent?.Identifier == leftNode?.Identifier).ToList();
-                DrawChildrenNode(leftLinks, leftGraphicNode);
-
-
-                var rightNode = Graph.AllNodes.FirstOrDefault(n => n.Identifier == links[1].Child?.Identifier);
-                string rightLabel = string.Empty;
-                if (rightNode?.Character != char.MinValue)
-                    rightLabel = $"{rightNode?.Character}";
-                else
-                    rightLabel = $"{rightNode?.NbOccurence}";
-
-                var rightGraphicNode = DrawRightChildNode(rightLabel, links[1].Weight.ToString(), GetLeftDescendantsCount(rightNode), parentGraphicNode);
-                var rightLinks = Graph.Links.Where(l => l.Parent?.Identifier == rightNode?.Identifier).ToList();
-                DrawChildrenNode(rightLinks, rightGraphicNode);
+                RightNodeProcess(links, parentGraphicNode);
 
             }
             if (links.Count == 1)
             {
-                var leftNode = Graph.AllNodes.FirstOrDefault(n => n.Identifier == links[0].Child?.Identifier);
-                string leftLabel = string.Empty;
-                if (leftNode?.Character != char.MinValue)
-                    leftLabel = $"{leftNode?.Character}";
-                else
-                    leftLabel = $"{leftNode?.NbOccurence}";
-
-
-                var leftGraphicNode = DrawLeftChildNode(leftLabel, links[0].Weight.ToString(), GetRightDescendantsCount(leftNode), parentGraphicNode);
-                var leftLinks = Graph.Links.Where(l => l.Parent?.Identifier == leftNode?.Identifier).ToList();
-                DrawChildrenNode(leftLinks, leftGraphicNode);
+                LeftNodeProcess(links, parentGraphicNode);
             }
+        }
+
+        private void RightNodeProcess(List<Link<HuffmanNode>> links, GraphicNode parentGraphicNode)
+        {
+            var rightNode = Graph.AllNodes.FirstOrDefault(n => n.Identifier == links[1].Child?.Identifier);
+            string rightLabel = string.Empty;
+            if (rightNode?.Character != char.MinValue)
+                rightLabel = $"{rightNode?.Character}";
+            else
+                rightLabel = $"{rightNode?.NbOccurence}";
+
+            var rightGraphicNode = DrawRightChildNode(rightLabel, links[1].Weight.ToString(), GetLeftDescendantsCount(rightNode), parentGraphicNode);
+            var rightLinks = Graph.Links.Where(l => l.Parent?.Identifier == rightNode?.Identifier).ToList();
+            DrawChildrenNode(rightLinks, rightGraphicNode);
+        }
+
+        private void LeftNodeProcess(List<Link<HuffmanNode>> links, GraphicNode parentGraphicNode)
+        {
+            var leftNode = Graph.AllNodes.FirstOrDefault(n => n.Identifier == links[0].Child?.Identifier);
+            string leftLabel = string.Empty;
+            if (leftNode?.Character != char.MinValue)
+                leftLabel = $"{leftNode?.Character}";
+            else
+                leftLabel = $"{leftNode?.NbOccurence}";
+
+
+            var leftGraphicNode = DrawLeftChildNode(leftLabel, links[0].Weight.ToString(), GetRightDescendantsCount(leftNode), parentGraphicNode);
+            var leftLinks = Graph.Links.Where(l => l.Parent?.Identifier == leftNode?.Identifier).ToList();
+            DrawChildrenNode(leftLinks, leftGraphicNode);
         }
 
         private int GetLeftDescendantsCount(HuffmanNode? parentNode)
         {
-            if (parentNode is not null && Graph.Links.Where(l => l.Parent!.Identifier == parentNode.Identifier).Count() == 0)
+            if (parentNode is not null && Graph.Links.Count(l => l.Parent!.Identifier == parentNode.Identifier) == 0)
                 return 1;
 
             var node = Graph.Links.Where(l => l.Parent!.Identifier == parentNode!.Identifier).ToList()[0].Child;
@@ -145,14 +133,15 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
         }
         private int GetRightDescendantsCount(HuffmanNode? parentNode)
         {
-            if (parentNode is not null && ((Graph.Links.Where(l => l.Parent!.Identifier == parentNode.Identifier).Count() == 0) ||
-               (Graph.Links.Where(l => l.Parent!.Identifier == parentNode.Identifier).Count() != 2)))
+            if (parentNode is not null && ((Graph.Links.Count(l => l.Parent!.Identifier == parentNode.Identifier) == 0) ||
+               (Graph.Links.Count(l => l.Parent!.Identifier == parentNode.Identifier) != 2)))
                 return 1;
             var node = Graph.Links.Where(l => l.Parent!.Identifier == parentNode!.Identifier).ToList()[1].Child;
             return node!.DescendantsCount + 2; // 2 = last link + last node
         }
 
-        private GraphicNode DrawRootNode(Point startPosition, string label, int descendantsCount)
+        // Remove the unused 'descendantsCount' parameter from the DrawRootNode method
+        private GraphicNode DrawRootNode(Point startPosition, string label)
         {
             GraphicNode node = new(
                 x: (int)startPosition.X,

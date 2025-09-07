@@ -79,7 +79,7 @@ app.MapPost("/huffman/encode", (EncodeRequest req) =>
     }
     catch (Exception e)
     {
-        Log.Error(e.Message);
+        Log.Error(e,e.Message);
         return Results.BadRequest();
     }
 
@@ -107,7 +107,7 @@ app.MapPost("/huffman/decode", (DecodeRequest req) =>
     }
     catch (Exception e)
     {
-        Log.Error(e.Message);
+        Log.Error(e,e.Message);
         return Results.BadRequest();
     }
 
@@ -120,5 +120,5 @@ app.MapFallbackToFile("/index.html");
 
 
 
-app.Run();
+await app.RunAsync();
 

@@ -71,32 +71,30 @@ namespace HuffmanWeb.Algorithm
 
         public static string EncodeText(string textToEncode)
         {
-            string textEncoded = string.Empty;
             var huffmanTable = MakeMatchingTable(textToEncode);
+            var sb = new StringBuilder();
             foreach (var c in textToEncode.Where(c => huffmanTable.ContainsKey(c)))
             {
-                textEncoded += huffmanTable[c];
+                sb.Append(huffmanTable[c]);
             }
-
-            return textEncoded;
+            return sb.ToString();
         }
 
         public static string DecodeText(string textToDecode, Hashtable matchingCharactersTable)
         {
-
-            string textDecoded = string.Empty;
-            string search = string.Empty;
+            var textDecoded = new StringBuilder();
+            var search = new StringBuilder();
             foreach (var c in textToDecode)
             {
-                search += c;
-                var key = matchingCharactersTable.GetKeyByValue(search);
+                search.Append(c);
+                var key = matchingCharactersTable.GetKeyByValue(search.ToString());
                 if (key != null)
                 {
-                    search = string.Empty;
-                    textDecoded += key;
+                    search.Clear();
+                    textDecoded.Append(key);
                 }
             }
-            return textDecoded;
+            return textDecoded.ToString();
         }
 
     }

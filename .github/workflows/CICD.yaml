@@ -92,15 +92,19 @@ jobs:
             /o:"${SONAR_ORG}" \
             /d:sonar.token="${SONAR_TOKEN}" \
             /d:sonar.host.url="https://sonarcloud.io" \
-            /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml \
-            /d:sonar.coverage.exclusions="**/Program.cs" \
+            /d:sonar.cs.opencover.reportsPaths=**/coverage/**/coverage.cobertura.xml \
+            /d:sonar.coverage.exclusions="**/Program.cs,**/*.Designer.cs,**/obj/**,**/wwwroot/**" \
             /d:sonar.scm.provider=git \
+            /d:sonar.qualitygate.wait=false \
             ${SONAR_ARGS}
 
       - name: 🏗️ Build & Test
         run: |
           dotnet build ./src/HuffmanWeb/HuffmanWeb.Server/HuffmanWeb.Server.csproj --no-incremental
-          dotnet-coverage collect 'dotnet test ./src/HuffmanWeb/HuffmanWeb.Server/HuffmanWeb.Server.csproj' -f xml -o 'coverage.xml'
+          dotnet test ./src/HuffmanWeb/HuffmanWeb.Server/HuffmanWeb.Server.csproj \
+            --no-build \
+            --collect:"XPlat Code Coverage" \
+            --results-directory ./coverage
           dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
   build-docker:
