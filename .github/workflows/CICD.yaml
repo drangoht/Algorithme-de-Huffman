@@ -95,6 +95,7 @@ jobs:
             /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml \
             /d:sonar.coverage.exclusions="**/Program.cs" \
             /d:sonar.scm.provider=git \
+            /d:sonar.qualitygate.wait=false \
             ${SONAR_ARGS}
 
       - name: 🏗️ Build & Test
