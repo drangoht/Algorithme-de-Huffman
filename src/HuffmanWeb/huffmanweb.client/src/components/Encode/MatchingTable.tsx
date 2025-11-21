@@ -24,7 +24,7 @@ const MatchingTable = ({ characters }: CharactersListProps) => {
             <Button onAnimationEnd={handleOpen}>JSON</Button>
           </Tooltip>
         </div>
-        <table width="100%">
+        <table width="100%" className="steampunk-table">
           <thead>
             <tr>
               <th>Caractère</th>

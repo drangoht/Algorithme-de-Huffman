@@ -3,38 +3,41 @@ import { useState } from "react";
 import "./App.css";
 import Encode from "./components/Encode/Encode";
 import Decode from "./components/Decode/Decode";
+import SteampunkLayout from "./components/Layout/SteampunkLayout";
+import SteampunkButton from "./components/UI/SteampunkButton";
+
 function App() {
   const [tab, setTab] = useState("encode");
 
   return (
-    <div>
+    <SteampunkLayout>
+      <div className="app-header">
+        <h1>Huffman Machine</h1>
+        <div className="divider-ornament"></div>
+      </div>
+
       <div className="tab-buttons">
-        <div>
-          <button
-            disabled={tab === "encode" ? true : false}
-            onClick={() => setTab("encode")}
-            className="button-tab"
-          >
-            Encodage de texte
-          </button>
+        <SteampunkButton
+          label="Encodage de texte"
+          isActive={tab === "encode"}
+          onClick={() => setTab("encode")}
+        />
+        <SteampunkButton
+          label="Decodage binaire"
+          isActive={tab === "decode"}
+          onClick={() => setTab("decode")}
+        />
+      </div>
+
+      <div className="content-panel">
+        <div className={`tab-content ${tab === "encode" ? "visible" : "hidden"}`}>
+          <Encode />
         </div>
-        <div>
-          <button
-            disabled={tab === "decode" ? true : false}
-            onClick={() => setTab("decode")}
-            className="button-tab"
-          >
-            Decodage du resultat binaire
-          </button>
+        <div className={`tab-content ${tab === "decode" ? "visible" : "hidden"}`}>
+          <Decode />
         </div>
       </div>
-      <div className={tab === "encode" ? "tab-visible" : "tab-hidden"}>
-        <Encode />
-      </div>
-      <div className={tab === "decode" ? "tab-visible" : "tab-hidden"}>
-        <Decode />
-      </div>
-    </div>
+    </SteampunkLayout>
   );
 }
 

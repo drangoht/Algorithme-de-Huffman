@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600&display=swap');
+
+:root {
+  /* Cyber-Steampunk Palette */
+  --cyber-bg: #050505;
+  --cyber-panel: #111111;
+  --cyber-metal: #2a2a2a;
+
+  --neon-cyan: #00f3ff;
+  --neon-gold: #ffd700;
+  --neon-pink: #ff0099;
+  --neon-copper: #b87333;
+
+  --text-main: #e0e0e0;
+  --text-dim: #a0a0a0;
+
+  --font-header: 'Orbitron', sans-serif;
+  --font-body: 'Rajdhani', sans-serif;
+
+  --glow-cyan: 0 0 10px rgba(0, 243, 255, 0.5), 0 0 20px rgba(0, 243, 255, 0.3);
+  --glow-gold: 0 0 10px rgba(255, 215, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.3);
+  --glow-pink: 0 0 10px rgba(255, 0, 153, 0.5), 0 0 20px rgba(255, 0, 153, 0.3);
+
+  --border-neon: 1px solid var(--neon-cyan);
+  --border-metal: 1px solid var(--cyber-metal);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--cyber-bg);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  background-image:
+    linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-header);
+  color: var(--neon-gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: var(--glow-gold);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cyber-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cyber-metal);
+  border: 1px solid var(--neon-cyan);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+}

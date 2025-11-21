@@ -30,6 +30,13 @@ jobs:
           java-version: 17
           distribution: 'zulu'
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          cache-dependency-path: src/HuffmanWeb/huffmanweb.client/package-lock.json
+
       - name: Cache .NET tools
         uses: actions/cache@v3
         with:
@@ -79,7 +86,23 @@ jobs:
             echo "sonar_args=/d:sonar.branch.name=${BRANCH_NAME}" >> $GITHUB_OUTPUT
           fi
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          cache-dependency-path: src/HuffmanWeb/huffmanweb.client/package-lock.json
+
+      - name: 📦 Install Frontend Dependencies
+        working-directory: ./src/HuffmanWeb/huffmanweb.client
+        run: npm install
+
+      - name: 🧪 Run Frontend Tests with Coverage
+        working-directory: ./src/HuffmanWeb/huffmanweb.client
+        run: npm run test:coverage
+
       - name: 🔍 SonarCloud Analysis
+  if: ${{ env.SONAR_ENABLED == 'true' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -93,7 +116,10 @@ jobs:
             /d:sonar.token="${SONAR_TOKEN}" \
             /d:sonar.host.url="https://sonarcloud.io" \
             /d:sonar.cs.opencover.reportsPaths=**/coverage/**/coverage.cobertura.xml \
+            /d:sonar.javascript.lcov.reportPaths=src/HuffmanWeb/huffmanweb.client/coverage/lcov.info \
+            /d:sonar.typescript.lcov.reportPaths=src/HuffmanWeb/huffmanweb.client/coverage/lcov.info \
             /d:sonar.coverage.exclusions="**/Program.cs,**/*.Designer.cs,**/obj/**,**/wwwroot/**" \
+            /d:sonar.exclusions="**/coverage/**,**/*.test.ts,**/*.test.tsx,**/test/**,**/vite.config.ts,**/vitest.config.ts,**/vite-env.d.ts" \
             /d:sonar.scm.provider=git \
             /d:sonar.qualitygate.wait=false \
             ${SONAR_ARGS}
@@ -105,7 +131,11 @@ jobs:
             --no-build \
             --collect:"XPlat Code Coverage" \
             --results-directory ./coverage
-          dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
+
+
+      - name: 🔍 End SonarScanner
+        run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
   build-docker:
     name: 🛠️ Build & Push Docker
