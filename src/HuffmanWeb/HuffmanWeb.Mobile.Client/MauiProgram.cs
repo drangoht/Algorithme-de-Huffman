@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Maui;
+﻿
 using HuffmanWeb.Mobile.Client.ViewModels;
 using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
@@ -13,7 +13,6 @@ namespace HuffmanWeb.Mobile.Client
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-                .UseMauiCommunityToolkit()
                 .UseSkiaSharp()
                 .ConfigureFonts(fonts =>
                 {

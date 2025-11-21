@@ -17,6 +17,10 @@ const certificateName = "huffmanweb.client";
 const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
 const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
 
+if (!fs.existsSync(baseFolder)) {
+  fs.mkdirSync(baseFolder, { recursive: true });
+}
+
 if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
   if (
     0 !==
@@ -69,7 +73,7 @@ export default defineConfig({
       },
     },
     cors: false,
-    port: 5173,
+    port: 5174,
     https: {
       key: fs.readFileSync(keyFilePath),
       cert: fs.readFileSync(certFilePath),
