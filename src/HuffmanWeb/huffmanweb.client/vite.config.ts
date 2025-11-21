@@ -81,6 +81,9 @@ export default defineConfig({
   },
   // @ts-ignore: allow Vitest config
   test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./src/setupTests.ts'],
     coverage: {
       reporter: ['text', 'json', 'html'],
     },
