@@ -4,6 +4,7 @@ using HuffmanWeb.Common.DTOs;
 using HuffmanWeb.Common.DTOs.Requests;
 using HuffmanWeb.Common.DTOs.Responses;
 using Serilog;
+using Scalar.AspNetCore;
 using System.Collections;
 
 Log.Logger = new LoggerConfiguration()
@@ -23,7 +24,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddOpenApi();
 
 var app = builder.Build();
 app.UseStatusCodePages(statusCodeHandlerApp =>
@@ -45,8 +46,9 @@ app.UseStaticFiles();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.MapOpenApi();
+    app.MapScalarApiReference();
+    app.MapGet("/swagger", () => Results.Redirect("/scalar/v1")).ExcludeFromDescription();
 }
 
 app.UseHttpsRedirection();
@@ -85,8 +87,8 @@ app.MapPost("/huffman/encode", (EncodeRequest req) =>
 
 
 })
-.WithName("PostHuffmanEncode")
-.WithOpenApi();
+.WithName("PostHuffmanEncode");
+
 
 app.MapPost("/huffman/decode", (DecodeRequest req) =>
 {
@@ -113,8 +115,8 @@ app.MapPost("/huffman/decode", (DecodeRequest req) =>
 
 
 })
-.WithName("PostHuffmanDecode")
-.WithOpenApi();
+.WithName("PostHuffmanDecode");
+
 
 app.MapFallbackToFile("/index.html");
 
