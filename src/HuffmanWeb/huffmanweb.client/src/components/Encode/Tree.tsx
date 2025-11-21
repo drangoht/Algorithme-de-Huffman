@@ -10,6 +10,8 @@ import TreeChildren from "./TreeChildren";
 import JsonModal from "./JsonModal";
 import { useState } from "react";
 import { Link } from "../../dtos/Link";
+import { removeNullChar } from "../../utils/stringUtils";
+import { darkDialogStyles } from "../../styles/dialogStyles";
 
 const Tree = ({ graph }: TreeProps) => {
   if (graph != undefined) {
@@ -33,7 +35,7 @@ const Tree = ({ graph }: TreeProps) => {
               <ul>
                 <li>
                   <div>
-                    {graph.root.character.replace("\x00", "")}:
+                    {removeNullChar(graph.root.character)}:
                     {graph.root.nbOccurence}
                   </div>
                   <TreeChildren children={rootLinks} graph={graph} />
@@ -47,18 +49,7 @@ const Tree = ({ graph }: TreeProps) => {
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
-          sx={{
-            background: "#212121",
-            color: "#dcdcdc",
-            "& .MuiPaper-root": {
-              background: "#212121",
-              color: "#dcdcdc",
-            },
-            "& .MuiBackdrop-root": {
-              backgroundColor: "transparent",
-              color: "#dcdcdc",
-            },
-          }}
+          sx={darkDialogStyles}
         >
           <DialogTitle>Arbre en JSON</DialogTitle>
           <DialogContent>
