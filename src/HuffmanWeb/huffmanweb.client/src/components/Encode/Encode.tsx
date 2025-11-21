@@ -7,9 +7,9 @@ import SizeStats from "./SizeStats";
 import BinaryHuffman from "./BinaryHuffman";
 import MatchingTable from "./MatchingTable";
 import Tree from "./Tree";
+import { apiPost } from "../../utils/apiClient";
 
 const Encode = () => {
-  let responseEncoded: EncodeResponse;
   const [binaryHuffman, setBinaryHuffman] = useState("");
   const [chars, setChars] = useState<Character[]>([]);
   const [encodedSize, setEncodedSize] = useState(0);
@@ -17,36 +17,25 @@ const Encode = () => {
   const [graph, setGraph] = useState<WeightedGraph>();
 
   async function onEncodeText(textToEncode: string) {
-    const form = new FormData();
-    form.append("textToEncode", textToEncode);
-    await fetch("/huffman/encode", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ textToEncode: textToEncode }),
-    })
-      .then(async (response) => {
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        responseEncoded = await response.json();
-
-        setEncodedSize(responseEncoded.encodedSize);
-        setOriginalSize(responseEncoded.originalSize);
-        setGraph(responseEncoded.graph);
-        setBinaryHuffman(responseEncoded.encodedBinaryString);
-        chars.splice(0);
-        responseEncoded.matchingCharacters.forEach(function (chr) {
-          chars.push({ id: chr.id, value: chr.value });
-        });
-        setChars(chars);
-      })
-      .catch((error: Error) => {
-        console.log(error);
-        throw error;
+    try {
+      const responseEncoded = await apiPost<EncodeResponse>("/huffman/encode", {
+        textToEncode,
       });
+
+      setEncodedSize(responseEncoded.encodedSize);
+      setOriginalSize(responseEncoded.originalSize);
+      setGraph(responseEncoded.graph);
+      setBinaryHuffman(responseEncoded.encodedBinaryString);
+
+      const newChars = responseEncoded.matchingCharacters.map((chr) => ({
+        id: chr.id,
+        value: chr.value,
+      }));
+      setChars(newChars);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 
   return (

@@ -1,31 +1,25 @@
-﻿import React, { useState, FormEvent } from "react";
+﻿import React, { FormEvent } from "react";
 import { TextToEncodeFormProps } from "../../Interfaces/Encode/TextToEncodeFormProps";
+import { useTextareaForm } from "../../hooks/useTextareaForm";
+import FormTextarea from "../UI/FormTextarea";
 
 const TextToEncodeForm: React.FC<TextToEncodeFormProps> = (props) => {
-  const [textareaValue, setTextareaValue] = useState("");
-
-  const handleTextareaChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
-  ) => {
-    setTextareaValue(event.target.value);
-  };
+  const { value, handleChange } = useTextareaForm("");
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    props.onEncodeText(textareaValue);
+    props.onEncodeText(value);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Veuillez saisir le texte à encoder:
-        <textarea
-          cols={75}
-          rows={10}
-          value={textareaValue}
-          onChange={handleTextareaChange}
-        />
-      </label>
+      <FormTextarea
+        label="Veuillez saisir le texte à encoder:"
+        value={value}
+        onChange={handleChange}
+        cols={75}
+        rows={10}
+      />
       <button type="submit">Encoder</button>
     </form>
   );

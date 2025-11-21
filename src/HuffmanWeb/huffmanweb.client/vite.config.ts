@@ -79,4 +79,10 @@ export default defineConfig({
       cert: fs.readFileSync(certFilePath),
     },
   },
+  // @ts-ignore: allow Vitest config
+  test: {
+    coverage: {
+      reporter: ['text', 'json', 'html'],
+    },
+  },
 });

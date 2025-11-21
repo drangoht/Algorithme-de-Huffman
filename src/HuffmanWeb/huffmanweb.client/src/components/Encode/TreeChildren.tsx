@@ -1,6 +1,8 @@
 import { TreeChildrenProps } from "../../Interfaces/Encode/TreeChildrenProps";
 import { HuffmanNode } from "../../dtos/HuffmanNode";
 import { Link } from "../../dtos/Link";
+import { removeNullChar } from "../../utils/stringUtils";
+
 const TreeChildren = ({ children, graph }: TreeChildrenProps) => {
   let leftChild: HuffmanNode | undefined = undefined;
   let rightChild: HuffmanNode | undefined = undefined;
@@ -21,14 +23,14 @@ const TreeChildren = ({ children, graph }: TreeChildrenProps) => {
   const leftChildren =
     leftChild != undefined
       ? graph.links.filter(
-          (link: Link) => link.parent.identifier == leftChild!.identifier,
-        )
+        (link: Link) => link.parent.identifier == leftChild!.identifier,
+      )
       : [];
   const rightChildren =
     rightChild != undefined
       ? graph.links.filter(
-          (link: Link) => link.parent.identifier == rightChild!.identifier,
-        )
+        (link: Link) => link.parent.identifier == rightChild!.identifier,
+      )
       : [];
   return (
     <>
@@ -37,7 +39,7 @@ const TreeChildren = ({ children, graph }: TreeChildrenProps) => {
           <li>
             <span className="weight">0</span>
             <div>
-              <b>{leftChild!.character.replace("\x00", "")}</b>:
+              <b>{removeNullChar(leftChild!.character)}</b>:
               {leftChild!.nbOccurence}
             </div>
             {leftChildren.length > 0 ? (
@@ -53,7 +55,7 @@ const TreeChildren = ({ children, graph }: TreeChildrenProps) => {
           <li>
             <span className="weight">1</span>
             <div>
-              <b>{rightChild!.character.replace("\x00", "")}</b>:
+              <b>{removeNullChar(rightChild!.character)}</b>:
               {rightChild!.nbOccurence}
             </div>
             {rightChildren.length > 0 ? (
