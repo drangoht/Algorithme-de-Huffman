@@ -1,55 +1,64 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+﻿<ContentPage
     x:Class="HuffmanWeb.Mobile.Client.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:strings="clr-namespace:HuffmanPlayground.Mobile.Client.Resources.Strings">
+    xmlns:strings="clr-namespace:HuffmanPlayground.Mobile.Client.Resources.Strings"
+    BackgroundColor="{StaticResource Background}">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20,0" Spacing="5">
+        <VerticalStackLayout Padding="24" Spacing="32" VerticalOptions="Center">
 
+            <!-- Header Section -->
+            <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                <Image Source="splash.png" HeightRequest="150" Margin="0,20,0,0" />
+                <Label Text="Huffman Playground" Style="{StaticResource Headline}" />
+                <Label Text="Professional Coding Tool" Style="{StaticResource SubHeadline}" />
+            </VerticalStackLayout>
 
-            <Image Source="splash.svg" />
-            <Label Style="{StaticResource MainTitle}" Text="Huffman Playground" />
-            <Grid ColumnDefinitions="*,*" RowDefinitions="200,30">
-                <ImageButton
-                    x:Name="EncodeBtn"
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Clicked="EncodeBtn_Clicked"
-                    HorizontalOptions="Fill"
-                    SemanticProperties.Description="{x:Static strings:AppResources.EncodeImageButtonSemanticHint}"
-                    SemanticProperties.Hint="{x:Static strings:AppResources.EncodeImageButtonSemanticHint}"
-                    Source="btn_encoding.png"
-                    VerticalOptions="Start" />
-                <ImageButton
-                    x:Name="DecodeBtn"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Clicked="DecodeBtn_Clicked"
-                    HorizontalOptions="Fill"
-                    SemanticProperties.Description="{x:Static strings:AppResources.DecodeImageButtonSemanticHint}"
-                    SemanticProperties.Hint="{x:Static strings:AppResources.DecodeImageButtonSemanticHint}"
-                    Source="btn_decoding.png" />
-                <Label
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Style="{StaticResource ButtonLabel}"
-                    Text="{x:Static strings:AppResources.EncodeButton}">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="EncodeBtn_Clicked" />
-                    </Label.GestureRecognizers>
-                </Label>
-                <Label
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Style="{StaticResource ButtonLabel}"
-                    Text="{x:Static strings:AppResources.DecodeButton}">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="DecodeBtn_Clicked" />
-                    </Label.GestureRecognizers>
-                </Label>
+            <!-- Action Cards -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="16" RowDefinitions="Auto">
+                <!-- Encode Card -->
+                <Border Grid.Column="0" Style="{StaticResource Border}">
+                    <VerticalStackLayout Padding="20" Spacing="12">
+                        <Image Source="btn_encoding.png" HeightRequest="64" WidthRequest="64" HorizontalOptions="Center" />
+                        <Label Text="{x:Static strings:AppResources.EncodeButton}" 
+                               Style="{StaticResource CardTitle}" 
+                               HorizontalOptions="Center" />
+                        <Button Text="Start" 
+                                Clicked="EncodeBtn_Clicked" 
+                                Style="{StaticResource OutlinedButton}" 
+                                HorizontalOptions="Fill" />
+                    </VerticalStackLayout>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="EncodeBtn_Clicked" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <!-- Decode Card -->
+                <Border Grid.Column="1" Style="{StaticResource Border}">
+                    <VerticalStackLayout Padding="20" Spacing="12">
+                        <Image Source="btn_decoding.png" HeightRequest="64" WidthRequest="64" HorizontalOptions="Center" />
+                        <Label Text="{x:Static strings:AppResources.DecodeButton}" 
+                               Style="{StaticResource CardTitle}" 
+                               HorizontalOptions="Center" />
+                        <Button Text="Start" 
+                                Clicked="DecodeBtn_Clicked" 
+                                Style="{StaticResource OutlinedButton}" 
+                                HorizontalOptions="Fill" />
+                    </VerticalStackLayout>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="DecodeBtn_Clicked" />
+                    </Border.GestureRecognizers>
+                </Border>
             </Grid>
+
+            <!-- Footer/Info -->
+            <Label Text="v1.0.0 - Professional Edition" 
+                   TextColor="{StaticResource TextSecondary}" 
+                   FontSize="12" 
+                   HorizontalOptions="Center" 
+                   Margin="0,32,0,0" />
+
         </VerticalStackLayout>
     </ScrollView>
 

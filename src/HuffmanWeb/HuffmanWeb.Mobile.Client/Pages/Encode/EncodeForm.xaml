@@ -7,109 +7,93 @@
     xmlns:strings="clr-namespace:HuffmanPlayground.Mobile.Client.Resources.Strings"
     Title="{x:Static strings:AppResources.EncodePageTitle}"
     HideSoftInputOnTapped="True"
-    Loaded="OnPageLoaded">
+    Loaded="OnPageLoaded"
+    BackgroundColor="{StaticResource Background}">
+
     <ScrollView VerticalOptions="FillAndExpand">
-        <VerticalStackLayout>
+        <VerticalStackLayout Padding="24" Spacing="24">
 
-            <StackLayout>
-                <ScrollView
-                    HeightRequest="200"
-                    HorizontalScrollBarVisibility="Never"
-                    IsEnabled="True"
-                    VerticalScrollBarVisibility="Always"
-                    WidthRequest="380"
-                    ZIndex="2000">
-                    <Editor
-                        x:Name="textToEncode"
-                        HeightRequest="200"
-                        Placeholder="{x:Static strings:AppResources.EncodeEditorPlaceHoler}"
-                        Text="{Binding TextToEncode}" />
-                </ScrollView>
+            <!-- Input Card -->
+            <Border Style="{StaticResource Border}">
+                <VerticalStackLayout Padding="20" Spacing="16">
+                    <Label Text="Input Text" Style="{StaticResource CardTitle}" />
+                    
+                    <Editor x:Name="textToEncode"
+                            Text="{Binding TextToEncode}"
+                            Placeholder="{x:Static strings:AppResources.EncodeEditorPlaceHoler}"
+                            HeightRequest="150" />
 
-                <Grid
-                    Padding="15,0"
-                    ColumnDefinitions="*,*,*"
-                    HorizontalOptions="FillAndExpand">
-                    <Button
-                        x:Name="ResetBtn"
-                        Grid.Column="1"
-                        Margin="0,10"
-                        Padding="10,0"
-                        BorderWidth="1"
-                        Clicked="ResetBtn_Clicked"
-                        HorizontalOptions="End"
-                        Text="{x:Static strings:AppResources.ResetButton}" />
-                    <Button
-                        x:Name="EncodeBtn"
-                        Grid.Column="2"
-                        Margin="0,10"
-                        Padding="10,0"
-                        BorderWidth="1"
-                        Clicked="EncodeBtn_Clicked"
-                        HorizontalOptions="Center"
-                        SemanticProperties.Hint="Encode text"
-                        Text="{x:Static strings:AppResources.EncodeButton}" />
-                </Grid>
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="16" Margin="0,8,0,0">
+                        <Button x:Name="ResetBtn"
+                                Text="{x:Static strings:AppResources.ResetButton}"
+                                Clicked="ResetBtn_Clicked"
+                                Style="{StaticResource OutlinedButton}"
+                                Grid.Column="0" />
+                        
+                        <Button x:Name="EncodeBtn"
+                                Text="{x:Static strings:AppResources.EncodeButton}"
+                                Clicked="EncodeBtn_Clicked"
+                                Grid.Column="1" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
 
-                <ActivityIndicator
-                    IsRunning="{Binding IsWorking}"
-                    IsVisible="{Binding IsWorking}"
-                    Color="{StaticResource LabelBeige}" />
+            <!-- Results Section -->
+            <ActivityIndicator IsRunning="{Binding IsWorking}"
+                               IsVisible="{Binding IsWorking}"
+                               Color="{StaticResource Primary}"
+                               HorizontalOptions="Center" />
 
-                <components:HuffmanBinaryString
-                    x:Name="binaryString"
-                    Padding="15,0"
-                    HuffmanString="{Binding Response.EncodedBinaryString}"
-                    IsVisible="False" />
-                <components:EncodingStatsDisplay
-                    x:Name="encodingStats"
-                    Padding="15,0"
-                    CompressionPercent="{Binding CompressionPercent}"
-                    EncodedSize="{Binding Response.EncodedSize}"
-                    IsVisible="False"
-                    OriginalSize="{Binding Response.OriginalSize}" />
-                <Grid
-                    Padding="15,5"
-                    ColumnDefinitions="*,*"
-                    RowDefinitions="*,*">
-                    <Button
-                        x:Name="MatchingTablebtn"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Margin="5,2"
-                        Padding="15,10"
-                        BorderWidth="1"
-                        Clicked="MatchingTablebtn_Clicked"
-                        HorizontalOptions="Fill"
-                        IsVisible="False"
-                        SemanticProperties.Hint="{x:Static strings:AppResources.MatchingTableButtonSemanticHint}"
-                        Text="{x:Static strings:AppResources.MatchingTableButton}" />
-                    <Button
-                        x:Name="TreeBtn"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Margin="5,2"
-                        Padding="15,10"
-                        BorderWidth="1"
-                        Clicked="TreeBtn_Clicked"
-                        HorizontalOptions="Fill"
-                        IsVisible="False"
-                        SemanticProperties.Hint="{x:Static strings:AppResources.TreeButtonSemanticHint}"
-                        Text="{x:Static strings:AppResources.TreeButton}" />
-                    <Button
-                        x:Name="copyToDecodeBtn"
-                        Grid.Row="1"
-                        Grid.ColumnSpan="2"
-                        Margin="5,2"
-                        Padding="0,10"
-                        BorderWidth="1"
-                        Clicked="copyToDecodeBtn_Clicked"
-                        HorizontalOptions="Fill"
-                        IsVisible="False"
-                        SemanticProperties.Hint="{x:Static strings:AppResources.CopytoDecodePageButtonSemanticHint}"
-                        Text="{x:Static strings:AppResources.CopytoDecodePageButton}" />
-                </Grid>
-            </StackLayout>
+            <VerticalStackLayout Spacing="24" IsVisible="{Binding Response, Converter={StaticResource IsNotNullConverter}}"> <!-- Assuming IsNotNullConverter exists or logic handles visibility via child elements -->
+                
+                <!-- Stats Card -->
+                <Border Style="{StaticResource Border}" IsVisible="{Binding IsVisible, Source={x:Reference encodingStats}}">
+                    <VerticalStackLayout Padding="20" Spacing="12">
+                        <Label Text="Statistics" Style="{StaticResource CardTitle}" />
+                        <components:EncodingStatsDisplay
+                            x:Name="encodingStats"
+                            CompressionPercent="{Binding CompressionPercent}"
+                            EncodedSize="{Binding Response.EncodedSize}"
+                            OriginalSize="{Binding Response.OriginalSize}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Binary String Card -->
+                <Border Style="{StaticResource Border}" IsVisible="{Binding IsVisible, Source={x:Reference binaryString}}">
+                    <VerticalStackLayout Padding="20" Spacing="12">
+                        <Label Text="Encoded Binary" Style="{StaticResource CardTitle}" />
+                        <components:HuffmanBinaryString
+                            x:Name="binaryString"
+                            HuffmanString="{Binding Response.EncodedBinaryString}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Actions Card -->
+                <Border Style="{StaticResource Border}">
+                    <VerticalStackLayout Padding="20" Spacing="16">
+                        <Label Text="Actions" Style="{StaticResource CardTitle}" />
+                        
+                        <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="16" RowSpacing="16">
+                            <Button x:Name="MatchingTablebtn"
+                                    Text="{x:Static strings:AppResources.MatchingTableButton}"
+                                    Clicked="MatchingTablebtn_Clicked"
+                                    Style="{StaticResource OutlinedButton}"
+                                    Grid.Row="0" Grid.Column="0" />
+                            
+                            <Button x:Name="TreeBtn"
+                                    Text="{x:Static strings:AppResources.TreeButton}"
+                                    Clicked="TreeBtn_Clicked"
+                                    Style="{StaticResource OutlinedButton}"
+                                    Grid.Row="0" Grid.Column="1" />
+                            
+                            <Button x:Name="copyToDecodeBtn"
+                                    Text="{x:Static strings:AppResources.CopytoDecodePageButton}"
+                                    Clicked="copyToDecodeBtn_Clicked"
+                                    Grid.Row="1" Grid.ColumnSpan="2" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
 
         </VerticalStackLayout>
     </ScrollView>
