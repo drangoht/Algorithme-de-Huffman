@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Project Path="HuffmanWeb.Algorithm/HuffmanWeb.Algorithm.csproj" />
+  <Project Path="huffmanweb.client/huffmanweb.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="HuffmanWeb.Common/HuffmanWeb.Common.csproj" />
+  <Project Path="HuffmanWeb.Mobile.Client/HuffmanWeb.Mobile.Client.csproj">
+    <Deploy />
+  </Project>
+  <Project Path="HuffmanWeb.Server/HuffmanWeb.Server.csproj" />
+  <Project Path="HuffmanWeb.UnitTests/HuffmanWeb.UnitTests.csproj" />
+</Solution>

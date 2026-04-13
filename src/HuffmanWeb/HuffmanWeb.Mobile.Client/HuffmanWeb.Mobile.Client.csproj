@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net10.0-android;net10.0-maccatalyst</TargetFrameworks>
@@ -100,14 +100,14 @@
 
 	<ItemGroup>
 
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.0" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
-		<PackageReference Include="nor0x.Maui.ColorPicker" Version="2.0.1" />
-		<PackageReference Include="Refit" Version="8.0.0" />
-		<PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
-		<PackageReference Include="Serilog" Version="4.0.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" />
+		<PackageReference Include="Microsoft.Maui.Controls" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+		<PackageReference Include="nor0x.Maui.ColorPicker" />
+		<PackageReference Include="Refit" />
+		<PackageReference Include="Refit.HttpClientFactory" />
+		<PackageReference Include="Serilog" />
 	</ItemGroup>
 
 	<ItemGroup>

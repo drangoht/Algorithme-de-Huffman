@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "centralisedpackageconverter": {
+      "version": "1.0.74",
+      "commands": [
+        "central-pkg-converter"
+      ],
+      "rollForward": false
+    }
+  }
+}
