@@ -28,6 +28,7 @@ WORKDIR /src
 # Add a step to clean and rebuild node_modules
 RUN mkdir -p /src/huffmanweb.client
 COPY ["src/HuffmanWeb/huffmanweb.client/nuget.config", "huffmanweb.client/"]
+COPY ["src/HuffmanWeb/Directory.Packages.props", "."]
 COPY ["src/HuffmanWeb/HuffmanWeb.Server/HuffmanWeb.Server.csproj", "HuffmanWeb.Server/"]
 COPY ["src/HuffmanWeb/HuffmanWeb.Algorithm/HuffmanWeb.Algorithm.csproj", "HuffmanWeb.Algorithm/"]
 COPY ["src/HuffmanWeb/HuffmanWeb.Common/HuffmanWeb.Common.csproj", "HuffmanWeb.Common/"]
