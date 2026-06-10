@@ -1,26 +1,23 @@
-﻿using HuffmanWeb.Common.DTOs;
-using System.Collections;
+using HuffmanWeb.Common.DTOs;
 
 namespace HuffmanWeb.Algorithm
 {
     public static class Algorithms
     {
-        public static Hashtable DFS(HuffmanNode root, List<Link<HuffmanNode>> graphlinks)
+        public static Dictionary<char, string> DFS(HuffmanNode root, List<Link<HuffmanNode>> graphlinks)
         {
-            Stack<HuffmanNodeWeighted> stack = new Stack<HuffmanNodeWeighted>();
+            var stack = new Stack<HuffmanNodeWeighted>();
             stack.Push(new HuffmanNodeWeighted() { Node = root, Weight = null });
-            Hashtable huffmanTable = new Hashtable();
-            // LIFO
+            var huffmanTable = new Dictionary<char, string>();
             while (stack.Count > 0)
             {
                 var n = stack.Pop();
-                if (n.Node.Character != Char.MinValue)
-                    huffmanTable.Add(n.Node.Character, n.Weight);
+                if (n.Node.Character != char.MinValue)
+                    huffmanTable[n.Node.Character] = n.Weight ?? string.Empty;
 
                 var links = graphlinks.Where(l => l.Parent == n.Node).ToList();
                 foreach (var link in links)
-                    stack.Push((new() { Node = link.Child!, Weight = $"{n.Weight}{link.Weight}" }));
-
+                    stack.Push(new() { Node = link.Child!, Weight = $"{n.Weight}{link.Weight}" });
             }
             return huffmanTable;
         }

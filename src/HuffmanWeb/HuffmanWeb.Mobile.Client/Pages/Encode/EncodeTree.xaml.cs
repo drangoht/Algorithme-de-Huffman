@@ -62,7 +62,7 @@ public partial class EncodeTree : ContentPage
     {
         var currBindingContext = ((EncodeTreeBindingContext)BindingContext);
         binaryTree.LineColor = e.NewPickedColorValue;
-        currBindingContext.TreeViewModel!.Linecolor = e.NewPickedColorValue;
+        currBindingContext.TreeViewModel!.LineColor = e.NewPickedColorValue;
         binaryTree.Invalidate();
     }
     private void LineTextColor_PickedColorChanged(object sender, Maui.ColorPicker.PickedColorChangedEventArgs e)

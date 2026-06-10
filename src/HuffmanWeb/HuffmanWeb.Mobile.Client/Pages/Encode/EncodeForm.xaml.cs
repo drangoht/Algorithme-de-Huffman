@@ -1,25 +1,29 @@
 using HuffmanWeb.Mobile.Client.ViewModels;
-namespace HuffmanWeb.Mobile.Client.Pages.Encode;
 using System.Text.Json;
+
+namespace HuffmanWeb.Mobile.Client.Pages.Encode;
 
 public partial class EncodeForm : ContentPage
 {
     bool isPageLoaded = false;
     DecodeViewModel? decodeViewModel;
+
     public EncodeForm()
     {
         InitializeComponent();
         BindingContext = IPlatformApplication.Current?.Services.GetService<EncodeViewModel>();
         decodeViewModel = IPlatformApplication.Current?.Services.GetService<DecodeViewModel>();
-        textToEncode.Focus();
+        _ = textToEncode.Focus();
     }
+
     private void OnPageLoaded(object sender, EventArgs e)
     {
         if (isPageLoaded) return;
-        textToEncode.Focus();
+        _ = textToEncode.Focus();
         isPageLoaded = true;
     }
-    private void EncodeBtn_Clicked(object sender, EventArgs e)
+
+    private async void EncodeBtn_Clicked(object sender, EventArgs e)
     {
         textToEncode.Unfocus();
         MatchingTablebtn.IsVisible = false;
@@ -28,10 +32,15 @@ public partial class EncodeForm : ContentPage
         binaryString.IsVisible = false;
         copyToDecodeBtn.IsVisible = false;
 
-        var viewModel = (EncodeViewModel)BindingContext;
+        if (BindingContext is not EncodeViewModel viewModel)
+        {
+            await DisplayAlert("Error", "Unable to initialize encode screen.", "OK");
+            return;
+        }
+
         if (!string.IsNullOrWhiteSpace(viewModel.TextToEncode))
         {
-            viewModel.CallEncodeAPICommand.Execute(null);
+            await viewModel.CallEncodeAPI();
             MatchingTablebtn.IsVisible = true;
             TreeBtn.IsVisible = true;
             encodingStats.IsVisible = true;
@@ -42,12 +51,26 @@ public partial class EncodeForm : ContentPage
 
     private async void MatchingTablebtn_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new EncodeMatchingTable());
+        try
+        {
+            await Navigation.PushAsync(new EncodeMatchingTable());
+        }
+        catch
+        {
+            await DisplayAlert("Error", "Unable to open matching table page.", "OK");
+        }
     }
 
     private async void TreeBtn_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new EncodeTree());
+        try
+        {
+            await Navigation.PushAsync(new EncodeTree());
+        }
+        catch
+        {
+            await DisplayAlert("Error", "Unable to open tree page.", "OK");
+        }
     }
 
     private void ResetBtn_Clicked(object sender, EventArgs e)
@@ -57,7 +80,9 @@ public partial class EncodeForm : ContentPage
 
     private void copyToDecodeBtn_Clicked(object sender, EventArgs e)
     {
-        var viewModel = (EncodeViewModel)BindingContext;
+        if (BindingContext is not EncodeViewModel viewModel)
+            return;
+
         if (decodeViewModel != null)
         {
             decodeViewModel.TextToDecode = binaryString.HuffmanString;
