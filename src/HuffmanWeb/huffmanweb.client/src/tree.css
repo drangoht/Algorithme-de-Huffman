@@ -5,17 +5,14 @@
 
 .tree-container {
   overflow-x: auto;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
-  box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.1);
-  border: 1px solid rgba(0, 243, 255, 0.1);
+  padding: 20px 16px;
+  background: var(--black);
+  border: 1px solid var(--border);
 }
 
 .tree ul {
   padding-top: 20px;
   position: relative;
-  transition: all 0.5s;
   display: flex;
   justify-content: center;
 }
@@ -25,119 +22,100 @@
   text-align: center;
   list-style-type: none;
   position: relative;
-  padding: 20px 5px 0 5px;
-  transition: all 0.5s;
+  padding: 20px 8px 0 8px;
+  animation: nodeIn 0.3s ease both;
 }
 
-/* Connectors (Neon Lines) */
+@keyframes nodeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Connector lines — emerald green */
 .tree li::before,
 .tree li::after {
   content: "";
   position: absolute;
   top: 0;
   right: 50%;
-  border-top: 2px solid var(--neon-cyan);
+  border-top: 1px solid var(--green-dim);
   width: 50%;
   height: 20px;
-  box-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
 }
 
 .tree li::after {
   right: auto;
   left: 50%;
-  border-left: 2px solid var(--neon-cyan);
-  box-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+  border-left: 1px solid var(--green-dim);
 }
 
 .tree li:only-child::after,
-.tree li:only-child::before {
-  display: none;
-}
-
-.tree li:only-child {
-  padding-top: 0;
-}
+.tree li:only-child::before { display: none; }
+.tree li:only-child { padding-top: 0; }
 
 .tree li:first-child::before,
-.tree li:last-child::after {
-  border: 0 none;
-  box-shadow: none;
-}
+.tree li:last-child::after { border: 0 none; }
 
 .tree li:last-child::before {
-  border-right: 2px solid var(--neon-cyan);
-  border-radius: 0 5px 0 0;
-  box-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+  border-right: 1px solid var(--green-dim);
+  border-radius: 0;
 }
 
-.tree li:first-child::after {
-  border-radius: 5px 0 0 0;
-}
+.tree li:first-child::after { border-radius: 0; }
 
 .tree ul ul::before {
   content: "";
   position: absolute;
   top: 0;
   left: 50%;
-  border-left: 2px solid var(--neon-cyan);
+  border-left: 1px solid var(--green-dim);
   width: 0;
   height: 20px;
-  box-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
 }
 
-/* Nodes (Neon Orbs) */
+/* Nodes — terminal style boxes */
 .tree li div {
-  border: 2px solid var(--neon-gold);
-  padding: 10px 15px;
-  text-decoration: none;
-  color: var(--cyber-bg);
-  font-family: var(--font-body);
-  font-weight: bold;
-  font-size: 14px;
-  display: inline-block;
-  border-radius: 50%;
-  min-width: 30px;
-  min-height: 30px;
-  display: flex;
+  border: 1px solid var(--border-bright);
+  padding: 5px 10px;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 500;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  background: var(--neon-gold);
-  box-shadow: var(--glow-gold);
-
-  transition: all 0.3s ease;
+  border-radius: 0;
+  min-width: 32px;
+  min-height: 28px;
+  background: var(--bg-panel);
+  transition: all 0.15s ease;
   position: relative;
   z-index: 2;
 }
 
-/* Hover Effect */
-.tree li div:hover,
-.tree li div:hover+ul li div {
-  background: var(--neon-pink);
-  border-color: var(--neon-pink);
-  color: white;
-  box-shadow: var(--glow-pink), 0 0 30px var(--neon-pink);
-  transform: scale(1.1);
-  cursor: pointer;
+.tree li div:hover {
+  background: var(--green-ghost);
+  border-color: var(--green);
+  color: var(--green-bright);
+  box-shadow: var(--green-glow-sm);
+  cursor: default;
 }
 
-/* Connector Hover Effect */
-.tree li div:hover+ul li::after,
-.tree li div:hover+ul li::before,
-.tree li div:hover+ul::before,
-.tree li div:hover+ul ul::before {
-  border-color: var(--neon-pink);
-  box-shadow: 0 0 10px var(--neon-pink);
+.tree li div:hover + ul li::after,
+.tree li div:hover + ul li::before,
+.tree li div:hover + ul::before,
+.tree li div:hover + ul ul::before {
+  border-color: var(--green);
 }
 
+/* Weight labels */
 .tree .weight {
   position: absolute;
   top: -15px;
   width: 100%;
   left: 0;
-  font-size: 10px;
-  color: var(--neon-cyan);
-  text-shadow: 0 0 2px black;
-  font-family: var(--font-body);
-  font-weight: bold;
+  font-size: 9px;
+  color: var(--text-dim);
+  font-family: var(--font);
+  letter-spacing: 0.5px;
 }

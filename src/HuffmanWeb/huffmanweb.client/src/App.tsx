@@ -1,10 +1,10 @@
 /* eslint-disable */
 import { useState } from "react";
+import { Tabs, Tab, Box } from "@mui/material";
 import "./App.css";
 import Encode from "./components/Encode/Encode";
 import Decode from "./components/Decode/Decode";
 import SteampunkLayout from "./components/Layout/SteampunkLayout";
-import SteampunkButton from "./components/UI/SteampunkButton";
 
 function App() {
   const [tab, setTab] = useState("encode");
@@ -14,20 +14,21 @@ function App() {
       <div className="app-header">
         <h1>Huffman Machine</h1>
         <div className="divider-ornament"></div>
+        <div style={{ fontSize: '0.7rem', color: 'rgba(134,239,172,0.3)', letterSpacing: '1px', marginTop: 4, fontFamily: 'var(--font)' }}>
+          lossless compression via binary tree encoding
+        </div>
       </div>
 
-      <div className="tab-buttons">
-        <SteampunkButton
-          label="Encodage de texte"
-          isActive={tab === "encode"}
-          onClick={() => setTab("encode")}
-        />
-        <SteampunkButton
-          label="Decodage binaire"
-          isActive={tab === "decode"}
-          onClick={() => setTab("decode")}
-        />
-      </div>
+      <Box className="app-tabs-wrapper">
+        <Tabs
+          value={tab}
+          onChange={(_, v) => setTab(v)}
+          centered
+        >
+          <Tab label="Encodage de texte" value="encode" />
+          <Tab label="Decodage binaire" value="decode" />
+        </Tabs>
+      </Box>
 
       <div className="content-panel">
         <div className={`tab-content ${tab === "encode" ? "visible" : "hidden"}`}>

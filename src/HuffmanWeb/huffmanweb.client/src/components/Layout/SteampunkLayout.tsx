@@ -16,9 +16,9 @@ const SteampunkLayout: React.FC<SteampunkLayoutProps> = ({ children }) => {
                     <div className="steampunk-corner bottom-right"></div>
 
                     <div className="steampunk-header-decoration">
-                        <div className="gear-small spin-slow">⚙️</div>
-                        <div className="gear-large spin-reverse">⚙️</div>
-                        <div className="gear-small spin-slow">⚙️</div>
+                        <div className="gear-small"></div>
+                        <div className="gear-large"></div>
+                        <div className="gear-small"></div>
                     </div>
 
                     <div className="steampunk-content-wrapper">

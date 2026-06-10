@@ -1,50 +1,44 @@
-﻿import { Button, Tooltip } from "@mui/material";
-import { BinaryHuffmanProps } from "../../Interfaces/Encode/BinaryHuffmanProps";
+﻿import { Accordion, AccordionSummary, AccordionDetails, IconButton, Tooltip } from "@mui/material";
+import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
+import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import { useState } from "react";
-const BinaryHuffman = ({ binaryHuffman }: BinaryHuffmanProps) => {
-  const [textCopiedSuccess, setCopiedSuccess] = useState("");
+import { BinaryHuffmanProps } from "../../Interfaces/Encode/BinaryHuffmanProps";
 
-  const handleCopyTextToCLipboard = async (binaryHuffmanString: string) => {
+const BinaryHuffman = ({ binaryHuffman }: BinaryHuffmanProps) => {
+  const [copied, setCopied] = useState(false);
+
+  if (!binaryHuffman) return null;
+
+  const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(binaryHuffmanString);
-      setCopiedSuccess("Copié");
-    } catch (error) {
-      console.error(error);
-      setCopiedSuccess("Echec");
-    } finally {
-      setTimeout(disabledCopiedSuccess, 1000);
+      await navigator.clipboard.writeText(binaryHuffman);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      // silently ignore clipboard errors
     }
   };
-  const disabledCopiedSuccess = () => {
-    setCopiedSuccess("");
-  };
-  return binaryHuffman !== "" ? (
-    <details>
-      <summary>Résultat binaire</summary>
-      <div>
+
+  return (
+    <Accordion defaultExpanded>
+      <AccordionSummary expandIcon={<ExpandMoreRoundedIcon />}>
+        Résultat binaire
+      </AccordionSummary>
+      <AccordionDetails>
         <div className="notice">
           <div className="right-action">
-            {textCopiedSuccess === "" ? (
-              <Tooltip title="Copier">
-                <Button
-                  onAnimationEnd={() =>
-                    handleCopyTextToCLipboard(binaryHuffman)
-                  }
-                >
-                  <ContentCopyRoundedIcon />
-                </Button>
-              </Tooltip>
-            ) : (
-              <span className="copy-success"> {textCopiedSuccess}</span>
-            )}
+            <Tooltip title={copied ? "Copié !" : "Copier"}>
+              <IconButton size="small" onClick={handleCopy} sx={{ color: copied ? 'success.main' : undefined }}>
+                {copied ? <CheckRoundedIcon fontSize="small" /> : <ContentCopyRoundedIcon fontSize="small" />}
+              </IconButton>
+            </Tooltip>
+            {copied && <span className="copy-success">Copié</span>}
           </div>
           <div className="text-break-word">{binaryHuffman}</div>
         </div>
-      </div>
-    </details>
-  ) : (
-    <></>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 export default BinaryHuffman;
