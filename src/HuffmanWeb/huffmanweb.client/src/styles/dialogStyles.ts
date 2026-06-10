@@ -1,13 +1,12 @@
 export const darkDialogStyles = {
     "& .MuiPaper-root": {
-        backgroundColor: "#0A1628",
-        border: "1px solid rgba(0, 212, 255, 0.25)",
-        borderRadius: 3,
-        boxShadow: "0 0 40px rgba(0, 212, 255, 0.12), 0 25px 50px rgba(0,0,0,0.5)",
-        color: "#E2E8F0",
+        backgroundColor: "#0D0D0D",
+        border: "1px solid rgba(34, 197, 94, 0.35)",
+        borderRadius: 0,
+        boxShadow: "0 0 24px rgba(34,197,94,0.08), 0 20px 40px rgba(0,0,0,0.8)",
+        color: "#86EFAC",
     },
     "& .MuiBackdrop-root": {
-        backgroundColor: "rgba(6, 11, 22, 0.85)",
-        backdropFilter: "blur(4px)",
+        backgroundColor: "rgba(0, 0, 0, 0.88)",
     },
 };

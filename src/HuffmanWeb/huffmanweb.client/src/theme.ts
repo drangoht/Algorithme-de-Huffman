@@ -1,52 +1,53 @@
 import { createTheme } from '@mui/material/styles';
 
+const FONT = '"JetBrains Mono", "Fira Code", Consolas, monospace';
+const GREEN = '#22C55E';
+const GREEN_BRIGHT = '#4ADE80';
+const BG = '#080808';
+const BG_SURFACE = '#0D0D0D';
+const TEXT = '#86EFAC';
+const BORDER = 'rgba(34, 197, 94, 0.20)';
+const BORDER_BRIGHT = 'rgba(34, 197, 94, 0.45)';
+
 const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#00D4FF',
-      light: '#40E0FF',
-      dark: '#009FCC',
-      contrastText: '#060B16',
+      main: GREEN,
+      light: GREEN_BRIGHT,
+      dark: '#16A34A',
+      contrastText: '#000',
     },
     secondary: {
-      main: '#818CF8',
-      light: '#A5B4FC',
-      dark: '#6366F1',
-      contrastText: '#060B16',
+      main: '#16A34A',
+      light: GREEN,
+      dark: '#166534',
+      contrastText: '#000',
     },
-    success: { main: '#34D399' },
-    warning: { main: '#F59E0B' },
-    error: { main: '#F87171' },
+    success:  { main: GREEN },
+    warning:  { main: '#F59E0B' },
+    error:    { main: '#F87171' },
     background: {
-      default: '#060B16',
-      paper: '#0A1628',
+      default: '#000000',
+      paper: BG_SURFACE,
     },
     text: {
-      primary: '#E2E8F0',
-      secondary: '#94A3B8',
+      primary: TEXT,
+      secondary: 'rgba(134,239,172,0.55)',
     },
-    divider: 'rgba(0, 212, 255, 0.12)',
+    divider: BORDER,
   },
   typography: {
-    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, sans-serif',
-    h1: { fontFamily: '"Orbitron", sans-serif' },
-    h2: { fontFamily: '"Orbitron", sans-serif' },
-    h3: { fontFamily: '"Orbitron", sans-serif' },
+    fontFamily: FONT,
+    allVariants: { fontFamily: FONT },
   },
-  shape: { borderRadius: 8 },
+  shape: { borderRadius: 0 },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
           scrollbarWidth: 'thin',
-          scrollbarColor: 'rgba(0,212,255,0.3) #060B16',
-          '&::-webkit-scrollbar': { width: 6 },
-          '&::-webkit-scrollbar-track': { background: '#060B16' },
-          '&::-webkit-scrollbar-thumb': {
-            background: 'rgba(0,212,255,0.3)',
-            borderRadius: 3,
-          },
+          scrollbarColor: `#16A34A ${BG}`,
         },
       },
     },
@@ -54,143 +55,218 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundImage: 'none',
-          backgroundColor: '#0A1628',
-          border: '1px solid rgba(0, 212, 255, 0.12)',
+          backgroundColor: BG_SURFACE,
+          border: `1px solid ${BORDER}`,
+          borderRadius: 0,
         },
       },
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none',
-          borderRadius: 6,
-          fontWeight: 500,
-        },
-      },
-    },
-    MuiAccordion: {
-      styleOverrides: {
-        root: {
-          backgroundColor: 'rgba(10, 22, 40, 0.85)',
-          border: '1px solid rgba(0, 212, 255, 0.12)',
-          borderRadius: '8px !important',
-          marginBottom: '12px',
-          boxShadow: 'none',
-          '&:before': { display: 'none' },
-          '&.Mui-expanded': { margin: '0 0 12px 0' },
-          '&:hover': { borderColor: 'rgba(0, 212, 255, 0.25)' },
-          transition: 'border-color 0.2s ease',
-        },
-      },
-    },
-    MuiAccordionSummary: {
-      styleOverrides: {
-        root: {
-          color: '#00D4FF',
-          fontFamily: '"Orbitron", sans-serif',
-          fontSize: '0.75rem',
-          letterSpacing: '1.5px',
           textTransform: 'uppercase',
-          minHeight: 48,
-          '&.Mui-expanded': {
-            minHeight: 48,
-            borderBottom: '1px solid rgba(0, 212, 255, 0.12)',
+          borderRadius: 0,
+          fontFamily: FONT,
+          fontSize: '0.72rem',
+          fontWeight: 600,
+          letterSpacing: '2px',
+        },
+        contained: {
+          background: 'transparent',
+          color: GREEN,
+          border: `1px solid ${BORDER_BRIGHT}`,
+          boxShadow: 'none',
+          '&:hover': {
+            background: 'rgba(34,197,94,0.08)',
+            boxShadow: '0 0 8px rgba(34,197,94,0.3)',
+            border: `1px solid ${GREEN}`,
+          },
+          '&:disabled': {
+            color: 'rgba(134,239,172,0.2)',
+            border: `1px solid rgba(34,197,94,0.10)`,
+            background: 'transparent',
           },
         },
-        content: { margin: '12px 0', '&.Mui-expanded': { margin: '12px 0' } },
-        expandIconWrapper: { color: '#00D4FF' },
-      },
-    },
-    MuiAccordionDetails: {
-      styleOverrides: {
-        root: { padding: '16px', backgroundColor: 'transparent' },
-      },
-    },
-    MuiDialog: {
-      styleOverrides: {
-        paper: {
-          backgroundColor: '#0A1628',
-          border: '1px solid rgba(0, 212, 255, 0.25)',
-          borderRadius: 12,
-          boxShadow: '0 0 40px rgba(0, 212, 255, 0.12), 0 25px 50px rgba(0,0,0,0.5)',
+        outlined: {
+          borderColor: BORDER,
+          color: TEXT,
+          '&:hover': {
+            borderColor: GREEN,
+            color: GREEN_BRIGHT,
+            background: 'rgba(34,197,94,0.06)',
+          },
         },
-      },
-    },
-    MuiDialogTitle: {
-      styleOverrides: {
-        root: {
-          fontFamily: '"Orbitron", sans-serif',
-          color: '#00D4FF',
-          borderBottom: '1px solid rgba(0, 212, 255, 0.12)',
-          fontSize: '0.8rem',
-          letterSpacing: '2px',
-          textTransform: 'uppercase',
-          padding: '16px 24px',
-        },
-      },
-    },
-    MuiDialogContent: {
-      styleOverrides: {
-        root: { padding: '20px 24px', color: '#E2E8F0' },
-      },
-    },
-    MuiTab: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
-          fontFamily: '"Inter", sans-serif',
-          fontWeight: 500,
-          fontSize: '0.9rem',
-          letterSpacing: '0.3px',
-          color: '#64748B',
-          padding: '10px 24px',
-          '&.Mui-selected': { color: '#00D4FF' },
-          '&:hover': { color: '#94A3B8' },
-          transition: 'color 0.2s ease',
-        },
-      },
-    },
-    MuiTabs: {
-      styleOverrides: {
-        root: { borderBottom: '1px solid rgba(0, 212, 255, 0.10)' },
-        indicator: {
-          backgroundColor: '#00D4FF',
-          boxShadow: '0 0 10px rgba(0, 212, 255, 0.6)',
-          height: 2,
-        },
-      },
-    },
-    MuiTooltip: {
-      styleOverrides: {
-        tooltip: {
-          backgroundColor: '#0F2040',
-          border: '1px solid rgba(0, 212, 255, 0.25)',
-          color: '#E2E8F0',
-          fontSize: '0.75rem',
-          borderRadius: 6,
+        text: {
+          color: TEXT,
+          '&:hover': { color: GREEN, background: 'rgba(34,197,94,0.06)' },
         },
       },
     },
     MuiIconButton: {
       styleOverrides: {
         root: {
-          color: '#64748B',
-          '&:hover': { color: '#00D4FF', backgroundColor: 'rgba(0,212,255,0.08)' },
-          transition: 'color 0.2s ease, background-color 0.2s ease',
+          color: 'rgba(134,239,172,0.4)',
+          borderRadius: 0,
+          '&:hover': {
+            color: GREEN,
+            background: 'rgba(34,197,94,0.08)',
+          },
+        },
+      },
+    },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          backgroundColor: BG,
+          border: `1px solid ${BORDER}`,
+          borderLeft: `2px solid #16A34A`,
+          borderRadius: '0 !important',
+          marginBottom: '10px',
+          boxShadow: 'none',
+          '&:before': { display: 'none' },
+          '&.Mui-expanded': { margin: '0 0 10px 0' },
+          '&:hover': { borderColor: GREEN },
+          transition: 'border-color 0.15s ease',
+        },
+      },
+    },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          color: GREEN,
+          fontFamily: FONT,
+          fontSize: '0.72rem',
+          fontWeight: 600,
+          letterSpacing: '2px',
+          textTransform: 'uppercase',
+          minHeight: 40,
+          '&.Mui-expanded': {
+            minHeight: 40,
+            borderBottom: `1px solid ${BORDER}`,
+          },
+          '&::before': {
+            content: '"// "',
+            color: 'rgba(34,197,94,0.4)',
+            fontWeight: 300,
+          },
+        },
+        content: { margin: '10px 0', '&.Mui-expanded': { margin: '10px 0' } },
+        expandIconWrapper: { color: 'rgba(34,197,94,0.5)' },
+      },
+    },
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: { padding: '14px 16px', backgroundColor: 'transparent' },
+      },
+    },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: BG_SURFACE,
+          border: `1px solid ${BORDER_BRIGHT}`,
+          borderRadius: 0,
+          boxShadow: `0 0 30px rgba(34,197,94,0.10), 0 20px 40px rgba(0,0,0,0.8)`,
+        },
+      },
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          fontFamily: FONT,
+          color: GREEN,
+          borderBottom: `1px solid ${BORDER}`,
+          fontSize: '0.72rem',
+          letterSpacing: '3px',
+          textTransform: 'uppercase',
+          padding: '12px 20px',
+          '&::before': { content: '"// "', opacity: 0.5 },
+        },
+      },
+    },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: { padding: '16px 20px', color: TEXT, fontFamily: FONT },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          textTransform: 'uppercase',
+          fontFamily: FONT,
+          fontWeight: 500,
+          fontSize: '0.72rem',
+          letterSpacing: '2px',
+          color: 'rgba(134,239,172,0.35)',
+          padding: '10px 20px',
+          borderRadius: 0,
+          '&.Mui-selected': {
+            color: GREEN,
+            textShadow: '0 0 8px rgba(34,197,94,0.5)',
+          },
+          '&:hover': { color: 'rgba(134,239,172,0.65)', background: 'transparent' },
+        },
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        root: { borderBottom: `1px solid ${BORDER}`, minHeight: 40 },
+        indicator: {
+          backgroundColor: GREEN,
+          boxShadow: '0 0 8px rgba(34,197,94,0.6)',
+          height: 1,
+        },
+      },
+    },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: '#111',
+          border: `1px solid ${BORDER}`,
+          color: TEXT,
+          fontFamily: FONT,
+          fontSize: '0.72rem',
+          borderRadius: 0,
         },
       },
     },
     MuiLinearProgress: {
       styleOverrides: {
         root: {
-          backgroundColor: 'rgba(0,212,255,0.10)',
-          borderRadius: 4,
-          height: 6,
+          backgroundColor: 'rgba(34,197,94,0.08)',
+          borderRadius: 0,
+          height: 3,
         },
         bar: {
-          background: 'linear-gradient(90deg, #00D4FF, #818CF8)',
-          borderRadius: 4,
+          background: `linear-gradient(90deg, #16A34A, ${GREEN})`,
+          borderRadius: 0,
         },
+      },
+    },
+    MuiAlert: {
+      styleOverrides: {
+        root: {
+          fontFamily: FONT,
+          fontSize: '0.78rem',
+          borderRadius: 0,
+        },
+        standardError: {
+          backgroundColor: 'rgba(248,113,113,0.06)',
+          border: '1px solid rgba(248,113,113,0.3)',
+          color: '#FECACA',
+          borderLeft: '2px solid #F87171',
+        },
+        standardWarning: {
+          backgroundColor: 'rgba(245,158,11,0.06)',
+          border: '1px solid rgba(245,158,11,0.3)',
+          color: '#FDE68A',
+          borderLeft: '2px solid #F59E0B',
+        },
+        icon: { opacity: 0.8 },
+      },
+    },
+    MuiCircularProgress: {
+      styleOverrides: {
+        root: { color: GREEN },
       },
     },
   },

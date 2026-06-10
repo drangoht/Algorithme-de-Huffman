@@ -14,6 +14,9 @@ function App() {
       <div className="app-header">
         <h1>Huffman Machine</h1>
         <div className="divider-ornament"></div>
+        <div style={{ fontSize: '0.7rem', color: 'rgba(134,239,172,0.3)', letterSpacing: '1px', marginTop: 4, fontFamily: 'var(--font)' }}>
+          lossless compression via binary tree encoding
+        </div>
       </div>
 
       <Box className="app-tabs-wrapper">
