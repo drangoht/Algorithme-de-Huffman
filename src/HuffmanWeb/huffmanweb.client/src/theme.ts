@@ -35,6 +35,13 @@ const theme = createTheme({
       primary: TEXT,
       secondary: 'rgba(134,239,172,0.55)',
     },
+    action: {
+      hover: 'rgba(34,197,94,0.07)',
+      selected: 'rgba(34,197,94,0.12)',
+      focus: 'rgba(34,197,94,0.10)',
+      disabled: 'rgba(134,239,172,0.26)',
+      disabledBackground: 'rgba(34,197,94,0.08)',
+    },
     divider: BORDER,
   },
   typography: {
@@ -203,7 +210,13 @@ const theme = createTheme({
             color: GREEN,
             textShadow: '0 0 8px rgba(34,197,94,0.5)',
           },
-          '&:hover': { color: 'rgba(134,239,172,0.65)', background: 'transparent' },
+          '&:hover': {
+            color: 'rgba(134,239,172,0.65)',
+            backgroundColor: 'rgba(34,197,94,0.06)',
+          },
+          '& .MuiTouchRipple-child': {
+            backgroundColor: 'rgba(34,197,94,0.25)',
+          },
         },
       },
     },

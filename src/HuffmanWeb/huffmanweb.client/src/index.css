@@ -97,6 +97,28 @@
 
 html { font-size: 14px; }
 
+/* ── Native page header (outside React root) ── */
+body > header {
+  background: #111;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+  text-align: center;
+}
+
+body > header h2 {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+body > main {
+  padding: 0;
+}
+
 body {
   margin: 0;
   padding: 0;
