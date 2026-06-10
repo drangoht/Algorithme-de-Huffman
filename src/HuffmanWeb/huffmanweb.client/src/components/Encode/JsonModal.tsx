@@ -1,37 +1,32 @@
-﻿import { Button, Tooltip } from "@mui/material";
+﻿import { IconButton, Tooltip } from "@mui/material";
 import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
+import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import { useState } from "react";
 import { JsonModalProps } from "../../Interfaces/Encode/JsonModalProps";
-const JsonModal = ({ jsonString }: JsonModalProps) => {
-  const [textCopiedSuccess, setCopiedSuccess] = useState("");
 
-  const handleCopyTextToCLipboard = async () => {
+const JsonModal = ({ jsonString }: JsonModalProps) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(jsonString);
-
-      setCopiedSuccess("Copié");
-    } catch (error) {
-      setCopiedSuccess("Echec");
-    } finally {
-      setTimeout(disabledCopiedSuccess, 1000);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      // silently ignore clipboard errors
     }
   };
-  const disabledCopiedSuccess = () => {
-    setCopiedSuccess("");
-  };
+
   return (
     <div>
       <div className="notice">
         <div className="right-action-modal">
-          {textCopiedSuccess === "" ? (
-            <Tooltip title="Copier">
-              <Button onAnimationEnd={handleCopyTextToCLipboard}>
-                <ContentCopyRoundedIcon />
-              </Button>
-            </Tooltip>
-          ) : (
-            <span className="copy-success"> {textCopiedSuccess}</span>
-          )}
+          <Tooltip title={copied ? "Copié !" : "Copier"}>
+            <IconButton size="small" onClick={handleCopy} sx={{ color: copied ? 'success.main' : undefined }}>
+              {copied ? <CheckRoundedIcon fontSize="small" /> : <ContentCopyRoundedIcon fontSize="small" />}
+            </IconButton>
+          </Tooltip>
+          {copied && <span className="copy-success">Copié</span>}
         </div>
         <div className="text-break-word">{jsonString}</div>
       </div>

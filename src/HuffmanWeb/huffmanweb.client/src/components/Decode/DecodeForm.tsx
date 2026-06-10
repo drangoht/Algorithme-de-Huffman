@@ -1,10 +1,12 @@
 ﻿import React, { useState, FormEvent } from "react";
+import { Button, CircularProgress } from "@mui/material";
+import LockOpenRoundedIcon from "@mui/icons-material/LockOpenRounded";
 import { DecodeFormProps } from "../../Interfaces/Decode/DecodeFormProps";
 import { Character } from "../../dtos/Character";
 import { useTextareaForm } from "../../hooks/useTextareaForm";
 import FormTextarea from "../UI/FormTextarea";
 
-const DecodeForm: React.FC<DecodeFormProps> = (props) => {
+const DecodeForm: React.FC<DecodeFormProps> = ({ onDecode, isLoading }) => {
   const binaryHuffmanForm = useTextareaForm("11101111110000001010011100110101");
   const matchingCharactersForm = useTextareaForm(
     '[{"id":"!","value":"101"},{"id":" ","value":"110"},{"id":"t","value":"1111"},{"id":"I","value":"1110"},{"id":"s","value":"100"},{"id":"o","value":"001"},{"id":"r","value":"010"},{"id":"W","value":"000"},{"id":"k","value":"011"}]',
@@ -18,34 +20,45 @@ const DecodeForm: React.FC<DecodeFormProps> = (props) => {
         matchingCharactersForm.value,
       );
       setCharactersError(false);
-      props.onDecode(binaryHuffmanForm.value, matchingCharacters);
-    } catch (e) {
+      onDecode(binaryHuffmanForm.value, matchingCharacters);
+    } catch {
       setCharactersError(true);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ marginBottom: 8 }}>
       <FormTextarea
-        label="Veuillez saisir le texte binaire à decoder:"
+        label="Texte binaire à décoder"
         value={binaryHuffmanForm.value}
         onChange={binaryHuffmanForm.handleChange}
         cols={75}
-        rows={10}
+        rows={6}
       />
       <FormTextarea
-        label="Veuillez saisir la table de correspondance au format JSON:"
+        label="Table de correspondance (JSON)"
         value={matchingCharactersForm.value}
         onChange={matchingCharactersForm.handleChange}
         cols={75}
-        rows={10}
+        rows={6}
         error={
           charactersError
-            ? "Le format de la table de correspondance ne convient pas !!"
+            ? "Format JSON invalide — vérifiez la table de correspondance"
             : undefined
         }
       />
-      <button type="submit">Decoder</button>
+      <Button
+        type="submit"
+        variant="contained"
+        disabled={isLoading}
+        endIcon={isLoading
+          ? <CircularProgress size={16} color="inherit" />
+          : <LockOpenRoundedIcon />
+        }
+        sx={{ mt: 0.5 }}
+      >
+        {isLoading ? "Décodage…" : "Décoder"}
+      </Button>
     </form>
   );
 };

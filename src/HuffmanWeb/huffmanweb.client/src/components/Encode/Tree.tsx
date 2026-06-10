@@ -1,33 +1,44 @@
+import { useState } from "react";
 import {
-  Button,
-  Tooltip,
-  Dialog,
-  DialogContent,
-  DialogTitle,
+  Accordion, AccordionSummary, AccordionDetails,
+  Button, Tooltip, Dialog, DialogContent, DialogTitle,
 } from "@mui/material";
+import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
+import DataObjectRoundedIcon from "@mui/icons-material/DataObjectRounded";
 import { TreeProps } from "../../Interfaces/Encode/TreeProps";
 import TreeChildren from "./TreeChildren";
 import JsonModal from "./JsonModal";
-import { useState } from "react";
 import { Link } from "../../dtos/Link";
 import { removeNullChar } from "../../utils/stringUtils";
-import { darkDialogStyles } from "../../styles/dialogStyles";
+import "../../tree.css";
 
 const Tree = ({ graph }: TreeProps) => {
-  if (graph != undefined) {
-    const rootLinks = graph.links.filter(
-      (link: Link) => link.parent.identifier == graph.root.identifier,
-    );
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-    return (
-      <details>
-        <summary>Arbre</summary>
-        <div className="notice">
-          <div className="right-action">
-            <Tooltip title="Visualisation du JSON">
-              <Button onAnimationEnd={handleOpen}>JSON</Button>
+  const [open, setOpen] = useState(false);
+
+  if (!graph) return null;
+
+  const rootLinks = graph.links.filter(
+    (link: Link) => link.parent.identifier === graph.root.identifier,
+  );
+
+  return (
+    <>
+      <Accordion defaultExpanded>
+        <AccordionSummary expandIcon={<ExpandMoreRoundedIcon />}>
+          Arbre de Huffman
+        </AccordionSummary>
+        <AccordionDetails>
+          <div className="right-action" style={{ marginBottom: 10 }}>
+            <Tooltip title="Voir le JSON">
+              <Button
+                size="small"
+                variant="outlined"
+                startIcon={<DataObjectRoundedIcon />}
+                onClick={() => setOpen(true)}
+                sx={{ borderColor: 'rgba(0,212,255,0.3)', color: '#00D4FF', '&:hover': { borderColor: '#00D4FF', bgcolor: 'rgba(0,212,255,0.06)' } }}
+              >
+                JSON
+              </Button>
             </Tooltip>
           </div>
           <div className="tree-container">
@@ -35,29 +46,23 @@ const Tree = ({ graph }: TreeProps) => {
               <ul>
                 <li>
                   <div>
-                    {removeNullChar(graph.root.character)}:
-                    {graph.root.nbOccurence}
+                    {removeNullChar(graph.root.character)}:{graph.root.nbOccurence}
                   </div>
                   <TreeChildren children={rootLinks} graph={graph} />
                 </li>
               </ul>
             </div>
           </div>
-        </div>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-          sx={darkDialogStyles}
-        >
-          <DialogTitle>Arbre en JSON</DialogTitle>
-          <DialogContent>
-            <JsonModal jsonString={JSON.stringify(graph)} />
-          </DialogContent>
-        </Dialog>
-      </details>
-    );
-  }
+        </AccordionDetails>
+      </Accordion>
+
+      <Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="tree-dialog-title">
+        <DialogTitle id="tree-dialog-title">Arbre — JSON</DialogTitle>
+        <DialogContent>
+          <JsonModal jsonString={JSON.stringify(graph)} />
+        </DialogContent>
+      </Dialog>
+    </>
+  );
 };
 export default Tree;
