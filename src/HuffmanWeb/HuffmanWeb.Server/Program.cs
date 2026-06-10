@@ -5,7 +5,6 @@ using HuffmanWeb.Common.DTOs.Requests;
 using HuffmanWeb.Common.DTOs.Responses;
 using Serilog;
 using Scalar.AspNetCore;
-using System.Collections;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -53,17 +52,17 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-
-
 app.MapPost("/huffman/encode", (EncodeRequest req) =>
 {
     try
     {
         var nodes = Huffman.GetNodesFromString(req.TextToEncode);
         var graph = Huffman.GenerateHuffmanGraph(nodes);
-        var textEncoded = Huffman.EncodeText(req.TextToEncode);
         graph.ComputeDescendants();
-        EncodeResponse resp = new EncodeResponse()
+        var huffmanTable = Huffman.MakeMatchingTable(graph);
+        var textEncoded = Huffman.EncodeText(req.TextToEncode, huffmanTable);
+
+        var resp = new EncodeResponse
         {
             Graph = graph,
             EncodedBinaryString = textEncoded,
@@ -71,56 +70,38 @@ app.MapPost("/huffman/encode", (EncodeRequest req) =>
             OriginalSize = Huffman.GetBinarySize(req.TextToEncode)
         };
 
-        var huffmanTable = Huffman.MakeMatchingTable(req.TextToEncode);
-        foreach (var key in huffmanTable.Keys)
-        {
-            resp.MatchingCharacters.Add(new Character() { Id = key.ToString(), Value = huffmanTable[key]?.ToString() });
-        }
+        foreach (var kvp in huffmanTable)
+            resp.MatchingCharacters.Add(new Character { Id = kvp.Key.ToString(), Value = kvp.Value });
 
         return Results.Ok(resp);
     }
     catch (Exception e)
     {
-        Log.Error(e,e.Message);
+        Log.Error(e, e.Message);
         return Results.BadRequest();
     }
-
-
 })
 .WithName("PostHuffmanEncode");
-
 
 app.MapPost("/huffman/decode", (DecodeRequest req) =>
 {
     try
     {
-        Hashtable matchingCharactersTable = new Hashtable();
-        foreach (var item in req.MatchingCharacters)
-        {
-            matchingCharactersTable.Add(item.Id!, item.Value);
-        }
+        var matchingTable = req.MatchingCharacters
+            .Where(c => !string.IsNullOrEmpty(c.Id))
+            .ToDictionary(c => c.Id![0], c => c.Value ?? string.Empty);
 
-        var decodedText = Huffman.DecodeText(req.BinaryHuffman, matchingCharactersTable);
-        DecodeResponse resp = new DecodeResponse()
-        {
-            DecodedText = decodedText,
-        };
-        return Results.Ok(resp);
+        var decodedText = Huffman.DecodeText(req.BinaryHuffman, matchingTable);
+        return Results.Ok(new DecodeResponse { DecodedText = decodedText });
     }
     catch (Exception e)
     {
-        Log.Error(e,e.Message);
+        Log.Error(e, e.Message);
         return Results.BadRequest();
     }
-
-
 })
 .WithName("PostHuffmanDecode");
 
-
 app.MapFallbackToFile("/index.html");
 
-
-
 await app.RunAsync();
-

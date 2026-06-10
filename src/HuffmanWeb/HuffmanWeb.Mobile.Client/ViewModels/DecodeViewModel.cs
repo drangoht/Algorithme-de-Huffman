@@ -1,17 +1,18 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HuffmanPlayground.Mobile.Client.Enumerations;
 using HuffmanWeb.Common.DTOs;
 using HuffmanWeb.Common.DTOs.Requests;
 using HuffmanWeb.Common.DTOs.Responses;
 using HuffmanWeb.Mobile.Client.ApiInterfaces;
-using Refit;
 using System.Text.Json;
 
 namespace HuffmanWeb.Mobile.Client.ViewModels
 {
     public partial class DecodeViewModel : BaseViewModel
     {
+        private readonly IHuffmanApi _api;
+
         [ObservableProperty]
         DecodeResponse response = new();
         [ObservableProperty]
@@ -19,17 +20,31 @@ namespace HuffmanWeb.Mobile.Client.ViewModels
         [ObservableProperty]
         string matchingTableJson = string.Empty;
 
+        public DecodeViewModel(IHuffmanApi api)
+        {
+            _api = api;
+        }
+
         [RelayCommand]
-        public async Task CallDecodeAPI() // Corrected spelling of 'Api' to 'API'
+        public async Task CallDecodeAPI()
         {
             try
             {
+                var characters = JsonSerializer.Deserialize<List<Character>>(MatchingTableJson);
+                if (characters is null)
+                {
+                    ErrorMessage = "Invalid matching table format.";
+                    ErrorType = ErrorTypeEnum.Error;
+                    return;
+                }
+
                 Response = new();
-                var huffmanAPI = RestService.For<IHuffmanApi>("https://huffmanweb.thognard.net/huffman"); // Corrected spelling of 'Api' to 'API'
-                var req = new DecodeRequest();
-                req.BinaryHuffman = TextToDecode;
-                req.MatchingCharacters = JsonSerializer.Deserialize<List<Character>>(MatchingTableJson)!;
-                Response = await huffmanAPI.Decode(req);
+                var req = new DecodeRequest
+                {
+                    BinaryHuffman = TextToDecode,
+                    MatchingCharacters = characters
+                };
+                Response = await _api.Decode(req);
             }
             catch (Exception)
             {

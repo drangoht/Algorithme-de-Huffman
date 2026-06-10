@@ -1,4 +1,5 @@
 using HuffmanWeb.Mobile.Client.ViewModels;
+
 namespace HuffmanWeb.Mobile.Client.Pages.Decode;
 
 public partial class DecodeForm : ContentPage
@@ -7,22 +8,31 @@ public partial class DecodeForm : ContentPage
     {
         InitializeComponent();
         BindingContext = IPlatformApplication.Current?.Services.GetService<DecodeViewModel>();
-        textToDecode.Focus();
+        _ = textToDecode.Focus();
     }
+
     private void OnPageLoaded(object sender, EventArgs e)
     {
-        textToDecode.Focus();
+        _ = textToDecode.Focus();
     }
-    private void DecodeBtn_Clicked(object sender, EventArgs e)
+
+    private async void DecodeBtn_Clicked(object sender, EventArgs e)
     {
         textToDecode.Unfocus();
         matchingTableJson.Unfocus();
-        var viewModel = (DecodeViewModel)BindingContext;
+
+        if (BindingContext is not DecodeViewModel viewModel)
+        {
+            await DisplayAlert("Error", "Unable to initialize decode screen.", "OK");
+            return;
+        }
+
         if (!string.IsNullOrWhiteSpace(viewModel.TextToDecode) && !string.IsNullOrWhiteSpace(viewModel.MatchingTableJson))
         {
-            viewModel.CallDecodeAPICommand.Execute(null);
+            await viewModel.CallDecodeAPI();
         }
     }
+
     private void ResetBtn_Clicked(object sender, EventArgs e)
     {
         textToDecode.Text = string.Empty;
