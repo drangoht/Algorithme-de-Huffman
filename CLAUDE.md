@@ -59,7 +59,7 @@ All business logic is currently inline in `Program.cs` lambdas — there is no s
 
 ### Algorithm layer
 
-`Huffman.cs` and `Algorithms.cs` are **static classes**. `Huffman` orchestrates the pipeline; `Algorithms` contains only `DFS`. The algorithm uses `System.Collections.Hashtable` (non-generic) with `char` keys throughout — this is a known design issue. `WeightedGraphExtensions.cs` adds `ComputeDescendants()` as an extension method, called by the server after building the graph to populate `DescendantsCount` on each node for the tree renderer.
+`Huffman.cs` and `Algorithms.cs` are **static classes**. `Huffman` orchestrates the pipeline; `Algorithms` contains only `DFS`. The algorithm uses `Dictionary<char, string>` throughout. `WeightedGraphExtensions.cs` adds `ComputeDescendants()` as an extension method, called by the server after building the graph to populate `DescendantsCount` on each node for the tree renderer.
 
 ### Mobile client (MAUI)
 
@@ -71,9 +71,6 @@ Pages resolve their ViewModels via `IPlatformApplication.Current?.Services.GetSe
 
 The SPA mirrors the server DTOs in `src/dtos/`. API calls go through `src/utils/apiClient.ts`. Components under `src/components/` are split by feature (`Encode/`, `Decode/`, `Layout/`, `UI/`). Tests use Vitest + Testing Library.
 
-## Known design issues
+## Notes
 
-- **`GetKeyByValue` is broken**: `HashTableExtensions.GetKeyByValue` calls `OfType<string>()` but keys are `char` — `DecodeText` always returns `""`. Fix: replace `Hashtable` with `Dictionary<char, string>` throughout the algorithm layer.
-- **Triple graph construction per encode request**: `Program.cs` builds the Huffman graph three independent times for a single `POST /huffman/encode` call, producing potentially inconsistent results when character frequencies tie.
-- **Namespace inconsistency**: Some files under `HuffmanWeb.Mobile.Client` still use the old namespace prefix `HuffmanPlayground.Mobile.Client` (e.g., `ErrorTypeEnum.cs`, imports in ViewModels). Both compile but the mismatch causes confusion.
 - **Package versions**: All NuGet versions are centrally managed in `Directory.Packages.props`. Adding a new package reference in a `.csproj` must omit the `Version` attribute; version goes in `Directory.Packages.props` only.
