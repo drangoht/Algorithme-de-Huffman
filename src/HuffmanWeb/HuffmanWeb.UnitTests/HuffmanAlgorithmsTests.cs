@@ -38,6 +38,28 @@ namespace HuffmanWeb.UnitTests
             count.Should().Be(attendedCount);
         }
 
+        [Theory]
+        [InlineData("a")]
+        [InlineData("aabb")]
+        [InlineData("hello world")]
+        [InlineData("abcdefghijklmnopqrstuvwxyz")]
+        [InlineData("aaabbbccc")]
+        public void ShouldDecodeToOriginalTextAfterEncode(string text)
+        {
+            var table = Huffman.MakeMatchingTable(text);
+            var encoded = Huffman.EncodeText(text, table);
+            var decoded = Huffman.DecodeText(encoded, table);
 
+            decoded.Should().Be(text);
+        }
+
+        [Fact]
+        public void ShouldDecodeEmptyStringToEmpty()
+        {
+            var table = Huffman.MakeMatchingTable("a");
+            var decoded = Huffman.DecodeText(string.Empty, table);
+
+            decoded.Should().BeEmpty();
+        }
     }
 }
