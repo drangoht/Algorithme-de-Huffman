@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HuffmanPlayground.Mobile.Client.Resources.Strings {
+namespace HuffmanWeb.Mobile.Client.Resources.Strings {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace HuffmanPlayground.Mobile.Client.Resources.Strings {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HuffmanPlayground.Mobile.Client.Resources.Strings.AppResources", typeof(AppResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HuffmanWeb.Mobile.Client.Resources.Strings.AppResources", typeof(AppResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

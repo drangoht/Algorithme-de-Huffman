@@ -1,4 +1,4 @@
-﻿namespace HuffmanPlayground.Mobile.Client.Enumerations
+﻿namespace HuffmanWeb.Mobile.Client.Enumerations
 {
     public enum ErrorTypeEnum
     {

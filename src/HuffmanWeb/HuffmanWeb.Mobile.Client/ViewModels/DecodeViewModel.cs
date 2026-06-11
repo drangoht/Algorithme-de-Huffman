@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using HuffmanPlayground.Mobile.Client.Enumerations;
+using HuffmanWeb.Mobile.Client.Enumerations;
 using HuffmanWeb.Common.DTOs;
 using HuffmanWeb.Common.DTOs.Requests;
 using HuffmanWeb.Common.DTOs.Responses;

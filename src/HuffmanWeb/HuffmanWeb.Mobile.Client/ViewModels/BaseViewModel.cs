@@ -1,7 +1,7 @@
 ﻿
 
 using CommunityToolkit.Mvvm.ComponentModel;
-using HuffmanPlayground.Mobile.Client.Enumerations;
+using HuffmanWeb.Mobile.Client.Enumerations;
 namespace HuffmanWeb.Mobile.Client.ViewModels
 {
     public partial class BaseViewModel : ObservableObject

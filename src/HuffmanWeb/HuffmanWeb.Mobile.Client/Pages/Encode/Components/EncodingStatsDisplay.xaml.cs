@@ -1,4 +1,4 @@
-using HuffmanPlayground.Mobile.Client.Resources.Strings;
+using HuffmanWeb.Mobile.Client.Resources.Strings;
 namespace HuffmanWeb.Mobile.Client.Pages.Encode.Components;
 
 public partial class EncodingStatsDisplay : ContentView
