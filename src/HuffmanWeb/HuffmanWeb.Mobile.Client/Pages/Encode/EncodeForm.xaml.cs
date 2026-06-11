@@ -34,7 +34,7 @@ public partial class EncodeForm : ContentPage
 
         if (BindingContext is not EncodeViewModel viewModel)
         {
-            await DisplayAlert("Error", "Unable to initialize encode screen.", "OK");
+            await DisplayAlertAsync("Error", "Unable to initialize encode screen.", "OK");
             return;
         }
 
@@ -57,7 +57,7 @@ public partial class EncodeForm : ContentPage
         }
         catch
         {
-            await DisplayAlert("Error", "Unable to open matching table page.", "OK");
+            await DisplayAlertAsync("Error", "Unable to open matching table page.", "OK");
         }
     }
 
@@ -69,7 +69,7 @@ public partial class EncodeForm : ContentPage
         }
         catch
         {
-            await DisplayAlert("Error", "Unable to open tree page.", "OK");
+            await DisplayAlertAsync("Error", "Unable to open tree page.", "OK");
         }
     }
 

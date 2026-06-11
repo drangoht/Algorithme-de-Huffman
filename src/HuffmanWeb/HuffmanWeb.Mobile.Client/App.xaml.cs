@@ -6,7 +6,11 @@ namespace HuffmanWeb.Mobile.Client
         {
             InitializeComponent();
             RegisterGlobalExceptionHandlers();
-            MainPage = new NavigationPage(new MainPage());
+        }
+
+        protected override Window CreateWindow(IActivationState? activationState)
+        {
+            return new Window(new NavigationPage(new MainPage()));
         }
 
         private static void RegisterGlobalExceptionHandlers()

@@ -23,7 +23,7 @@ public partial class DecodeForm : ContentPage
 
         if (BindingContext is not DecodeViewModel viewModel)
         {
-            await DisplayAlert("Error", "Unable to initialize decode screen.", "OK");
+            await DisplayAlertAsync("Error", "Unable to initialize decode screen.", "OK");
             return;
         }
 
