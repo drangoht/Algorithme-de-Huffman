@@ -1,57 +1,80 @@
-﻿
 using HuffmanWeb.Common.DTOs;
+
 namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
 {
+    /// <summary>
+    /// Draws a Huffman tree on a GraphicsView. Every leaf gets its own horizontal
+    /// slot and every parent is centered above its children, so nodes can never
+    /// overlap whatever the tree shape. The control sizes itself to the laid-out
+    /// tree; the surrounding ScrollView provides panning.
+    /// </summary>
     public class BinaryTreeDrawable : GraphicsView, IDrawable
     {
-        #region Properties
-        private ICanvas? _canvas;
-        public static readonly BindableProperty GraphProperty = BindableProperty.Create(nameof(Graph), typeof(WeightedGraph), typeof(BinaryTreeDrawable));
-        public static readonly BindableProperty NodeHeightProperty = BindableProperty.Create(nameof(NodeHeight), typeof(int), typeof(BinaryTreeDrawable));
-        public static readonly BindableProperty NodeWidthProperty = BindableProperty.Create(nameof(NodeWidth), typeof(int), typeof(BinaryTreeDrawable));
-        public static readonly BindableProperty NodeColorProperty = BindableProperty.Create(nameof(NodeColor), typeof(Color), typeof(BinaryTreeDrawable), Colors.Silver);
-        public static readonly BindableProperty ShadowColorProperty = BindableProperty.Create(nameof(ShadowColor), typeof(Color), typeof(BinaryTreeDrawable), Colors.Grey);
-        public static readonly BindableProperty LineColorProperty = BindableProperty.Create(nameof(LineColor), typeof(Color), typeof(BinaryTreeDrawable), Colors.Black);
-        public static readonly BindableProperty LineTextColorProperty = BindableProperty.Create(nameof(LineTextColor), typeof(Color), typeof(BinaryTreeDrawable), Colors.Black);
-        public static readonly BindableProperty NodeTextColorProperty = BindableProperty.Create(nameof(NodeTextColor), typeof(Color), typeof(BinaryTreeDrawable), Colors.Black);
+        private const float HorizontalGap = 16f;
+        private const float VerticalGap = 44f;
+        private const float ContentPadding = 24f;
 
-        public WeightedGraph Graph
+        #region Bindable properties
+        public static readonly BindableProperty GraphProperty = BindableProperty.Create(
+            nameof(Graph), typeof(WeightedGraph), typeof(BinaryTreeDrawable),
+            propertyChanged: OnLayoutChanged);
+        public static readonly BindableProperty NodeWidthProperty = BindableProperty.Create(
+            nameof(NodeWidth), typeof(int), typeof(BinaryTreeDrawable), 48,
+            propertyChanged: OnLayoutChanged);
+        public static readonly BindableProperty NodeHeightProperty = BindableProperty.Create(
+            nameof(NodeHeight), typeof(int), typeof(BinaryTreeDrawable), 36,
+            propertyChanged: OnLayoutChanged);
+        public static readonly BindableProperty NodeColorProperty = BindableProperty.Create(
+            nameof(NodeColor), typeof(Color), typeof(BinaryTreeDrawable), Colors.Silver,
+            propertyChanged: OnAppearanceChanged);
+        public static readonly BindableProperty ShadowColorProperty = BindableProperty.Create(
+            nameof(ShadowColor), typeof(Color), typeof(BinaryTreeDrawable), Colors.Grey,
+            propertyChanged: OnAppearanceChanged);
+        public static readonly BindableProperty LineColorProperty = BindableProperty.Create(
+            nameof(LineColor), typeof(Color), typeof(BinaryTreeDrawable), Colors.Black,
+            propertyChanged: OnAppearanceChanged);
+        public static readonly BindableProperty LineTextColorProperty = BindableProperty.Create(
+            nameof(LineTextColor), typeof(Color), typeof(BinaryTreeDrawable), Colors.Gray,
+            propertyChanged: OnAppearanceChanged);
+        public static readonly BindableProperty NodeTextColorProperty = BindableProperty.Create(
+            nameof(NodeTextColor), typeof(Color), typeof(BinaryTreeDrawable), Colors.Black,
+            propertyChanged: OnAppearanceChanged);
+
+        public WeightedGraph? Graph
         {
-            get => (WeightedGraph)GetValue(GraphProperty);
+            get => (WeightedGraph?)GetValue(GraphProperty);
             set => SetValue(GraphProperty, value);
-        }
-
-        public int NodeHeight
-        {
-            get => (int)GetValue(NodeHeightProperty);
-            set => SetValue(NodeHeightProperty, value);
         }
         public int NodeWidth
         {
             get => (int)GetValue(NodeWidthProperty);
             set => SetValue(NodeWidthProperty, value);
         }
+        public int NodeHeight
+        {
+            get => (int)GetValue(NodeHeightProperty);
+            set => SetValue(NodeHeightProperty, value);
+        }
         public Color NodeColor
         {
             get => (Color)GetValue(NodeColorProperty);
             set => SetValue(NodeColorProperty, value);
-        }
-        public Color LineColor
-        {
-            get => (Color)GetValue(LineColorProperty);
-            set => SetValue(LineColorProperty, value);
         }
         public Color ShadowColor
         {
             get => (Color)GetValue(ShadowColorProperty);
             set => SetValue(ShadowColorProperty, value);
         }
+        public Color LineColor
+        {
+            get => (Color)GetValue(LineColorProperty);
+            set => SetValue(LineColorProperty, value);
+        }
         public Color LineTextColor
         {
             get => (Color)GetValue(LineTextColorProperty);
             set => SetValue(LineTextColorProperty, value);
         }
-
         public Color NodeTextColor
         {
             get => (Color)GetValue(NodeTextColorProperty);
@@ -59,168 +82,178 @@ namespace HuffmanWeb.Mobile.Client.Components.BinaryTree
         }
         #endregion
 
+        private sealed class PlacedNode
+        {
+            public required HuffmanNode Node { get; init; }
+            public required bool IsLeaf { get; init; }
+            public required int Depth { get; init; }
+            public float Slot { get; set; }
+            public PointF Center { get; set; }
+        }
+
+        private sealed class PlacedLink
+        {
+            public required PlacedNode Parent { get; init; }
+            public required PlacedNode Child { get; init; }
+            public required string Bit { get; init; }
+        }
+
+        private readonly List<PlacedNode> _placedNodes = new();
+        private readonly List<PlacedLink> _placedLinks = new();
+
         public BinaryTreeDrawable()
         {
             Drawable = this;
         }
-        // Update the call to DrawRootNode in Draw to remove the descendantsCount argument
+
+        private static void OnLayoutChanged(BindableObject bindable, object oldValue, object newValue) =>
+            ((BinaryTreeDrawable)bindable).Relayout();
+
+        private static void OnAppearanceChanged(BindableObject bindable, object oldValue, object newValue) =>
+            ((BinaryTreeDrawable)bindable).Invalidate();
+
+        /// <summary>
+        /// Assigns each leaf the next free horizontal slot (in-order) and centers
+        /// each parent over its children, then converts slots/depths to pixels and
+        /// resizes the control to fit the whole tree.
+        /// </summary>
+        private void Relayout()
+        {
+            _placedNodes.Clear();
+            _placedLinks.Clear();
+
+            var graph = Graph;
+            float contentWidth = 0f;
+            float contentHeight = 0f;
+
+            if (graph?.Root is not null)
+            {
+                var childrenOf = graph.Links
+                    .Where(l => l.Parent is not null && l.Child is not null)
+                    .GroupBy(l => l.Parent!.Identifier)
+                    .ToDictionary(g => g.Key, g => g.ToList());
+
+                // Guards against a malformed graph containing a cycle.
+                var visited = new HashSet<Guid>();
+                int nextLeafSlot = 0;
+                int maxDepth = 0;
+
+                PlacedNode Place(HuffmanNode node, int depth)
+                {
+                    maxDepth = Math.Max(maxDepth, depth);
+                    List<Link<HuffmanNode>>? links = null;
+                    if (visited.Add(node.Identifier))
+                        childrenOf.TryGetValue(node.Identifier, out links);
+
+                    var placed = new PlacedNode
+                    {
+                        Node = node,
+                        IsLeaf = links is null || links.Count == 0,
+                        Depth = depth,
+                    };
+
+                    if (placed.IsLeaf)
+                    {
+                        placed.Slot = nextLeafSlot++;
+                    }
+                    else
+                    {
+                        var children = new List<PlacedNode>(links!.Count);
+                        foreach (var link in links)
+                        {
+                            var child = Place(link.Child!, depth + 1);
+                            children.Add(child);
+                            _placedLinks.Add(new PlacedLink
+                            {
+                                Parent = placed,
+                                Child = child,
+                                Bit = link.Weight.ToString(),
+                            });
+                        }
+                        placed.Slot = (children[0].Slot + children[^1].Slot) / 2f;
+                    }
+
+                    _placedNodes.Add(placed);
+                    return placed;
+                }
+
+                Place(graph.Root, 0);
+
+                float slotWidth = NodeWidth + HorizontalGap;
+                float levelHeight = NodeHeight + VerticalGap;
+                contentWidth = ContentPadding * 2 + nextLeafSlot * slotWidth - HorizontalGap;
+                contentHeight = ContentPadding * 2 + NodeHeight + maxDepth * levelHeight;
+
+                foreach (var placed in _placedNodes)
+                {
+                    placed.Center = new PointF(
+                        ContentPadding + NodeWidth / 2f + placed.Slot * slotWidth,
+                        ContentPadding + NodeHeight / 2f + placed.Depth * levelHeight);
+                }
+            }
+
+            WidthRequest = Math.Max(contentWidth, 1);
+            HeightRequest = Math.Max(contentHeight, 1);
+            Invalidate();
+        }
+
         public void Draw(ICanvas canvas, RectF dirtyRect)
         {
-            if (Graph.AllNodes.Count == 0) return;
-            _canvas = canvas;
-            var startPosition = DefineStartPosition(dirtyRect);
-            var rootGraphicNode = DrawRootNode(startPosition, $"{Graph.Root?.NbOccurence}");
-            var linksFromRoot = Graph.Links.Where(l => l.Parent?.Identifier == Graph.Root?.Identifier).ToList();
-            DrawChildrenNode(linksFromRoot, rootGraphicNode);
-        }
+            if (_placedNodes.Count == 0) return;
 
-        private Point DefineStartPosition(RectF directRect) =>
-                new((int)(directRect.Width / 2) - NodeWidth + NodeWidth / 2, 2 * NodeHeight);
+            canvas.StrokeColor = LineColor;
+            canvas.StrokeSize = 2;
+            foreach (var link in _placedLinks)
+                canvas.DrawLine(link.Parent.Center, link.Child.Center);
 
-        public void DrawChildrenNode(List<Link<HuffmanNode>> links, GraphicNode parentGraphicNode)
-        {
-            if (links.Count == 0) return;
-
-            if (links.Count == 2)
+            canvas.FontColor = LineTextColor;
+            canvas.FontSize = 12;
+            canvas.Font = Microsoft.Maui.Graphics.Font.Default;
+            foreach (var link in _placedLinks)
             {
-                LeftNodeProcess(links, parentGraphicNode);
-
-                RightNodeProcess(links, parentGraphicNode);
-
+                var midX = (link.Parent.Center.X + link.Child.Center.X) / 2f;
+                var midY = (link.Parent.Center.Y + link.Child.Center.Y) / 2f;
+                bool isLeftChild = link.Child.Center.X < link.Parent.Center.X;
+                canvas.DrawString(
+                    link.Bit,
+                    midX + (isLeftChild ? -6f : 6f),
+                    midY - 4f,
+                    isLeftChild ? HorizontalAlignment.Right : HorizontalAlignment.Left);
             }
-            if (links.Count == 1)
+
+            foreach (var placed in _placedNodes)
             {
-                LeftNodeProcess(links, parentGraphicNode);
+                var bounds = new RectF(
+                    placed.Center.X - NodeWidth / 2f,
+                    placed.Center.Y - NodeHeight / 2f,
+                    NodeWidth,
+                    NodeHeight);
+
+                canvas.SaveState();
+                canvas.SetShadow(new SizeF(2, 2), 4, ShadowColor);
+                canvas.SetFillPaint(new SolidPaint(NodeColor), bounds);
+                canvas.FillEllipse(bounds);
+                canvas.RestoreState();
+
+                canvas.FontColor = NodeTextColor;
+                canvas.FontSize = 14;
+                canvas.Font = Microsoft.Maui.Graphics.Font.DefaultBold;
+                canvas.DrawString(NodeLabel(placed), bounds, HorizontalAlignment.Center, VerticalAlignment.Center);
             }
         }
 
-        private void RightNodeProcess(List<Link<HuffmanNode>> links, GraphicNode parentGraphicNode)
-        {
-            var rightNode = Graph.AllNodes.FirstOrDefault(n => n.Identifier == links[1].Child?.Identifier);
-            string rightLabel = string.Empty;
-            if (rightNode?.Character != char.MinValue)
-                rightLabel = $"{rightNode?.Character}";
-            else
-                rightLabel = $"{rightNode?.NbOccurence}";
-
-            var rightGraphicNode = DrawRightChildNode(rightLabel, links[1].Weight.ToString(), GetLeftDescendantsCount(rightNode), parentGraphicNode);
-            var rightLinks = Graph.Links.Where(l => l.Parent?.Identifier == rightNode?.Identifier).ToList();
-            DrawChildrenNode(rightLinks, rightGraphicNode);
-        }
-
-        private void LeftNodeProcess(List<Link<HuffmanNode>> links, GraphicNode parentGraphicNode)
-        {
-            var leftNode = Graph.AllNodes.FirstOrDefault(n => n.Identifier == links[0].Child?.Identifier);
-            string leftLabel = string.Empty;
-            if (leftNode?.Character != char.MinValue)
-                leftLabel = $"{leftNode?.Character}";
-            else
-                leftLabel = $"{leftNode?.NbOccurence}";
-
-
-            var leftGraphicNode = DrawLeftChildNode(leftLabel, links[0].Weight.ToString(), GetRightDescendantsCount(leftNode), parentGraphicNode);
-            var leftLinks = Graph.Links.Where(l => l.Parent?.Identifier == leftNode?.Identifier).ToList();
-            DrawChildrenNode(leftLinks, leftGraphicNode);
-        }
-
-        private int GetLeftDescendantsCount(HuffmanNode? parentNode)
-        {
-            if (parentNode is not null && Graph.Links.Count(l => l.Parent!.Identifier == parentNode.Identifier) == 0)
-                return 1;
-
-            var node = Graph.Links.Where(l => l.Parent!.Identifier == parentNode!.Identifier).ToList()[0].Child;
-            return node!.DescendantsCount + 2; // 2 = last link + last node
-        }
-        private int GetRightDescendantsCount(HuffmanNode? parentNode)
-        {
-            if (parentNode is not null && ((Graph.Links.Count(l => l.Parent!.Identifier == parentNode.Identifier) == 0) ||
-               (Graph.Links.Count(l => l.Parent!.Identifier == parentNode.Identifier) != 2)))
-                return 1;
-            var node = Graph.Links.Where(l => l.Parent!.Identifier == parentNode!.Identifier).ToList()[1].Child;
-            return node!.DescendantsCount + 2; // 2 = last link + last node
-        }
-
-        // Remove the unused 'descendantsCount' parameter from the DrawRootNode method
-        private GraphicNode DrawRootNode(Point startPosition, string label)
-        {
-            GraphicNode node = new(
-                x: (int)startPosition.X,
-                y: (int)startPosition.Y,
-                width: NodeWidth,
-                height: NodeHeight
-                );
-            DrawNode(node, label);
-            return node;
-        }
-        private GraphicNode DrawLeftChildNode(string label, string weight, int descendantsCount, GraphicNode parentGraphicNode)
-        {
-            int linkMargin = 5;
-            int linkSpacing = NodeWidth + linkMargin;
-            descendantsCount = descendantsCount == 0 ? 1 : descendantsCount;
-            GraphicNode node = new(parentGraphicNode.X - (linkSpacing * descendantsCount), parentGraphicNode.Y + NodeHeight + 20, NodeWidth, NodeHeight);
-            DrawNode(node, label);
-            DrawLeftLink(parentGraphicNode, node, weight);
-            return node;
-        }
-        private GraphicNode DrawRightChildNode(string label, string weight, int descendantsCount, GraphicNode parentGraphicNode)
-        {
-
-            int linkMargin = 5;
-            int linkSpacing = NodeWidth + linkMargin;
-            descendantsCount = descendantsCount == 0 ? 1 : descendantsCount;
-            GraphicNode node = new(parentGraphicNode.X + (linkSpacing * descendantsCount), parentGraphicNode.Y + NodeHeight + 20, NodeWidth, NodeHeight);
-            DrawNode(node, label);
-            DrawRightLink(parentGraphicNode, node, weight);
-            return node;
-        }
-        private void DrawNode(GraphicNode node, string label)
-        {
-            _canvas!.StrokeColor = Colors.Red;
-            _canvas.StrokeSize = 2;
-
-            SolidPaint solidPaint = new SolidPaint(NodeColor);
-            RectF paintRectangle = new RectF(node.X, node.Y, node.Width, node.Height);
-            _canvas.SetFillPaint(solidPaint, paintRectangle);
-            _canvas.SetShadow(new SizeF(10, 10), 10, ShadowColor);
-            _canvas.FillEllipse(paintRectangle);
-
-            _canvas.FontColor = NodeTextColor;
-            _canvas.Font = Microsoft.Maui.Graphics.Font.DefaultBold;
-            _canvas.DrawString(label, paintRectangle, HorizontalAlignment.Center, VerticalAlignment.Center);
-
-        }
-        private void DrawRightLink(GraphicNode parentGraphicNode, GraphicNode childGraphicNode, string weight)
-        {
-            Point startHorizontalLinePoint = new Point(parentGraphicNode.X + NodeWidth, parentGraphicNode.Y + NodeHeight / 2);
-            Point endHorizontalLinePoint = new Point(childGraphicNode.X + NodeWidth / 2, parentGraphicNode.Y + NodeHeight / 2);
-            Point endVerticalLinePoint = new Point(childGraphicNode.X + NodeWidth / 2, childGraphicNode.Y);
-            _canvas!.StrokeColor = LineColor;
-            _canvas.DrawLine(startHorizontalLinePoint, endHorizontalLinePoint);
-            _canvas.DrawLine(endHorizontalLinePoint, endVerticalLinePoint);
-            int textMargin = 10;
-            int textX = (int)endVerticalLinePoint.X + textMargin;
-            int textY = (int)(endHorizontalLinePoint.Y + ((endVerticalLinePoint.Y - endHorizontalLinePoint.Y) / 2));
-            DrawWeight(weight, new Point(textX, textY), HorizontalAlignment.Left);
-        }
-        private void DrawLeftLink(GraphicNode parentGraphicNode, GraphicNode childGraphicNode, string weight)
-        {
-            Point startHorizontalLinePoint = new Point(parentGraphicNode.X, parentGraphicNode.Y + NodeHeight / 2);
-            Point endHorizontalLinePoint = new Point(childGraphicNode.X + NodeWidth / 2, parentGraphicNode.Y + NodeHeight / 2);
-            Point endVerticalLinePoint = new Point(childGraphicNode.X + NodeWidth / 2, childGraphicNode.Y);
-            _canvas!.StrokeColor = LineColor;
-            _canvas.DrawLine(startHorizontalLinePoint, endHorizontalLinePoint);
-            _canvas.DrawLine(endHorizontalLinePoint, endVerticalLinePoint);
-            int textMargin = 5;
-            int textX = (int)endVerticalLinePoint.X - NodeWidth - textMargin;
-            int textY = (int)(endHorizontalLinePoint.Y + ((endVerticalLinePoint.Y - endHorizontalLinePoint.Y) / 2));
-            DrawWeight(weight, new Point(textX, textY), HorizontalAlignment.Right);
-        }
-
-        private void DrawWeight(string weight, Point weightPosition, HorizontalAlignment hAlignment)
-        {
-            int textHeight = 5;
-            _canvas!.FontColor = LineTextColor;
-            _canvas!.DrawString(weight, (int)weightPosition.X, (int)weightPosition.Y, NodeWidth, textHeight, hAlignment, VerticalAlignment.Top);
-        }
+        private static string NodeLabel(PlacedNode placed) =>
+            placed.IsLeaf
+                ? placed.Node.Character switch
+                {
+                    ' ' => "␣",
+                    '\n' => "\\n",
+                    '\r' => "\\r",
+                    '\t' => "\\t",
+                    // A root that is also a leaf (single distinct character) has no character.
+                    char.MinValue => placed.Node.NbOccurence.ToString(),
+                    _ => placed.Node.Character.ToString(),
+                }
+                : placed.Node.NbOccurence.ToString();
     }
 }

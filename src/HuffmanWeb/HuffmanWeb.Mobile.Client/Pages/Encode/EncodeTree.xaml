@@ -3,10 +3,9 @@
     x:Class="HuffmanWeb.Mobile.Client.Pages.Encode.EncodeTree"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:components="clr-namespace:HuffmanWeb.Mobile.Client.Components"
     xmlns:controls="clr-namespace:Maui.ColorPicker;assembly=Maui.ColorPicker"
     xmlns:drawables="clr-namespace:HuffmanWeb.Mobile.Client.Components.BinaryTree"
-    xmlns:strings="clr-namespace:HuffmanPlayground.Mobile.Client.Resources.Strings"
+    xmlns:strings="clr-namespace:HuffmanWeb.Mobile.Client.Resources.Strings"
     Title="{x:Static strings:AppResources.EncodeTreePageTitle}"
     BackgroundColor="{StaticResource Background}">
 
@@ -18,71 +17,74 @@
     </ContentPage.ToolbarItems>
 
     <Grid>
-        <!-- Main Content (Tree) -->
-        <ScrollView>
+        <!-- The drawable sizes itself to the laid-out tree; the ScrollView pans it. -->
+        <ScrollView x:Name="treeScroll" Orientation="Both">
             <drawables:BinaryTreeDrawable
                 x:Name="binaryTree"
+                BackgroundColor="Transparent"
                 Graph="{Binding ViewModel.Response.Graph}"
-                HeightRequest="2000"
-                NodeHeight="20"
-                NodeWidth="40"
-                WidthRequest="2000"
-                BackgroundColor="Transparent">
-                <drawables:BinaryTreeDrawable.GestureRecognizers>
-                    <PanGestureRecognizer PanUpdated="OnPanUpdated" />
-                </drawables:BinaryTreeDrawable.GestureRecognizers>
-            </drawables:BinaryTreeDrawable>
+                HorizontalOptions="Start"
+                LineColor="{Binding TreeViewModel.LineColor}"
+                LineTextColor="{Binding TreeViewModel.LineTextColor}"
+                NodeColor="{Binding TreeViewModel.NodeColor}"
+                NodeHeight="{Binding TreeViewModel.NodeHeight}"
+                NodeTextColor="{Binding TreeViewModel.NodeTextColor}"
+                NodeWidth="{Binding TreeViewModel.NodeWidth}"
+                VerticalOptions="Start" />
         </ScrollView>
 
         <!-- Settings Panel (Overlay) -->
-        <Border x:Name="settingsGrid"
-                IsVisible="False"
-                BackgroundColor="{StaticResource Surface}"
-                Stroke="{StaticResource Gray300}"
-                StrokeThickness="1"
-                StrokeShape="RoundRectangle 12"
-                HorizontalOptions="End"
-                VerticalOptions="Start"
-                Margin="16"
-                Padding="16"
-                WidthRequest="320"
-                Shadow="{StaticResource Shadow}">
-            
+        <Border
+            x:Name="settingsGrid"
+            Margin="16"
+            Padding="16"
+            BackgroundColor="{StaticResource Surface}"
+            HorizontalOptions="End"
+            IsVisible="False"
+            Shadow="{StaticResource Shadow}"
+            Stroke="{StaticResource Gray300}"
+            StrokeShape="RoundRectangle 12"
+            StrokeThickness="1"
+            VerticalOptions="Start"
+            WidthRequest="320">
+
             <VerticalStackLayout Spacing="16">
-                <Label Text="Tree Settings" Style="{StaticResource CardTitle}" />
+                <Label Style="{StaticResource CardTitle}" Text="Tree Settings" />
 
                 <!-- Dimensions -->
                 <VerticalStackLayout Spacing="8">
-                    <Label Text="{x:Static strings:AppResources.TreeNodeWidthSettingLabel}" Style="{StaticResource LabelConfigTree}" />
-                    <Slider x:Name="nodewidth"
-                            Maximum="150" Minimum="30"
-                            Value="{Binding TreeViewModel.NodeWidth}"
-                            ValueChanged="nodewidth_ValueChanged" />
-                    
-                    <Label Text="{x:Static strings:AppResources.TreeNodeHeightSettingLabel}" Style="{StaticResource LabelConfigTree}" />
-                    <Slider x:Name="nodeHeight"
-                            Maximum="150" Minimum="30"
-                            Value="{Binding TreeViewModel.NodeHeight}"
-                            ValueChanged="nodeHeight_ValueChanged" />
+                    <Label Style="{StaticResource LabelConfigTree}" Text="{x:Static strings:AppResources.TreeNodeWidthSettingLabel}" />
+                    <Slider
+                        Maximum="150"
+                        Minimum="30"
+                        Value="{Binding TreeViewModel.NodeWidth}" />
+
+                    <Label Style="{StaticResource LabelConfigTree}" Text="{x:Static strings:AppResources.TreeNodeHeightSettingLabel}" />
+                    <Slider
+                        Maximum="150"
+                        Minimum="30"
+                        Value="{Binding TreeViewModel.NodeHeight}" />
                 </VerticalStackLayout>
 
                 <!-- Colors -->
                 <VerticalStackLayout Spacing="8">
-                    <Label Text="{x:Static strings:AppResources.TreeNodeColorSettingLabel}" Style="{StaticResource LabelConfigTree}" />
-                    <controls:ColorPicker x:Name="NodeColor"
-                                          PickedColor="{Binding TreeViewModel.NodeColor}"
-                                          PickedColorChanged="NodeColor_PickedColorChanged"
-                                          ColorFlowDirection="Horizontal"
-                                          ColorSpectrumStyle="ShadeToHueStyle"
-                                          HeightRequest="100" />
+                    <Label Style="{StaticResource LabelConfigTree}" Text="{x:Static strings:AppResources.TreeNodeColorSettingLabel}" />
+                    <controls:ColorPicker
+                        x:Name="NodeColor"
+                        ColorFlowDirection="Horizontal"
+                        ColorSpectrumStyle="ShadeToHueStyle"
+                        HeightRequest="100"
+                        PickedColor="{Binding TreeViewModel.NodeColor}"
+                        PickedColorChanged="NodeColor_PickedColorChanged" />
 
-                    <Label Text="{x:Static strings:AppResources.TreeNodeLabelColorSettingLabel}" Style="{StaticResource LabelConfigTree}" />
-                    <controls:ColorPicker x:Name="NodeTextColor"
-                                          PickedColor="{Binding TreeViewModel.NodeTextColor}"
-                                          PickedColorChanged="NodeTextColor_PickedColorChanged"
-                                          ColorFlowDirection="Horizontal"
-                                          ColorSpectrumStyle="ShadeToHueStyle"
-                                          HeightRequest="100" />
+                    <Label Style="{StaticResource LabelConfigTree}" Text="{x:Static strings:AppResources.TreeNodeLabelColorSettingLabel}" />
+                    <controls:ColorPicker
+                        x:Name="NodeTextColor"
+                        ColorFlowDirection="Horizontal"
+                        ColorSpectrumStyle="ShadeToHueStyle"
+                        HeightRequest="100"
+                        PickedColor="{Binding TreeViewModel.NodeTextColor}"
+                        PickedColorChanged="NodeTextColor_PickedColorChanged" />
                 </VerticalStackLayout>
             </VerticalStackLayout>
         </Border>
