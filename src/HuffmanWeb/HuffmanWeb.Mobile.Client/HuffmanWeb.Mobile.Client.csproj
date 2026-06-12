@@ -23,7 +23,7 @@
 		<ApplicationTitle>HuffmanWeb.Mobile.Client</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.huffmanweb.mobile.client</ApplicationId>
+		<ApplicationId>com.drangoht.huffmanweb.mobile.client</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
