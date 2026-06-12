@@ -9,9 +9,9 @@ namespace HuffmanWeb.Mobile.Client
     public static class MauiProgram
     {
 #if DEBUG
-        private const string ApiBaseUrl = "http://10.0.2.2:5041/huffman/";
+        private const string ApiBaseUrl = "http://10.0.2.2:5041";
 #else
-        private const string ApiBaseUrl = "https://huffmanweb.thognard.net/huffman/";
+        private const string ApiBaseUrl = "https://huffmanweb.thognard.net";
 #endif
 
         public static MauiApp CreateMauiApplication()

@@ -11,12 +11,19 @@
         <Setter Property="SelectedIndicatorColor" Value="{StaticResource Primary}" />
     </Style>
 
-    <Style TargetType="Border">
+    <Style x:Key="Border" TargetType="Border">
         <Setter Property="Stroke" Value="{StaticResource Gray300}" />
         <Setter Property="StrokeShape" Value="RoundRectangle 8" />
         <Setter Property="StrokeThickness" Value="1" />
         <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
     </Style>
+    <Style TargetType="Border" BasedOn="{StaticResource Border}" />
+
+    <Shadow x:Key="Shadow"
+            Brush="{StaticResource Gray900}"
+            Offset="0,2"
+            Radius="4"
+            Opacity="0.2" />
 
     <Style TargetType="BoxView">
         <Setter Property="BackgroundColor" Value="{StaticResource Gray200}" />

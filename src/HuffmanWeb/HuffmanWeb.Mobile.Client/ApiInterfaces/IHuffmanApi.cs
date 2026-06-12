@@ -6,10 +6,10 @@ namespace HuffmanWeb.Mobile.Client.ApiInterfaces
 {
     public interface IHuffmanApi
     {
-        [Post("encode")]
+        [Post("/huffman/encode")]
         Task<EncodeResponse> Encode([Body] EncodeRequest req);
 
-        [Post("decode")]
+        [Post("/huffman/decode")]
         Task<DecodeResponse> Decode([Body] DecodeRequest req);
     }
 }

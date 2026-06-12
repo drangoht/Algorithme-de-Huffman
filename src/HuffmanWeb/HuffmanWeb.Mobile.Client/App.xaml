@@ -3,7 +3,8 @@
     x:Class="HuffmanWeb.Mobile.Client.App"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:HuffmanWeb.Mobile.Client">
+    xmlns:local="clr-namespace:HuffmanWeb.Mobile.Client"
+    xmlns:converters="clr-namespace:HuffmanWeb.Mobile.Client.Converters">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -11,6 +12,7 @@
                 <ResourceDictionary x:Name="appStyles" Source="Resources/Styles/Styles.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
+            <converters:IsNotNullConverter x:Key="IsNotNullConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

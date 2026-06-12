@@ -17,6 +17,7 @@
     <Color x:Key="TextPrimary">#212121</Color> <!-- Dark Gray -->
     <Color x:Key="TextSecondary">#757575</Color> <!-- Medium Gray -->
     <Color x:Key="TextInverse">#FFFFFF</Color>
+    <Color x:Key="TextTree">#FFFFFF</Color> <!-- Contrast color for tree/table cells on Primary -->
 
     <Color x:Key="Gray100">#F5F5F5</Color>
     <Color x:Key="Gray200">#EEEEEE</Color>
